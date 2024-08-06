@@ -24,7 +24,7 @@ module.exports = {
         lessLoaderOptions: {
           // 配置 Less 加载器选项
           lessOptions: {
-            modifyVars: { "@primary-color": "#1DA57A" }, // 自定义主题颜色，将 antd 的主颜色修改为 '#1DA57A'。
+            modifyVars: { "@primary-color": "#652FFF" }, // 自定义主题颜色，将 antd 的主颜色修改为 '#1DA57A'。
             javascriptEnabled: true, // 启用 Less 中的 JavaScript。
           },
         },
