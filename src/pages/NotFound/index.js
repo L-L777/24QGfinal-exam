@@ -1,9 +1,14 @@
 import backgrondImage from "../../assets/404.svg";
 import { Button } from "antd";
+import { useEffect } from "react";
 function NotFound() {
+  useEffect(() => {
+    document.title = "404";
+  }, []);
   return (
     <div
       style={{
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -11,17 +16,15 @@ function NotFound() {
         gap: 20,
       }}
     >
-      <img src={backgrondImage} alt="404"></img>
+      <img
+        src={backgrondImage}
+        alt="404"
+        style={{ width: "700px", height: "auto" }}
+      ></img>
       <p style={{ fontWeight: "600", color: "#727785" }}>
         对不起，您访问的页面不存在。
       </p>
-      <Button
-        type="primary"
-        // size="large"
-        // style={{ backgroundColor: "#652FFF" }}
-      >
-        返回页面
-      </Button>
+      <Button type="primary">返回页面</Button>
     </div>
   );
 }

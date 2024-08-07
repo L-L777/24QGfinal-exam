@@ -9,9 +9,14 @@ function Servererror() {
         alignItems: "center",
         flexDirection: "column",
         gap: 20,
+        height: "100vh",
       }}
     >
-      <img src={backgroundImage} alt="403" />
+      <img
+        src={backgroundImage}
+        alt="403"
+        style={{ width: "700px", height: "auto" }}
+      />
       <p style={{ fontWeight: "600", color: "#727785" }}>
         对不起，服务器报告错误。
       </p>

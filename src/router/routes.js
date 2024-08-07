@@ -4,15 +4,15 @@ import { Navigate } from "react-router-dom";
 const NotFound = lazy(() => import("../pages/NotFound/index"));
 const Forbidden = lazy(() => import("../pages/Forbidden/index"));
 const Servererror = lazy(() => import("../pages/Servererror/index"));
-
+const LoginPage = lazy(() => import("../pages/login/index"));
 const routes = [
   {
     path: "/login",
-    element: <></>,
+    element: <LoginPage />,
   },
   {
     path: "*",
-    element: <Navigate to="/500" />,
+    element: <Navigate to="/login" />,
   },
   {
     path: "/403",

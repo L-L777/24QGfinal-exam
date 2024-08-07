@@ -2,50 +2,26 @@ import service from "../utils/axios";
 
 //登录API
 export function loginAPI(data) {
+  const formData = new FormData();
+  // 将 data 对象的每个属性添加到 formData 对象中
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
   return service({
     url: "/login",
     method: "post",
-    data,
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data", // 设置请求头
+    },
   });
 }
-
-//发送验证码
-export function sendVerificationCode(email) {
-  // console.log(`发送验证码`);
-  const data = {
-    email: email,
-  };
-  console.log(data);
+//注册API
+export function registerAPI(data) {
   return service({
-    url: "/account/sendVerificationCode",
-    method: "post",
-    data,
-  });
-}
-//注册
-export function register(email, verificationCode, password) {
-  const data = {
-    email,
-    verificationCode,
-    password,
-  };
-  // console.log("发送注册", data);
-  return service({
-    url: "/account/register",
-    method: "post",
-    data,
-  });
-}
-//登录
-export function accountLogin(account, password, role = 1) {
-  const data = {
-    account,
-    password,
-    role,
-  };
-  // console.log("发送登录", data);
-  return service({
-    url: "/account/login",
+    url: "/user/register",
     method: "post",
     data,
   });
