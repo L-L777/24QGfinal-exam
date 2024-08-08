@@ -1,23 +1,30 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import { registerAPI } from "../../api/index";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState("注册");
+  const navigate = useNavigate();
   const onFinish = async (values) => {
-    console.log("Success:", values);
     setLoading(true); // 提交时禁用按钮并显示加载状态
     setButtonText("提交中..."); // 设置按钮文本为“提交中...”
     const { username, password } = values;
     const data = { username, password };
     try {
       const res = await registerAPI(data);
-      console.log(res);
+      if (res.code === 0) {
+        message.error(res.msg);
+      } else {
+        message.success(res.msg);
+
+        navigate("/500");
+      }
     } catch (error) {
       console.error(error);
     } finally {
-      // setLoading(false); // 提交完成后恢复按钮状态
-      // setButtonText("注册"); // 恢复按钮文本为“注册”
+      setLoading(false); // 提交完成后恢复按钮状态
+      setButtonText("注册"); // 恢复按钮文本为“注册”
     }
   };
   const onFinishFailed = (errorInfo) => {

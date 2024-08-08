@@ -1,6 +1,12 @@
 import backgroundImage from "../../assets/403.svg";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 function Forbidden() {
+  useEffect(() => {
+    document.title = "403";
+  }, []);
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -20,7 +26,9 @@ function Forbidden() {
       <p style={{ fontWeight: "600", color: "#727785" }}>
         对不起，您没有访问该资源的权限。
       </p>
-      <Button type="primary">返回页面</Button>
+      <Button type="primary" onClick={() => navigate("/login")}>
+        返回页面
+      </Button>
     </div>
   );
 }

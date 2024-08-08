@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Checkbox, Form, Input, Modal } from "antd";
+import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import { loginAPI } from "../../api/index";
 import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
@@ -13,12 +13,17 @@ const LoginForm = () => {
     setButtonText("登录中...");
     try {
       const res = await loginAPI(values);
-      console.log(res);
+      if (res.code === 0) {
+        message.error(res.msg);
+      } else {
+        message.success(res.msg);
+
+        navigate("/500");
+      }
     } catch (error) {
     } finally {
-      // setLoading(false);
-      // setButtonText("登录");
-      navigate("/404");
+      setLoading(false);
+      setButtonText("登录");
     }
   };
   const onFinishFailed = (errorInfo) => {
@@ -36,7 +41,13 @@ const LoginForm = () => {
     try {
       console.log(password);
       const res = await loginAPI({ password, username: "admin" });
-      console.log(res);
+      if (res.code === 0) {
+        message.error(res.msg);
+      } else {
+        message.success(res.msg);
+
+        navigate("/500");
+      }
     } catch (error) {
       console.log(error);
     } finally {
