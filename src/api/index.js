@@ -170,6 +170,20 @@ export function deleteProject(projectId, projectPassword) {
     params,
   });
 }
+// 查看用户是否有项目的监测权限
+export function checkMonitorAuth(projectId, userId) {
+  const data = {
+    projectId,
+    userId,
+  };
+  // console.log(data);
+  return service({
+    url: "/project/CheckMonitorAuth",
+    method: "post",
+    data,
+  });
+}
+
 // 关于用户发布或更新项目申请
 export function myApplicationProject(userId) {
   const params = {
