@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Menu} from "antd";
+import { Flex, Menu } from "antd";
 import { LogoutOutlined, DatabaseOutlined, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
 import logo from "../../assets/icon.svg";
-import {useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from 'styled-components';
 const CustomMenuItem = styled(Menu.Item)`
   && { /* 使用双 && 提高优先级 */
@@ -31,7 +31,7 @@ const PublicMenu = () => {
     const navigate = useNavigate();
     const [selectedKey, setSelectedKey] = useState(location.pathname);
     const handleClick = (e) => {
-        if (e.key !== '/help') {  
+        if (e.key !== '/help') {
             setSelectedKey(e.key);
             navigate(e.key);
         }
@@ -43,9 +43,10 @@ const PublicMenu = () => {
                 height: '100vh',
                 backgroundColor: '#431978',
                 position: "fixed", top: "0px", left: '0px',
+                zIndex: 10,  // 修正为 zIndex
             }}
-            
-            >
+
+        >
             {/* 顶部logo和用户名展示 */}
             <Flex
                 style={{ marginTop: '30px', width: '100%', height: '52px', }}
@@ -57,18 +58,18 @@ const PublicMenu = () => {
                 </Flex>
             </Flex>
             {/* 菜单选项 */}
-            <Flex vertical justify="space-between" align="center" style={{height:'calc(100vh - 125px)',width:'100%',marginTop:'20px',overflow:'auto',scrollbarWidth:'none'}}>
+            <Flex vertical justify="space-between" align="center" style={{ height: 'calc(100vh - 125px)', width: '100%', marginTop: '20px', overflow: 'auto', scrollbarWidth: 'none' }}>
                 <Menu selectedKeys={[selectedKey]}
-                    onClick={handleClick} 
-                    style={{backgroundColor:'transparent'}}>
+                    onClick={handleClick}
+                    style={{ backgroundColor: 'transparent' }}>
                     <CustomMenuItem key="/projectshow" icon={<DatabaseOutlined />}>项目管理</CustomMenuItem>
                     <CustomMenuItem key="/personal" icon={<UserOutlined />}>个人管理</CustomMenuItem>
                 </Menu>
                 <Menu selectedKeys={[selectedKey]}
                     onClick={handleClick}
-                style={{ backgroundColor: 'transparent' }}>
+                    style={{ backgroundColor: 'transparent' }}>
                     <CustomMenuItem key="/help" icon={<ExclamationCircleOutlined />}>帮助</CustomMenuItem>
-                        <CustomMenuItem key='/login' icon={<LogoutOutlined />}>注销</CustomMenuItem>
+                    <CustomMenuItem key='/login' icon={<LogoutOutlined />}>注销</CustomMenuItem>
                 </Menu>
             </Flex>
         </Menu>

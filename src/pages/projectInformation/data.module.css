@@ -1,0 +1,13 @@
+.change_color{
+    height: 64px;
+    line-height: 67px;
+    box-sizing: border-box; /* 确保边框不会影响尺寸计算 */
+    margin-top: 5px;
+}
+
+
+.change_color:hover{
+    color:rgb(165, 95, 255);
+    border-bottom: 2px solid rgb(165, 95, 255);
+
+}

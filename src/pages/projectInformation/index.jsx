@@ -4,6 +4,7 @@ import { Flex } from "antd"
 import Top from './top'
 import Type from './type'
 import Number from './number'
+import Data from './data'
 import InfromationCard from './infromationCard'
 
 
@@ -26,16 +27,16 @@ const index = () => {
                     minWidth: '1850px',
                 }}>
                 <Top />
-                <Type />
                 <Flex style={{
-                    marginTop: '100px',
+                    marginTop: '10px',
                     width: '1570px',
-                    height: '580px',
                     marginLeft: '50px',
                 }} vertical >
                     <Number />
                     <InfromationCard />
                 </Flex>
+                <h1 style={{ marginLeft: '50px', fontSize: '24px', marginTop: '25px', marginBottom: '25px' }}>日志</h1>
+                <Data />
             </Flex>
         </Flex>
     );

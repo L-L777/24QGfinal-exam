@@ -15,7 +15,7 @@ const connect = () => {
     console.warn("WebSocket connection already open");
     return; //已经连接
   }
-  // 如果已有连接，先关闭
+  // 如果已有连接但非开启状态，先关闭
   if (socket) {
     socket.close();
   }
