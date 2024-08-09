@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Flex, Menu} from "antd";
 import { LogoutOutlined, DatabaseOutlined, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
 import logo from "../../assets/icon.svg";
@@ -43,6 +43,7 @@ const PublicMenu = () => {
                 height: '100vh',
                 backgroundColor: '#431978',
                 position: "fixed", top: "0px", left: '0px',
+                zIndex:'1000'
             }}
             
             >
@@ -50,7 +51,7 @@ const PublicMenu = () => {
             <Flex
                 style={{ marginTop: '30px', width: '100%', height: '52px', }}
                 justify="center">
-                <img src={logo} style={{ width: '50px', height: '50px' }}></img>
+                <img src={logo} style={{ width: '50px', height: '50px' }} alt='logo'></img>
                 <Flex style={{ width: '109px', height: '52px', color: '#FFF', marginLeft: '16px' }} vertical >
                     <div style={{ height: '26px', fontSize: '14px', lineHeight: '26px' }}>用户/管理员</div>
                     <div style={{ height: '21px', fontSize: '12px', lineHeight: '21px' }}>用户名</div>

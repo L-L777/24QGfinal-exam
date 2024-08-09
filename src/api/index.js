@@ -65,10 +65,11 @@ export function myApplicationOnMonitorProject(userId) {
 }
 
 // 普通用户主界面，查看未冻结的所有项目
-export function showAllProjectForUser(page,pagesize) {
+export function showAllProjectForUser(page, pagesize, projectName='') {
   const params = {
     page,
     pagesize,
+    projectName,
   };
   // console.log(params);
   return service({
