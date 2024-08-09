@@ -100,7 +100,7 @@ export function detaliedInfo(projectId) {
   };
   // console.log(params);
   return service({
-    url: "/project/DetaliedInfo",
+    url: "/project/detailedInfo",
     method: "get",
     params,
   });
@@ -119,11 +119,13 @@ export function applyMonitorPermission(userId, projectId) {
   });
 }
 // 发布者更新项目
-export function updateProject(projectUrl, projectId, description) {
+export function updateProject(projectUrl, projectId, description, projectPassword, userId) {
   const data = {
     projectUrl, 
     projectId, 
-    description
+    description,
+    projectPassword,
+    userId,
   };
   // console.log(data);
   return service({
@@ -152,22 +154,22 @@ export function cancelUserMoitorPermission(projectId, userId) {
   };
   // console.log(data);
   return service({
-    url: "/project/cancelUserMoitorPermission",
+    url: "/project/cancelUserMonitorPermission",
     method: "post",
     data,
   });
 }
 // 发布者移除项目，需要项目口令
 export function deleteProject(projectId, projectPassword) {
-  const params= {
+  const data= {
     projectId,
     projectPassword,
   };
-  // console.log(params);
+  // console.log(data);
   return service({
     url: "/project/deleteProject",
     method: "DELETE",
-    params,
+    data,
   });
 }
 // 查看用户是否有项目的监测权限
@@ -178,7 +180,7 @@ export function checkMonitorAuth(projectId, userId) {
   };
   // console.log(data);
   return service({
-    url: "/project/CheckMonitorAuth",
+    url: "/project/checkMonitorAuth",
     method: "post",
     data,
   });
