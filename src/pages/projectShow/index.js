@@ -44,10 +44,12 @@ const CustomSearch = styled(Input.Search)`
 const ProjectShow = () => {
     const [total, setTotal] = useState(allProjectData.total)
     const [listData, setListData] = useState(allProjectData.List)
+    const [projectName,setProjectName]=useState('')
+    const [searchStatus,setSearchStatus]=useState(false)
     useEffect(()=>{
         async function fetchData() {
             try {
-                const response = await showAllProjectForUser(1,16);
+                const response = await showAllProjectForUser(1, 16);
                 setTotal(response.data.total)
                 setListData(response.data.List)
                 
@@ -66,13 +68,29 @@ const ProjectShow = () => {
         // console.log(page);
         // console.log(pageSize);
         try {
-            const response = await showAllProjectForUser(page, pageSize[0]);
+            const response = await showAllProjectForUser(page, pageSize[0], projectName);
             setTotal(response.data.total)
             setListData(response.data.List)
 
         } catch (error) {
             setTotal(allProjectData.total)
             setListData(allProjectData.List)
+        }
+    }
+    // 搜索函数
+    const searchProject = async (value,event)=>{
+        setSearchStatus(true)
+        setProjectName(value)
+        try {
+            const response = await showAllProjectForUser(1, 16,projectName);
+            setTotal(response.data.total)
+            setListData(response.data.List)
+            setSearchStatus(false)
+
+        } catch (error) {
+            setTotal(allProjectData.total)
+            setListData(allProjectData.List)
+            setSearchStatus(false)
         }
     }
     return (
@@ -103,9 +121,9 @@ const ProjectShow = () => {
                 }}>
                     <h3 style={{ fontSize: '28px' }}>项目管理</h3>
                     <Space style={{ width: '500px', height: '45px' }}>
-                        <CustomSearch style={{
+                        <CustomSearch loading={searchStatus} style={{
                             height: '100%', width: '250px', backgroundColor: 'transparent'
-                        }} placeholder="搜索"></CustomSearch>
+                        }} placeholder="搜索" onSearch={searchProject}></CustomSearch>
                         <UploadDrawer></UploadDrawer>
                     </Space>
                 </Flex>
