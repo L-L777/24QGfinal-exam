@@ -42,8 +42,8 @@ const CustomSearch = styled(Input.Search)`
   }
 `;
 const ProjectShow = () => {
-    const [total, setTotal] = useState(allProjectData.total)
-    const [listData, setListData] = useState(allProjectData.List)
+    const [total, setTotal] = useState('')
+    const [listData, setListData] = useState([])
     const [projectName,setProjectName]=useState('')
     const [searchStatus,setSearchStatus]=useState(false)
     useEffect(()=>{
@@ -51,8 +51,7 @@ const ProjectShow = () => {
             try {
                 const response = await showAllProjectForUser(1, 16);
                 setTotal(response.data.total)
-                setListData(response.data.List)
-                
+                setListData(response.data.data)        
             } catch (error) {
                 // console.log(allProjectData);
                setTotal(allProjectData.total)
@@ -66,11 +65,17 @@ const ProjectShow = () => {
     // 换页函数
     const changePage = async (page, pageSize) => {
         // console.log(page);
+        let size
+        if (Array.isArray(pageSize)) {
+            size=pageSize[0]
+        }else{
+            size=pageSize
+        }
         // console.log(pageSize);
         try {
-            const response = await showAllProjectForUser(page, pageSize[0], projectName);
+            const response = await showAllProjectForUser(page, size, projectName);
             setTotal(response.data.total)
-            setListData(response.data.List)
+            setListData(response.data.data)
 
         } catch (error) {
             setTotal(allProjectData.total)
@@ -84,7 +89,7 @@ const ProjectShow = () => {
         try {
             const response = await showAllProjectForUser(1, 16,projectName);
             setTotal(response.data.total)
-            setListData(response.data.List)
+            setListData(response.data.data)
             setSearchStatus(false)
 
         } catch (error) {
@@ -109,7 +114,7 @@ const ProjectShow = () => {
                     minWidth:'1200px',
                     minHeight: "100vh",
                     margin: "auto",
-                    backgroundColor: '#f3ebf7',
+                    backgroundColor: '#F4F2F9',
                     marginLeft: '250px'
                 }} vertical align="center">
                 {/* 顶部内容 */}

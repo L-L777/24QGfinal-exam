@@ -29,13 +29,15 @@ const DetailModal = ({ projectName, projectId, description, creator, createTime 
     const checkMyAuth=async()=>{
         setBtnLoading(true)
         try {
-            const response= await checkMonitorAuth(projectId,userId )
+            
+            
+            const response= await checkMonitorAuth(projectId,parseInt(userId))
             if (response.data ==='普通用户'){
                 showModal()
             } else if (response.data ==='发布者'){
-                navigate('/projectinformation');
+                navigate(`/projectinformation?projectId=${projectId}&&release=1`);
             }else{
-                navigate('/projectinformation');
+                navigate(`/projectinformation?projectId=${projectId}&&release=0`);
             }
             setBtnLoading(false)
             

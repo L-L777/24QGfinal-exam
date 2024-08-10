@@ -7,6 +7,7 @@ const Servererror = lazy(() => import("../pages/Servererror/index"));
 const LoginPage = lazy(() => import("../pages/login/index"));
 const ProjectShow = lazy(() => import("../pages/projectShow/index"));
 const Projectinformation = lazy(() => import("../pages/projectInformation"))
+const Personal = lazy(() => import("../pages/personal"))
 const routes = [
   {
     path: "/login",
@@ -35,6 +36,10 @@ const routes = [
   {
     path: "/projectinformation",
     element: <Projectinformation />,
+  },
+  {
+    path: "/personal",
+    element: <Personal />,
   },
 ];
 
