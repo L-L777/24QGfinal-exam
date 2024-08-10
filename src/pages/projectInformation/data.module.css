@@ -9,5 +9,9 @@
 .change_color:hover{
     color:rgb(165, 95, 255);
     border-bottom: 2px solid rgb(165, 95, 255);
+}
 
+.active{
+     color:rgb(165, 95, 255);
+    border-bottom: 2px solid rgb(165, 95, 255);
 }
