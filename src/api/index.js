@@ -243,13 +243,13 @@ export function projectPresentationDateOneWeek(projectId) {
 }
 
 // 查看项目操作日志（包括项目发布，更新日志）
-export function viewProjectOpearteLog(projectId) {
+export function viewProjectOperateLog(projectId) {
   const params = {
     projectId
   };
   // console.log(params);
   return service({
-    url: "/log/ViewProjectOpearteLog",
+    url: "/log/ViewProjectOperateLog",
     method: "get",
     params,
   });
