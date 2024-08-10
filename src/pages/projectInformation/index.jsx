@@ -7,7 +7,9 @@ import Data from './data'
 import InfromationCard from './infromationCard'
 
 
-const index = () => {
+
+const Index = () => {
+
     return (
         <Flex
             style={{
@@ -41,4 +43,4 @@ const index = () => {
     );
 }
 
-export default index;
+export default Index;
