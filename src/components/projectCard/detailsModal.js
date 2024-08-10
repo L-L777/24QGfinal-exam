@@ -35,9 +35,9 @@ const DetailModal = ({ projectName, projectId, description, creator, createTime 
             if (response.data ==='普通用户'){
                 showModal()
             } else if (response.data ==='发布者'){
-                navigate(`/projectinformation?projectId=${projectId}&&release=1`);
+                navigate(`/projectinformation?projectId=${projectId}&release=1`);
             }else{
-                navigate(`/projectinformation?projectId=${projectId}&&release=0`);
+                navigate(`/projectinformation?projectId=${projectId}&release=0`);
             }
             setBtnLoading(false)
             
