@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import handleErrors from "./handleError";
 //创建一个axios实例
 const service = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -35,6 +35,7 @@ service.interceptors.response.use(
   },
   (error) => {
     //对响应错误做些什么
+    handleErrors(error); // 使用普通函数处理错误
     return Promise.reject(error);
   }
 );

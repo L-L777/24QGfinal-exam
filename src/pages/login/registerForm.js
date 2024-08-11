@@ -17,7 +17,8 @@ const RegisterForm = () => {
         message.error(res.msg);
       } else {
         message.success(res.msg);
-
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", res.data.username);
         navigate("/500");
       }
     } catch (error) {
