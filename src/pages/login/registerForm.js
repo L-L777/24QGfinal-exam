@@ -3,6 +3,7 @@ import { registerAPI } from "../../api/index";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const RegisterForm = () => {
+  localStorage.clear();
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState("注册");
   const navigate = useNavigate();
@@ -18,8 +19,8 @@ const RegisterForm = () => {
       } else {
         message.success(res.msg);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("username", res.data.username);
-        navigate("/500");
+        localStorage.setItem("userId", res.data.userId);
+        navigate("/projectshow");
       }
     } catch (error) {
       console.error(error);

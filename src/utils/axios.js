@@ -8,7 +8,6 @@ const service = axios.create({
     "Content-Type": "application/json",
   },
   responseType: "json",
-  withCredentials: true, // 确保跨域请求中 cookies 被发送
 });
 
 //请求拦截器
