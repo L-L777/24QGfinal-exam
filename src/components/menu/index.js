@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { Flex, Menu} from "antd";
-import { LogoutOutlined, DatabaseOutlined, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, DatabaseOutlined, ExclamationCircleOutlined, UserOutlined, SnippetsOutlined } from '@ant-design/icons';
 import logo from "../../assets/icon.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from 'styled-components';
@@ -64,6 +64,7 @@ const PublicMenu = () => {
                     style={{ backgroundColor: 'transparent' }}>
                     <CustomMenuItem key="/projectshow" icon={<DatabaseOutlined />}>项目管理</CustomMenuItem>
                     <CustomMenuItem key="/personal" icon={<UserOutlined />}>个人管理</CustomMenuItem>
+                    <CustomMenuItem key="/platformdetail" icon={<SnippetsOutlined />}>平台日志</CustomMenuItem>
                 </Menu>
                 <Menu selectedKeys={[selectedKey]}
                     onClick={handleClick}
