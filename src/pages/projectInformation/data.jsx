@@ -13,16 +13,12 @@ const Data = () => {
     const [listStatus, SetListStatus] = useState('true')
     const [open, setOpen] = useState(false);
     const { search } = useLocation();
-    const [projectId, setProjectId] = useState('')
-    const [release, setRelease] = useState('')
     if (search) {
         const params = new URLSearchParams(search);
         const receiveProjectId = params.get('projectId')
         const receiveRelease = params.get('release')
-        setProjectId(receiveProjectId)
-        setRelease(receiveRelease)
-        console.log(projectId)
-        console.log(release)
+        console.log(receiveProjectId)
+        console.log(receiveRelease)
     }
 
     const ChangeListNormal = () => {
@@ -147,7 +143,7 @@ const Data = () => {
             time: '2024-06-10 11:37'
         },
         {
-            key: '1',
+            key: '2',
             ip: '27.67.225.71',
             use: 'IE',
             url: 'http://mxmdxdobn.io/kjwfhttp://mxmdxdobn.io',
@@ -216,7 +212,7 @@ const Data = () => {
                             onClick,
                         }}
                     >
-                        <p onClick={(e) => e.preventDefault()}>
+                        <div onClick={(e) => e.preventDefault()}>
                             <Space style={{
                                 height: 36,
                                 width: 100,
@@ -228,7 +224,7 @@ const Data = () => {
                                 {dataType}
                                 <DownOutlined />
                             </Space>
-                        </p>
+                        </div>
                     </Dropdown>
                 </Flex>
             </Flex>

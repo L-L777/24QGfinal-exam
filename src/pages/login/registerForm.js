@@ -16,6 +16,7 @@ const RegisterForm = () => {
       if (res.code === 0) {
         message.error(res.msg);
       } else {
+        console.log(res)
         message.success(res.msg);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("username", res.data.username);
