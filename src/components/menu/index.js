@@ -44,8 +44,6 @@ const CustomMenuItem = styled(Menu.Item)`
   }
 `;
 const PublicMenu = () => {
-  const { role } = useRole();
-  console.log(role);
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedKey, setSelectedKey] = useState(location.pathname);
@@ -87,10 +85,10 @@ const PublicMenu = () => {
           vertical
         >
           <div style={{ height: "26px", fontSize: "14px", lineHeight: "26px" }}>
-            {role.role}
+            用户/管理员
           </div>
           <div style={{ height: "21px", fontSize: "12px", lineHeight: "21px" }}>
-            {role.username}
+            用户名
           </div>
         </Flex>
       </Flex>
