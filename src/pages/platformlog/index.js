@@ -1,5 +1,5 @@
 
-import React, { useState } from "react"; 
+import React, { useState,useEffect } from "react"; 
 import { Flex, Dropdown, Button } from "antd"
 import PublicMenu from "../../components/menu"
 import AttackLog from "./attacklog";
@@ -15,6 +15,9 @@ const items = [
     },
 ];
 const PlatformLog = () => {
+    useEffect(()=>{
+document.title="平台日志"
+    },[])
     const [selectedLog, setSelectedLog] = useState('1');
     const handleMenuClick = ({ key }) => {
         setSelectedLog(key);

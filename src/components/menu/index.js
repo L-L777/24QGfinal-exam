@@ -5,6 +5,7 @@ import {
   DatabaseOutlined,
   ExclamationCircleOutlined,
   UserOutlined,
+  SnippetsOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/icon.svg";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -47,6 +48,7 @@ const PublicMenu = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedKey, setSelectedKey] = useState(location.pathname);
+  const {role} =useRole()
   const handleClick = (e) => {
     if (e.key !== "/help") {
       setSelectedKey(e.key);
@@ -85,10 +87,10 @@ const PublicMenu = () => {
           vertical
         >
           <div style={{ height: "26px", fontSize: "14px", lineHeight: "26px" }}>
-            用户/管理员
+            {role.role}
           </div>
-          <div style={{ height: "21px", fontSize: "12px", lineHeight: "21px" }}>
-            用户名
+          <div style={{ height: "21px", fontSize: "16px", lineHeight: "21px" }}>
+            {role.username}
           </div>
         </Flex>
       </Flex>
@@ -115,6 +117,9 @@ const PublicMenu = () => {
           </CustomMenuItem>
           <CustomMenuItem key="/personal" icon={<UserOutlined />}>
             个人管理
+          </CustomMenuItem>
+          <CustomMenuItem key="/platformdetail" icon={<SnippetsOutlined />}>
+            平台日志
           </CustomMenuItem>
         </Menu>
         <Menu

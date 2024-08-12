@@ -28,9 +28,11 @@ export function registerAPI(data) {
 }
 
 //展示用户自己发布的项目
-export function showSelfProjects(userId) {
+export function showSelfProjects(userId, page,pageSize) {
   const params = {
     userId,
+    page,
+    pageSize
   };
   // console.log(params);
   return service({
@@ -40,9 +42,9 @@ export function showSelfProjects(userId) {
   });
 }
 //展示用户拥有监控权限的项目
-export function showHaveMonitorPermissionProjects(userId) {
+export function showHaveMonitorPermissionProjects(userId, page, pageSize) {
   const params = {
-    userId,
+    userId, page, pageSize
   };
   // console.log(params);
   return service({
@@ -51,16 +53,52 @@ export function showHaveMonitorPermissionProjects(userId) {
     params,
   });
 }
-// 查看我的申请
-export function myApplicationOnMonitorProject(userId) {
+// 查看我的项目监控权限申请记录
+export function myApplicationOnMonitorProject(userId, page, pageSize) {
   const params = {
-    userId,
+    userId, page, pageSize
   };
   // console.log(params);
   return service({
     url: "/user/myApplicationOnMonitorProject",
     method: "get",
     params,
+  });
+}
+// 查看用户发布或更新项目申请
+export function myApplicationProject(userId, page, pageSize) {
+  const params = {
+    userId, page, pageSize
+  };
+  // console.log(params);
+  return service({
+    url: "/user/myApplicationProject",
+    method: "get",
+    params,
+  });
+}
+// 查看我收到的申请
+export function receivedMonitorApplication(userId, page, pageSize) {
+  const params = {
+    userId, page, pageSize
+  };
+  // console.log(params);
+  return service({
+    url: "/user/receivedMonitorApplication",
+    method: "get",
+    params,
+  });
+}
+// 用户审核项目监控申请
+export function verifyMonitorApplication(applicationId, status, rejectReason) {
+  const data = {
+    applicationId, status, rejectReason
+  };
+  // console.log(data);
+  return service({
+    url: "/user/verifyMonitorApplication",
+    method: "post",
+    data,
   });
 }
 
@@ -187,18 +225,6 @@ export function checkMonitorAuth(projectId, userId) {
   });
 }
 
-// 关于用户发布或更新项目申请
-export function myApplicationProject(userId) {
-  const params = {
-    userId,
-  };
-  // console.log(params);
-  return service({
-    url: "/user/myApplicationProject",
-    method: "get",
-    params,
-  });
-}
 
 // 查看攻击服务器日志
 export function queryAttackServerLog(page,pageSize) {
