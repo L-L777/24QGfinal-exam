@@ -3,12 +3,12 @@ import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import { loginAPI } from "../../api/index";
 import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
+  localStorage.clear();
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState("登录");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const onFinish = async (values) => {
-    console.log("Success:", values);
     setLoading(true);
     setButtonText("登录中...");
     try {
@@ -18,8 +18,8 @@ const LoginForm = () => {
       } else {
         message.success(res.msg);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("username", res.data.username);
-        navigate("/500");
+        localStorage.setItem("userId", res.data.userId);
+        navigate("/projectshow");
       }
     } catch (error) {
     } finally {
@@ -47,8 +47,8 @@ const LoginForm = () => {
       } else {
         message.success(res.msg);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("username", res.data.username);
-        navigate("/500");
+        localStorage.setItem("userId", res.data.userId);
+        navigate("/projectshow");
       }
     } catch (error) {
       console.log(error);

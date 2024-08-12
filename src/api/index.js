@@ -201,17 +201,25 @@ export function myApplicationProject(userId) {
 }
 
 // 查看攻击服务器日志
-export function queryAttackServerLog() {
+export function queryAttackServerLog(page,pageSize) {
+  const params = {
+    page, pageSize
+  };
   return service({
     url: "/log/queryAttackServerLog",
     method: "get",
+    params,
   });
 }
 // 查看所有用户操作日志
-export function queryAllUserOperationLog() {
+export function queryAllUserOperationLog(page, pageSize) {
+  const params = {
+    page, pageSize
+  };
   return service({
     url: "/log/queryAllUserOperationLog",
     method: "get",
+    params,
   });
 }
 // 查看日志（页面、服务器、移动app）
@@ -256,9 +264,9 @@ export function viewProjectOperateLog(projectId) {
 }
 
 // 管理员查看已经通过审核的项目即已经发布的项目（发布状态冻结/正常）
-export function pagedQueryPublishedPorject(projectStatus) {
+export function pagedQueryPublishedPorject(projectStatus, page, pageSize) {
   const params = {
-    projectStatus
+    projectStatus, page, pageSize
   };
   // console.log(params);
   return service({

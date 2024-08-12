@@ -9,7 +9,7 @@ const ProjectCard = ({projectName,projectId,description,creator,createTime}) => 
                 height:'200px',
                 padding:'20px',
                 position:"relative",
-                background:' linear-gradient(135deg, #C8B5FF , #B77EFF )',
+                background:' linear-gradient(109deg, #C8B5FF 0%, rgba(199.96, 180.62, 255, 0.50) 50%, rgba(206.21, 167.88, 255, 0.90) 100%)',
             }}
         >
             <Flex vertical style={{width:'100%'}}>

@@ -240,3 +240,100 @@ export const toMeApplyData={
         },
     ],
 }
+// 性能日志数据
+export const performanceData={
+    type:'performance',
+    url:"http://localhost:3000",
+    data:{
+        fp:100,
+        fcp:11,
+        domReady:77,
+        dns:300,
+        blankScreenTime:7,
+        browserInfo:'Edge',
+        ipAddress:"33.128.77.01"
+    }
+}
+// 异常日志数据
+export const exceptionData = {
+    type: 'api_exception',
+    url: "http://localhost:3000",
+    data: {
+        message:'Network Error',
+        stack: "AxiosError: Network Error at XMLHttpRequest.handleError(http://localhost:3001/static/js/bundle.js:50373:14)",
+        browserInfo: 'Edge',
+        ipAddress: "33.128.77.01"
+    }
+}
+// 攻击日志数据
+export const attackData = {
+    total:6,
+    data:[ 
+        {
+        illegalRequest: 'reason',
+        illegalRequestTIme: "2019-08-24",
+        ipAddress: '33.128.77.01',
+    },
+        {
+        illegalRequest: 'reason',
+        illegalRequestTIme: "2019-08-24",
+        ipAddress: '33.128.77.01',
+    },
+        {
+        illegalRequest: 'reason',
+        illegalRequestTIme: "2019-08-24",
+        ipAddress: '33.128.77.01',
+    },
+        {
+        illegalRequest: 'reason',
+        illegalRequestTIme: "2019-08-24",
+        ipAddress: '33.128.77.01',
+    },
+        {
+        illegalRequest: 'reason',
+        illegalRequestTIme: "2019-08-24",
+        ipAddress: '33.128.77.01',
+    },
+        {
+        illegalRequest: 'reason',
+        illegalRequestTIme: "2019-08-24",
+        ipAddress: '33.128.77.01',
+    },
+],
+}
+// 用户操作日志
+export const userOperateLogData={
+    total: 6,
+    data:[
+       {
+            userName: '蟹老板',
+            operate:'进入系统没给钱',
+            operateTime:'2019-08-24'
+       },
+       {
+            userName: '蟹老板',
+            operate:'进入系统没给钱',
+            operateTime:'2019-08-24'
+       },
+       {
+            userName: '蟹老板',
+            operate:'进入系统没给钱',
+            operateTime:'2019-08-24'
+       },
+       {
+            userName: '蟹老板',
+            operate:'进入系统没给钱',
+            operateTime:'2019-08-24'
+       },
+       {
+            userName: '蟹老板',
+            operate:'进入系统没给钱',
+            operateTime:'2019-08-24'
+       },
+       {
+            userName: '蟹老板',
+            operate:'进入系统没给钱',
+            operateTime:'2019-08-24'
+       },
+    ]
+}

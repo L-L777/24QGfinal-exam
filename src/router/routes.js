@@ -8,6 +8,9 @@ const LoginPage = lazy(() => import("../pages/login/index"));
 const ProjectShow = lazy(() => import("../pages/projectShow/index"));
 const Projectinformation = lazy(() => import("../pages/projectInformation"))
 const Personal = lazy(() => import("../pages/personal"))
+const LogDetail = lazy(() => import("../pages/logdetail"))
+const PlatformLog = lazy(() => import("../pages/platformlog"))
+const Admin= lazy(() => import("../pages/admin"))
 const routes = [
   {
     path: "/login",
@@ -40,6 +43,18 @@ const routes = [
   {
     path: "/personal",
     element: <Personal />,
+  },
+  {
+    path: "/logDetail",
+    element: <LogDetail />,
+  },
+  {
+    path: "/platformdetail",
+    element: <PlatformLog />,
+  },
+  {
+    path: "/admin/show",
+    element: <Admin />,
   },
 ];
 
