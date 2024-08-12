@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function NotFound() {
+  //用于设置页面标题
   useEffect(() => {
     document.title = "404";
   }, []);

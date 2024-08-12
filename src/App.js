@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 import Router from "./router";
 // import useWebSocket from "./hooks/useWebSocket";
+import { RoleProvider } from "./utils/roleContext";
 function App() {
   // // 消息处理回调
   // const onMessageCallback = (message) => {
@@ -17,17 +18,11 @@ function App() {
   //   };
   // }, [connect, disconnect]);
   return (
-    <div
-      className="App"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <Router />
-    </div>
+    <RoleProvider>
+      <div className="App">
+        <Router />
+      </div>
+    </RoleProvider>
   );
 }
 

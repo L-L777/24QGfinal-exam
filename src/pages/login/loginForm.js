@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import { loginAPI } from "../../api/index";
 import { useNavigate } from "react-router-dom";
+import { useRole } from "../../utils/roleContext";
 const LoginForm = () => {
   localStorage.clear();
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState("登录");
   const [password, setPassword] = useState("");
+  const { setRole } = useRole();
+
   const navigate = useNavigate();
   const onFinish = async (values) => {
     setLoading(true);
@@ -15,6 +18,7 @@ const LoginForm = () => {
       const res = await loginAPI(values);
       if (res.code === 0) {
         message.error(res.msg);
+        setRole({ role: "用户", username: values.username });
       } else {
         message.success(res.msg);
         localStorage.setItem("token", res.data.token);
@@ -40,10 +44,10 @@ const LoginForm = () => {
   const handleOk = async () => {
     setConfirmLoading(true);
     try {
-      console.log(password);
       const res = await loginAPI({ password, username: "admin" });
       if (res.code === 0) {
         message.error(res.msg);
+        setRole({ role: "管理员", username: "管理员" });
       } else {
         message.success(res.msg);
         localStorage.setItem("token", res.data.token);
@@ -58,7 +62,6 @@ const LoginForm = () => {
     }
   };
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
   return (

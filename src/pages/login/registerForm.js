@@ -2,10 +2,12 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import { registerAPI } from "../../api/index";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRole } from "../../utils/roleContext";
 const RegisterForm = () => {
   localStorage.clear();
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState("注册");
+  const { setRole } = useRole();
   const navigate = useNavigate();
   const onFinish = async (values) => {
     setLoading(true); // 提交时禁用按钮并显示加载状态
@@ -18,6 +20,7 @@ const RegisterForm = () => {
         message.error(res.msg);
       } else {
         message.success(res.msg);
+        setRole({ role: "用户", username: values.username });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
         navigate("/projectshow");
