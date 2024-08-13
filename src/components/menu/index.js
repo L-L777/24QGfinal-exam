@@ -115,12 +115,13 @@ const PublicMenu = () => {
           <CustomMenuItem key="/projectshow" icon={<DatabaseOutlined />}>
             项目管理
           </CustomMenuItem>
-          <CustomMenuItem key="/personal" icon={<UserOutlined />}>
+          {role.role === '用户' && (<CustomMenuItem key="/personal" icon={<UserOutlined />}>
             个人管理
-          </CustomMenuItem>
-          <CustomMenuItem key="/platformdetail" icon={<SnippetsOutlined />}>
+          </CustomMenuItem>)}
+          {role.role === '管理员' && (<CustomMenuItem key="/platformdetail" icon={<SnippetsOutlined />}>
             平台日志
-          </CustomMenuItem>
+          </CustomMenuItem>)}
+          
         </Menu>
         <Menu
           selectedKeys={[selectedKey]}

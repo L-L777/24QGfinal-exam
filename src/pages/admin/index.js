@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { pagedQueryPublishedPorject } from  "../../api"
+import { pagedQueryPublishedProject } from  "../../api"
 const Admin=()=>{
     useEffect(()=>{
 async function fetchData() {
     try{
-        await pagedQueryPublishedPorject(1,1,1)
+        await pagedQueryPublishedProject(1,1,1)
     }catch(error){
 
     }
