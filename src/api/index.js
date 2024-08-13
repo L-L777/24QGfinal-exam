@@ -28,7 +28,7 @@ export function registerAPI(data) {
 }
 
 //展示用户自己发布的项目
-export function showSelfProjects(userId, page,pageSize) {
+export function showSelfProjects(userId, page, pageSize) {
   const params = {
     userId,
     page,
@@ -103,7 +103,7 @@ export function verifyMonitorApplication(applicationId, status, rejectReason) {
 }
 
 // 普通用户主界面，查看未冻结的所有项目
-export function showAllProjectForUser(page, pageSize, projectName='') {
+export function showAllProjectForUser(page, pageSize, projectName = '') {
   const params = {
     page,
     pageSize,
@@ -148,7 +148,7 @@ export function detaliedInfo(projectId) {
 export function applyMonitorPermission(userId, projectId) {
   const data = {
     userId,
-     projectId
+    projectId
   };
   // console.log(data);
   return service({
@@ -160,8 +160,8 @@ export function applyMonitorPermission(userId, projectId) {
 // 发布者更新项目
 export function updateProject(projectUrl, projectId, description, projectPassword, userId) {
   const data = {
-    projectUrl, 
-    projectId, 
+    projectUrl,
+    projectId,
     description,
     projectPassword,
     userId,
@@ -200,7 +200,7 @@ export function cancelUserMoitorPermission(projectId, userId) {
 }
 // 发布者移除项目，需要项目口令
 export function deleteProject(projectId, projectPassword) {
-  const data= {
+  const data = {
     projectId,
     projectPassword,
   };
@@ -227,7 +227,7 @@ export function checkMonitorAuth(projectId, userId) {
 
 
 // 查看攻击服务器日志
-export function queryAttackServerLog(page,pageSize) {
+export function queryAttackServerLog(page, pageSize) {
   const params = {
     page, pageSize
   };
@@ -250,19 +250,28 @@ export function queryAllUserOperationLog(page, pageSize) {
 }
 // 查看日志（页面、服务器、移动app）
 export function viewLogForGroup(groupType, pagesize, page, projectId) {
-  const params = {
-    groupType, 
-    pagesize, 
-    page, 
-    projectId
-  };
-  // console.log(params);
+  console.log(groupType, pagesize, page, projectId)
+  // 创建 FormData 对象
+  const formData = new FormData();
+  formData.append('groupType', groupType);
+  formData.append('pagesize', pagesize);
+  formData.append('page', page);
+  formData.append('projectId', projectId);
+
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  // 发送 POST 请求
   return service({
     url: "/log/viewLogForGroup",
-    method: "get",
-    params,
+    method: "post",
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
 }
+
 // 最近一周内的项目的访问数据和报错统计
 export function projectPresentationDateOneWeek(projectId) {
   const params = {
@@ -327,7 +336,7 @@ export function verifyApplication(applicationId, status, rejectReason) {
 }
 // 管理员查看所有用户
 export function queryAllUser() {
-  
+
   return service({
     url: "/admin/queryAllUser",
     method: "get",
@@ -348,7 +357,7 @@ export function showUserDetailedInfo(userId) {
 // 冻结用户
 export function freezeUser(userId, freezeHour) {
   const data = {
-    userId, 
+    userId,
     freezeHour
   };
   // console.log(data);
@@ -373,7 +382,7 @@ export function forceOutlineUser(userId) {
 // 冻结项目
 export function freezeProject(projectId, freezeHour) {
   const data = {
-    projectId, 
+    projectId,
     freezeHour
   };
   // console.log(data);

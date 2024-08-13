@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Flex, Input, Dropdown, Space, Table } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
 import styles from './data.module.css'
 import Right from './Drawer/right'
 import Error from './Drawer/error'
 import { useLocation } from 'react-router-dom';
+import { viewLogForGroup } from '../../api/index'
 
 
 const Data = () => {
@@ -159,6 +160,24 @@ const Data = () => {
     const onClick = ({ key }) => {
         SetDataType(key)
     };
+
+
+
+    useEffect(() => {
+        const onLoad = async () => {
+            try {
+                const res = await viewLogForGroup(1, 6, 1, 1,);
+
+            } catch (error) {
+                console.log(error)
+            }
+        };
+        onLoad()
+
+    })
+
+
+
 
     return (
         <Card style={{
