@@ -21,6 +21,7 @@ const LoginForm = () => {
         setRole({ role: "用户", username: values.username });
       } else {
         message.success(res.msg);
+        setRole({ role: "用户", username: values.username });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
         navigate("/projectshow");
@@ -50,6 +51,7 @@ const LoginForm = () => {
         setRole({ role: "管理员", username: "管理员" });
       } else {
         message.success(res.msg);
+        setRole({ role: "管理员", username: "管理员" });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
         navigate("/projectshow");

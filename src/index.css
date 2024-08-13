@@ -1,18 +1,14 @@
-// CSS resets
 * {
   padding: 0;
   margin: 0;
 }
-
 ul,
 li {
   list-style: none;
 }
-
 p {
   margin: 0 !important;
 }
-
 a,
 a:focus,
 a:hover {
@@ -21,23 +17,19 @@ a:hover {
   outline: none;
   text-decoration: none;
 }
-
 html {
   height: 100%;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   box-sizing: border-box;
-
-  &.color-weak {
-    filter: invert(80%);
-  }
-
-  &.gray-mode {
-    filter: grayscale(100%);
-    filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
-  }
 }
-
+html.color-weak {
+  filter: invert(80%);
+}
+html.gray-mode {
+  filter: grayscale(100%);
+  filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
+}
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -47,72 +39,56 @@ body {
   font-size: 14px;
   color: #222;
 }
-
 img {
   width: 100%;
   height: 100%;
   max-width: none;
   border-style: none;
 }
-
 pre {
   font-family: Consolas, Menlo, Courier, monospace;
 }
-
 .fr {
   float: right;
 }
-
 .fl {
   float: left;
 }
-
-.clear-fix {
-
-  &:before,
-  &:after {
-    content: '';
-    display: table;
-    clear: both;
-  }
+.clear-fix:before,
+.clear-fix:after {
+  content: '';
+  display: table;
+  clear: both;
 }
-
 .flex-center-v {
   display: flex;
   align-items: center;
 }
-
 .flex-center-h {
   display: flex;
   justify-content: center;
 }
-
 .flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .flex-between-h {
   display: flex;
   justify-content: space-between;
 }
-
 .ant-card-body {
   padding: 0 !important;
 }
-
 .ant-dropdown-menu {
   color: #FFF !important;
   background-color: #A55FFF !important;
 }
-
 .ant-dropdown-menu-item {
   color: #FFF !important;
   background-color: #A55FFF !important;
   /* 设置你想要的颜色 */
 }
-
 .ant-dropdown-menu-item:hover {
   background-color: #DBC6FF !important;
   /* 鼠标悬停时的背景色 */

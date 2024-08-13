@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import PublicMenu from "../../components/menu"
-import { Flex, Space, Input, Row, Col, Pagination } from "antd"
+import { Flex, Space, Input, Row, Col, Pagination, Dropdown,Button,Empty } from "antd"
 import styled from 'styled-components';
 import ProjectCard from "../../components/projectCard";
 import UploadDrawer from "../../components/uploadDraw/uploadDrawer";
-import { showAllProjectForUser } from "../../api"
+import { showAllProjectForUser, pagedQueryPublishedProject, pagedQueryProjectApplication } from "../../api"
 import { allProjectData } from '../../mock/data';
+import { useRole } from "../../utils/roleContext";
 const CustomSearch = styled(Input.Search)`
   && { /* 提高优先级 */
     width: 300px;
@@ -41,55 +42,102 @@ const CustomSearch = styled(Input.Search)`
     }
   }
 `;
+const items = [
+    {
+        label: '已发布',
+        key: '1',
+    },
+    {
+        label: '冻结',
+        key: '2',
+    },
+    {
+        label: '待审核',
+        key: '3',
+    },
+    {
+        label: '拒绝',
+        key: '4',
+    },
+];
 const ProjectShow = () => {
+    const {role}=useRole()
     const [total, setTotal] = useState('')
     const [listData, setListData] = useState([])
     const [projectName,setProjectName]=useState('')
     const [searchStatus,setSearchStatus]=useState(false)
+    const [nowPage,setNowPage]=useState(1)
+    const [NowPageSize,setNowPageSize]=useState(16)
+    const [selectedLog, setSelectedLog] = useState('1');
+    const handleMenuClick = ({ key }) => {
+        setSelectedLog(key);
+    };
     useEffect(()=>{
         document.title='项目管理'
         async function fetchData() {
             try {
-                const response = await showAllProjectForUser(1, 16);
+                let response
+                if(role.role==='用户'){
+                    response = await showAllProjectForUser(nowPage, NowPageSize);
+                }
+                if (role.role === '管理员' && selectedLog ==='1'){
+                    response = await pagedQueryPublishedProject(1,nowPage, NowPageSize);
+                }
+                if (role.role === '管理员' && selectedLog ==='2'){
+                    response = await pagedQueryPublishedProject(0,nowPage, NowPageSize);
+                }
+                if (role.role === '管理员' && selectedLog ==='3'){
+                    response = await pagedQueryProjectApplication(0,nowPage, NowPageSize);
+                }
+                if (role.role === '管理员' && selectedLog ==='4'){
+                    response = await pagedQueryProjectApplication(2,nowPage, NowPageSize);
+                }
                 setTotal(response.data.total)
-                setListData(response.data.data)        
+                setListData(response.data.data)                        
             } catch (error) {
-               setTotal(allProjectData.total)
-               setListData(allProjectData.List)
+                   setTotal(0)
+                   setListData([])
+            //    setTotal(allProjectData.total)
+            //    setListData(allProjectData.List)
             }
         }
         fetchData();
-    },[])
+    }, [nowPage, NowPageSize, role, selectedLog])
     // 换页函数
     const changePage = async (page, pageSize) => {
-        // console.log(page);
         let size
         if (Array.isArray(pageSize)) {
             size=pageSize[0]
         }else{
             size=pageSize
         }
-        // console.log(pageSize);
-        try {
-            const response = await showAllProjectForUser(page, size, projectName);
-            setTotal(response.data.total)
-            setListData(response.data.data)
-
-        } catch (error) {
-            setTotal(allProjectData.total)
-            setListData(allProjectData.List)
-        }
+        setNowPage(page)
+        setNowPageSize(size)
     }
     // 搜索函数
     const searchProject = async (value,event)=>{
         setSearchStatus(true)
         setProjectName(value)
         try {
-            const response = await showAllProjectForUser(1, 16,projectName);
+            let response
+            if (role.role === '用户') {
+                response = await showAllProjectForUser(1, 16);
+            }
+            if (role.role === '管理员' && selectedLog === '1') {
+                response = await pagedQueryPublishedProject(1, 1, 16,projectName);
+            }
+            if (role.role === '管理员' && selectedLog === '2') {
+                response = await pagedQueryPublishedProject(0, 1, 16,projectName);
+            }
+            if (role.role === '管理员' && selectedLog === '3') {
+                response = await pagedQueryProjectApplication(0, 1, 16,projectName);
+            }
+            if (role.role === '管理员' && selectedLog === '4') {
+                response = await pagedQueryProjectApplication(2, 1, 16,projectName);
+            }
             setTotal(response.data.total)
             setListData(response.data.data)
             setSearchStatus(false)
-
         } catch (error) {
             setTotal(allProjectData.total)
             setListData(allProjectData.List)
@@ -122,7 +170,17 @@ const ProjectShow = () => {
                     paddingLeft: '50px', paddingRight: '50px', boxSizing: 'border-box',
                     borderBottom: '1px solid #d0c8d9',
                 }}>
-                    <h3 style={{ fontSize: '28px' }}>项目管理</h3>
+                    <Flex style={{height:'100%'}} align='center' gap={30}>
+                        <h3 style={{ fontSize: '28px' }}>项目管理</h3>
+                        {role.role === "管理员" && (<Dropdown menu={{
+                            items,
+                            onClick: handleMenuClick,
+                        }}
+                            placement="bottom">
+                            <Button type='primary' style={{ width: '150px', height: '40px', marginRight: '50px' }}>选择项目类型</Button>
+                        </Dropdown>)}
+                    </Flex>
+                   
                     <Space style={{ width: '500px', height: '45px' }}>
                         <CustomSearch loading={searchStatus} style={{
                             height: '100%', width: '250px', backgroundColor: 'transparent'
@@ -132,13 +190,13 @@ const ProjectShow = () => {
                 </Flex>
                 {/* 项目展示 */}
                 <Flex style={{width:'90%',marginTop:'30px'}} justify="center">
-                    <Row gutter={[75,50]}  style={{width:"100%"}} >
+                    {listData.length === 0 ? (<Empty description="暂无数据" style={{ marginTop: '30px', width: '100%' }} />) : (<Row gutter={[75, 50]} style={{ width: "100%" }} >
                         {listData?.map((item) => (
                             <Col span={6} >
-                                <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={item.creator} createTime={item.createTime}></ProjectCard>
+                                <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={item.creator} createTime={item.createTime} applicationId={item.applicationId} selectedLog={selectedLog}></ProjectCard>
                             </Col>
                         ))}
-                    </Row>
+                    </Row>)}
                 </Flex>
                 <Pagination
                     total={total}

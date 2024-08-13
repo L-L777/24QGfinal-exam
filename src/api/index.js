@@ -290,21 +290,21 @@ export function viewProjectOperateLog(projectId) {
 }
 
 // 管理员查看已经通过审核的项目即已经发布的项目（发布状态冻结/正常）
-export function pagedQueryPublishedPorject(projectStatus, page, pageSize) {
+export function pagedQueryPublishedProject(projectStatus, page, pageSize, keyWord='') {
   const params = {
-    projectStatus, page, pageSize
+    projectStatus, page, pageSize, keyWord
   };
   // console.log(params);
   return service({
-    url: "/admin/pagedQueryPublishedPorject",
+    url: "/admin/pagedQueryPublishedProject",
     method: "get",
     params,
   });
 }
 // 管理员查看项目申请情况（待审核/被拒绝）
-export function pagedQueryProjectApplication(applicationStatus) {
+export function pagedQueryProjectApplication(applicationStatus, page, pageSize, keyWord='') {
   const params = {
-    applicationStatus
+    applicationStatus, page, pageSize, keyWord
   };
   // console.log(params);
   return service({
