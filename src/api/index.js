@@ -166,6 +166,7 @@ export function updateProject(projectUrl, projectId, description, projectPasswor
     projectPassword,
     userId,
   };
+  console.log(data)
   // console.log(data);
   return service({
     url: "/project/updateProject",
@@ -249,26 +250,16 @@ export function queryAllUserOperationLog(page, pageSize) {
   });
 }
 // 查看日志（页面、服务器、移动app）
-export function viewLogForGroup(groupType, pagesize, page, projectId) {
-  console.log(groupType, pagesize, page, projectId)
-  // 创建 FormData 对象
-  const formData = new FormData();
-  formData.append('groupType', groupType);
-  formData.append('pagesize', pagesize);
-  formData.append('page', page);
-  formData.append('projectId', projectId);
+export function viewLogForGroup(status) {
 
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-  }
+  // 创建 FormData 对象
+  const params = status
+  console.log(params)
   // 发送 POST 请求
   return service({
     url: "/log/viewLogForGroup",
-    method: "post",
-    data: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+    method: "get",
+    params
   });
 }
 

@@ -1,12 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PublicMenu from "../../components/menu";
 import { Flex } from "antd";
 import Top from "./top";
 import Number from "./number";
 import Data from "./data";
 import InfromationCard from "./infromationCard";
+import { detaliedInfo, projectPresentationDateOneWeek } from "../../api/index"
+import { useLocation } from 'react-router-dom';
+
 
 const Index = () => {
+
+  const [projectData, setProjectData] = useState({})
+  const { search } = useLocation();
+  let receiveProjectId = null
+  if (search) {
+    const params = new URLSearchParams(search);
+    receiveProjectId = params.get('projectId')
+    console.log(receiveProjectId)
+  }
+
+  useEffect(() => {
+    const onLoad = async () => {
+      try {
+        const res = await detaliedInfo(receiveProjectId);
+        setProjectData(res.data)
+        console.log(res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    onLoad()
+
+    const onLoadCard = async () => {
+      try {
+        const res = await projectPresentationDateOneWeek(receiveProjectId);
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    onLoadCard()
+
+  }, [])
+
+
+
   return (
     <Flex
       style={{
@@ -28,7 +67,7 @@ const Index = () => {
         }}
         align={"center"}
       >
-        <Top />
+        <Top projectData={projectData} receiveProjectId={receiveProjectId} />
         <Flex
           style={{
             marginTop: "10px",
@@ -37,7 +76,7 @@ const Index = () => {
           vertical
         >
           <Number />
-          <InfromationCard />
+          <InfromationCard receiveProjectId={receiveProjectId} />
         </Flex>
         <h1
           style={{
@@ -49,7 +88,7 @@ const Index = () => {
         >
           日志
         </h1>
-        <Data />
+        <Data receiveProjectId={receiveProjectId} />
       </Flex>
     </Flex>
   );

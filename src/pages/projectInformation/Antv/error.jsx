@@ -4,9 +4,9 @@ import * as echarts from 'echarts';
 
 const BarChart = () => {
     // ECharts 配置
-    let dataAxis = ['第一天', '第二天', '第三天', '第四天', '第五天', '第六天', '第七天'];
+    let dataAxis = ['第三天', '第四天', '第五天', '第六天', '第七天'];
     // prettier-ignore
-    let data = [150, 55, 191, 240, 95, 30, 70, 200]
+    let data = [191, 240, 95, 30, 70, 200]
 
 
     const option = {

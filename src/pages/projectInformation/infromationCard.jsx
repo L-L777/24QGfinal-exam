@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Flex } from 'antd';
 import View from './Antv/view'
 import Error from './Antv/error'
 import ErrorRate from './Antv/errorRate'
 import ErrorType from './Antv/errorType'
 
-const infromationCard = () => {
+
+const InfromationCard = ({ receiveProjectId }) => {
+
+
+
     return (
         <Flex style={{
             width: '100%',
@@ -53,4 +57,4 @@ const infromationCard = () => {
     );
 }
 
-export default infromationCard;
+export default InfromationCard;
