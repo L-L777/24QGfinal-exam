@@ -4,14 +4,14 @@ import * as echarts from 'echarts';
 
 const BarChart = () => {
     // ECharts 配置
-    let dataAxis = ['第一天', '第二天', '第三天', '第四天', '第五天', '第六天', '第七天'];
+    let dataAxis = ['第三天', '第四天', '第五天', '第六天', '第七天'];
     // prettier-ignore
-    let data = [120, 25, 191, 24, 20, 30, 30, 23]
+    let data = [191, 240, 95, 30, 70, 200]
 
 
     const option = {
         title: {
-            text: '近七天的访问量',
+            text: '近七天的错误量',
         },
         tooltip: {
             trigger: 'item',
@@ -23,7 +23,6 @@ const BarChart = () => {
             data: dataAxis,
             type: 'category',
             axisLabel: {
-
                 inside: false,
                 color: 'black'
             },
@@ -102,7 +101,6 @@ const BarChart = () => {
 
     return (
         <ReactECharts option={option} style={{ height: '200px', paddingTop: 10, paddingLeft: 5 }} />
-
     );
 };
 

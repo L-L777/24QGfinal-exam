@@ -1,34 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Flex, Input, Dropdown, Space, Table } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
 import styles from './data.module.css'
 import Right from './Drawer/right'
 import Error from './Drawer/error'
-import { useLocation } from 'react-router-dom';
+
+import { viewLogForGroup } from '../../api/index'
 
 
-const Data = () => {
+const Data = ({ receiveProjectId }) => {
     const [selectData, setSelectData] = useState('')
     const [dataType, SetDataType] = useState('前端')
-    const [listStatus, SetListStatus] = useState('true')
+    const [listStatus, SetListStatus] = useState(0)
     const [open, setOpen] = useState(false);
-    const { search } = useLocation();
-    if (search) {
-        const params = new URLSearchParams(search);
-        const receiveProjectId = params.get('projectId')
-        const receiveRelease = params.get('release')
-        console.log(receiveProjectId)
-        console.log(receiveRelease)
-    }
+    const [data, setData] = useState([])
+    const [status, setStatus] = useState({
+        groupType: 1,
+        pageSize: 100,
+        page: 1,
+        projectId: receiveProjectId,
+        logType: 1,
+    })
 
     const ChangeListNormal = () => {
-        if (listStatus !== 'true')
-            SetListStatus('true')
+        if (listStatus !== 0) {
+            SetListStatus(0);
+            setStatus(prevStatus => ({
+                ...prevStatus,
+                logType: 1
+            }));
+        }
     }
 
     const ChangeListError = () => {
-        if (listStatus !== 'false')
-            SetListStatus('false')
+        if (listStatus !== 1) {
+            SetListStatus(1);
+            setStatus(prevStatus => ({
+                ...prevStatus,
+                logType: 0
+            }));
+        }
+    }
+
+    const ChangeListUs = () => {
+        if (listStatus !== 2) {
+            SetListStatus(2);
+            setStatus(prevStatus => ({
+                ...prevStatus,
+                logType: 2
+            }));
+        }
     }
 
     const showDrawer = (data, record) => {
@@ -39,6 +60,7 @@ const Data = () => {
         setOpen(false);
         setSelectData('')
     };
+
 
     const items = [
         {
@@ -55,76 +77,34 @@ const Data = () => {
         },
     ];
 
-    const columnsError = [
-        {
-            title: '用户ip',
-            dataIndex: 'ip',
-            key: 'ip',
-        },
-        {
-            title: '使用浏览器',
-            dataIndex: 'use',
-            key: 'use',
-        },
-        {
-            title: '网址',
-            dataIndex: 'url',
-            key: 'url',
-        },
-        {
-            title: '状态',
-            dataIndex: 'status',
-            key: 'status',
-        },
-        {
-            title: '错误内容',
-            dataIndex: 'error',
-            key: 'error',
-        },
 
-        {
-            title: '时间',
-            dataIndex: 'time',
-            key: 'time',
-        },
-        {
-            title: '操作',
-            key: 'action',
-            render: (data, record) => (
-                <Space size="middle">
-                    <p onClick={() => showDrawer(data, record)} data={data} record={record} >详细</p>
-                </Space>
-            ),
-        },
-    ];
 
     const columnsNormal = [
         {
-            title: '用户ip',
-            dataIndex: 'ip',
-            key: 'ip',
+            title: 'Id',
+            dataIndex: 'logId',
+            key: 'logId',
         },
         {
-            title: '使用浏览器',
-            dataIndex: 'use',
-            key: 'use',
+            title: 'Type',
+            dataIndex: 'logType',
+            key: 'logType',
         },
         {
-            title: '网址',
-            dataIndex: 'url',
-            key: 'url',
-        },
-
-        {
-            title: '时间',
-            dataIndex: 'time',
-            key: 'time',
+            title: 'Info',
+            dataIndex: 'logInfo',
+            key: 'logInfo',
         },
         {
-            title: '操作',
+            title: 'Time',
+            dataIndex: 'logTime',
+            key: 'logTime',
+        },
+        {
+            title: 'Action',
             key: 'action',
             render: (data, record) => (
-                <Space size="middle">
+                <Space size="middle" >
                     <p onClick={() => showDrawer(data, record)} data={data} record={record} >详细</p>
                 </Space>
             ),
@@ -132,33 +112,49 @@ const Data = () => {
     ];
 
 
-    const data = [
-        {
-            key: '1',
-            ip: '27.67.225.71',
-            use: 'IE',
-            url: 'http://mxmdxdobn.io/kjwfhttp://mxmdxdobn.io',
-            status: '错误',
-            error: '3170c8Cf-2f42-b6F1-dBB9-d54f57eBAD91',
-            time: '2024-06-10 11:37'
-        },
-        {
-            key: '2',
-            ip: '27.67.225.71',
-            use: 'IE',
-            url: 'http://mxmdxdobn.io/kjwfhttp://mxmdxdobn.io',
-            status: '错误',
-            error: '3170c8Cf-2f42-b6F1-dBB9-d54f57eBAD91',
-            time: '2024-06-10 11:37'
-        },
 
-    ];
 
 
 
     const onClick = ({ key }) => {
+        let type = 1
         SetDataType(key)
+        console.log(key)
+        if (key === '前端')
+            type = 1
+
+        if (key === '后台')
+            type = 0
+
+        if (key === '移动')
+            type = 2
+
+        ChangeListNormal()
+        setStatus(prevStatus => ({
+            ...prevStatus,
+            groupType: type
+        }));
     };
+
+
+    const onLoad = async () => {
+        try {
+            const res = await viewLogForGroup(status);
+            console.log(res.data.data)
+            setData(res.data.data || [])
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+
+    useEffect(() => {
+        onLoad()
+    }, [status])
+
+
+
 
     return (
         <Card style={{
@@ -180,20 +176,28 @@ const Data = () => {
                     color: "rgb(164, 164, 165)",
                     cursor: 'pointer',
                     fontSize: '18px',
-                    width: '240px',
+                    width: '300px',
                 }} align={"center"} justify={"space-around"}>
                     <div
-                        className={`${styles.change_color} ${listStatus === 'true' ? styles.active : ''}`}
+                        className={`${styles.change_color} ${listStatus === 0 ? styles.active : ''}`}
                         onClick={ChangeListNormal}
                     >
                         正常日志
 </div>
                     <div
-                        className={`${styles.change_color} ${listStatus === 'false' ? styles.active : ''}`}
+                        className={`${styles.change_color} ${listStatus === 1 ? styles.active : ''}`}
                         onClick={ChangeListError}
                     >
                         错误日志
 </div>
+                    {dataType === '后台' && (
+                        <div
+                            className={`${styles.change_color} ${listStatus === 2 ? styles.active : ''}`}
+                            onClick={ChangeListUs}
+                        >
+                            自定义日志
+                        </div>
+                    )}
                 </Flex>
                 <Flex style={{
                     alignItems: 'center'
@@ -204,7 +208,7 @@ const Data = () => {
                         borderRadius: 0,
                         backgroundColor: 'rgb(217, 217, 217)',
                         marginRight: '10px',
-                    }} />
+                    }} disabled />
 
                     <Dropdown
                         menu={{
@@ -233,19 +237,14 @@ const Data = () => {
                 width: '90%',             // 设置宽度为父盒子的90%
                 margin: '0 auto',
             }}  >
-                {
-                    listStatus === 'true' ?
-                        <Table
-                            style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }}
-                            columns={columnsNormal.map(col => ({ ...col, align: 'center' }))}
-                            dataSource={data}
-                        /> :
-                        <Table
-                            style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }}
-                            columns={columnsError.map(col => ({ ...col, align: 'center' }))}
-                            dataSource={data}
-                        />
-                }
+
+                <Table
+                    style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }}
+                    columns={columnsNormal.map(col => ({ ...col, align: 'center' }))}
+                    dataSource={data.map(item => ({ ...item, key: item.logId }))} // 添加 key
+
+                />
+
             </Flex>
             {listStatus === 'true' ?
                 <Right open={open} onClose={onClose} selectData={selectData} /> : <Error open={open} onClose={onClose} selectData={selectData} />
