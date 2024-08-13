@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Flex } from 'antd';
+import View from './Antv/view'
 
 const infromationCard = () => {
     return (
@@ -13,6 +14,7 @@ const infromationCard = () => {
                     height: 220
                 }}
             >
+                <View />
             </Card>
             <Card
                 style={{
