@@ -383,3 +383,28 @@ export function freezeProject(projectId, freezeHour) {
     data,
   });
 }
+
+// 根据日志id查看详细的日志信息
+export function showDetaliedLog(groupType, logId, logType) {
+  const data = {
+    groupType, logId, logType
+  };
+  // console.log(data);
+  return service({
+    url: "/log/showDetailedLog",
+    method: "post",
+    data,
+  });
+}
+// 根据不同组查询一周的日志数量
+export function showLogNumberOneWeekForGroup(groupType,projectId, logType) {
+  const data = {
+    groupType,  projectId, logType
+  };
+  // console.log(data);
+  return service({
+    url: "/log/showLogNumberOneWeekForGroup",
+    method: "post",
+    data,
+  });
+}
