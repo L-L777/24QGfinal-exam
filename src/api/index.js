@@ -408,3 +408,15 @@ export function showLogNumberOneWeekForGroup(groupType,projectId, logType) {
     data,
   });
 }
+// 查询项目的前端日志性能
+export function queryFrontPerformanceLog(projectId) {
+  const params = {
+    projectId
+  };
+  // console.log(params);
+  return service({
+    url: "/log/queryFrontPerformanceLog",
+    method: "get",
+    params,
+  });
+}
