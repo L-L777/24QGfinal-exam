@@ -10,11 +10,11 @@ const Exception = ({ groupType, logType, projectId }) => {
                         title={<div style={{ fontSize: '20px' }}>近期错误数据</div>}></Card>
                 </Col>
                 <Col span={12}>
-                    <Card style={{ height: '400px' }} title={<div style={{ fontSize: '20px' }}>最耗时资产</div>}  hoverable>
+                    <Card style={{ height: '400px' }} title={<div style={{ fontSize: '20px' }}>最耗时资产</div>} hoverable>
                     </Card>
                 </Col>
             </Row>
-            
+
         </Flex>
     )
 }
