@@ -1,6 +1,12 @@
 import { Flex, Row, Col, Card } from "antd"
 import { useEffect, useState } from "react";
-import { queryFrontPerformanceLog } from "../../api"
+import { showDetailedLogForFront } from "../../api"
+import Fp from "./Antv/fp"
+import Fcp from "./Antv/dns"
+import Domerady from './Antv/Domready'
+import BlankScreenTime from './Antv/blankScreenTime'
+import Dns from './Antv/dns'
+
 const FrontedPerformance = ({ projectId }) => {
     const [data, setData] = useState([])
     const [fp, setFp] = useState([])
@@ -11,26 +17,35 @@ const FrontedPerformance = ({ projectId }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await queryFrontPerformanceLog(projectId)
+                const response = await showDetailedLogForFront(1, 63, 1)
                 setData(response.data)
+                const getInformation = JSON.parse(response.data.logInfo.data);
+                // // 提取所需的值
+                const { fp, fcp, domReady, dns, blankScreenTime } = getInformation;
                 console.log(response.data)
-                response.data.map((item) => {
-                    const parsedData = JSON.parse(item.data)
-                    setFp(prevFp => [...prevFp, parsedData.fp]);
-                    setFcp(prevFcp => [...prevFcp, parsedData.fcp]);
-                    setDomReady(prevDomReady => [...prevDomReady, parsedData.domReady]);
-                    setDns(prevDns => [...prevDns, parsedData.dns]);
-                    setBlankScreenTime(prevBlackScreenTime => [...prevBlackScreenTime, parsedData.blankScreenTime]);
-                })
+                // 确保每个 set 函数调用的值与其对应的状态变量匹配
+                setFp(fp); // 设置 fp 状态
+                setFcp(fcp); // 设置 fcp 状态
+                setDomReady(domReady); // 设置 domReady 状态
+                setDns(dns); // 设置 dns 状态
+                setBlankScreenTime(blankScreenTime); // 设置 blankScreenTime 状态
+                // response.data.map((item) => {
+                //     const parsedData = JSON.parse(item.data)
+                //     setFp(prevFp => [...prevFp, parsedData.fp]);
+                //     setFcp(prevFcp => [...prevFcp, parsedData.fcp]);
+                //     setDomReady(prevDomReady => [...prevDomReady, parsedData.domReady]);
+                //     setDns(prevDns => [...prevDns, parsedData.dns]);
+                //     setBlankScreenTime(prevBlackScreenTime => [...prevBlackScreenTime, parsedData.blankScreenTime]);
+                // })
 
 
 
             } catch (error) {
-
+                console.log(error)
             }
         }
         fetchData();
-        console.log(fp, fcp, domReady, dns, blankScreenTime)
+
         return () => {
             setFp([]);
             setFcp([]);
@@ -48,12 +63,12 @@ const FrontedPerformance = ({ projectId }) => {
                 <Col span={12}>
                     <Card style={{ height: '300px' }} hoverable
                         title={<div style={{ fontSize: '20px' }}>fp</div>}>
-
+                        <Fp fp={fp} />
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>fcp</div>} hoverable>
-
+                        <Fcp fcp={fcp} />
                     </Card>
                 </Col>
             </Row>
@@ -61,16 +76,17 @@ const FrontedPerformance = ({ projectId }) => {
                 <Col span={8}>
                     <Card style={{ height: '300px' }} hoverable
                         title={<div style={{ fontSize: '20px' }}>Domready</div>}>
-
+                        <Domerady domReady={domReady} />
                     </Card>
                 </Col>
                 <Col span={8}>
                     <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>dns</div>} hoverable>
+                        <Dns dns={dns} />
                     </Card>
                 </Col>
                 <Col span={8}>
                     <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>blankScreenTime</div>} hoverable>
-
+                        <BlankScreenTime blankScreenTime={blankScreenTime} />
                     </Card>
                 </Col>
             </Row>

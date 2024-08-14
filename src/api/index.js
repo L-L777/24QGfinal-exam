@@ -443,3 +443,19 @@ export function increaseVisits(projectId) {
 
   });
 }
+
+
+export function showDetailedLogForFront(groupType, logId, logType) {
+  const data = {
+    groupType,
+    logId,
+    logType
+  };
+  // console.log(params);
+  return service({
+    url: "/log/showDetailedLogForFront",
+    method: "post",
+    data
+  })
+}
+
