@@ -19,7 +19,7 @@ const MyProject= () => {
         <Flex style={{ width: '90%', marginTop: '30px' }} vertical>
             <h3 style={{ fontSize: '24px', color: '#3F1575' }}>我的项目</h3>
             <Flex style={{ width: '100%', marginTop: '30px' }}>
-                <Card style={{ height: '550px', width: '100%' ,paddingLeft:'20px',paddingRight:'20px',
+                <Card style={{ height: '550px', width: '100%' ,paddingLeft:'30px',paddingRight:'30px',paddingBottom:'20px',
                     overflow:'auto',
                       scrollbarWidth: 'none', /* Firefox */
                     msOverflowStyle: 'none', /* Internet Explorer 10+ */

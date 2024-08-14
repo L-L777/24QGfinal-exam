@@ -94,6 +94,7 @@ const ApplyToMe = () => {
                         <List.Item>
                             <Flex style={{ width: '100%' }} justify="space-between">
                                 <div>{item.projectName}</div>
+                                <div>{item.applicant}</div>
                                 <Space size={20}>
                                     <div>{item.applicationTime}</div>
                                     {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#E0D1FF', color: '#9053C0' }}>同意</div>}

@@ -121,7 +121,7 @@ const ProjectShow = () => {
         try {
             let response
             if (role.role === '用户') {
-                response = await showAllProjectForUser(1, 16);
+                response = await showAllProjectForUser(1, 16, projectName);
             }
             if (role.role === '管理员' && selectedLog === '1') {
                 response = await pagedQueryPublishedProject(1, 1, 16,projectName);
