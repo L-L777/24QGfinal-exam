@@ -12,35 +12,40 @@ import { useLocation } from 'react-router-dom';
 const Index = () => {
 
   const [projectData, setProjectData] = useState({})
+  const [weekData, setWeekData] = useState([])
   const { search } = useLocation();
   let receiveProjectId = null
   if (search) {
     const params = new URLSearchParams(search);
     receiveProjectId = params.get('projectId')
-    console.log(receiveProjectId)
   }
 
   useEffect(() => {
+
+
     const onLoad = async () => {
       try {
         const res = await detaliedInfo(receiveProjectId);
-        setProjectData(res.data)
-        console.log(res.data)
+        if (res.code === 1)
+          setProjectData(res.data)
       } catch (error) {
         console.log(error)
       }
+
+
+
+      try {
+        const res = await projectPresentationDateOneWeek(receiveProjectId);
+        if (res.code === 1) {
+          setWeekData(res.data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
     };
     onLoad()
 
-    const onLoadCard = async () => {
-      try {
-        const res = await projectPresentationDateOneWeek(receiveProjectId);
-        console.log(res)
-      } catch (error) {
-        console.log(error)
-      }
-    };
-    onLoadCard()
 
   }, [])
 
@@ -67,7 +72,7 @@ const Index = () => {
         }}
         align={"center"}
       >
-        <Top projectData={projectData} receiveProjectId={receiveProjectId} />
+        <Top projectData={projectData} receiveProjectId={receiveProjectId} weekData={weekData} />
         <Flex
           style={{
             marginTop: "10px",
@@ -75,8 +80,8 @@ const Index = () => {
           }}
           vertical
         >
-          <Number />
-          <InfromationCard receiveProjectId={receiveProjectId} />
+          <Number weekData={weekData} />
+          <InfromationCard receiveProjectId={receiveProjectId} weekData={weekData} />
         </Flex>
         <h1
           style={{
@@ -88,7 +93,7 @@ const Index = () => {
         >
           日志
         </h1>
-        <Data receiveProjectId={receiveProjectId} />
+        <Data receiveProjectId={receiveProjectId} weekData={weekData} receiveProjectId={receiveProjectId} />
       </Flex>
     </Flex>
   );

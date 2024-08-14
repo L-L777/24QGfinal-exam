@@ -254,7 +254,7 @@ export function viewLogForGroup(status) {
 
   // 创建 FormData 对象
   const params = status
-  console.log(params)
+
   // 发送 POST 请求
   return service({
     url: "/log/viewLogForGroup",
@@ -290,7 +290,7 @@ export function viewProjectOperateLog(projectId) {
 }
 
 // 管理员查看已经通过审核的项目即已经发布的项目（发布状态冻结/正常）
-export function pagedQueryPublishedProject(projectStatus, page, pageSize, keyWord='') {
+export function pagedQueryPublishedProject(projectStatus, page, pageSize, keyWord = '') {
   const params = {
     projectStatus, page, pageSize, keyWord
   };
@@ -302,7 +302,7 @@ export function pagedQueryPublishedProject(projectStatus, page, pageSize, keyWor
   });
 }
 // 管理员查看项目申请情况（待审核/被拒绝）
-export function pagedQueryProjectApplication(applicationStatus, page, pageSize, keyWord='') {
+export function pagedQueryProjectApplication(applicationStatus, page, pageSize, keyWord = '') {
   const params = {
     applicationStatus, page, pageSize, keyWord
   };
@@ -384,6 +384,7 @@ export function freezeProject(projectId, freezeHour) {
   });
 }
 
+
 // 根据日志id查看详细的日志信息
 export function showDetaliedLog(groupType, logId, logType) {
   const data = {
@@ -397,9 +398,9 @@ export function showDetaliedLog(groupType, logId, logType) {
   });
 }
 // 根据不同组查询一周的日志数量
-export function showLogNumberOneWeekForGroup(groupType,projectId, logType) {
+export function showLogNumberOneWeekForGroup(groupType, projectId, logType) {
   const data = {
-    groupType,  projectId, logType
+    groupType, projectId, logType
   };
   // console.log(data);
   return service({
@@ -418,5 +419,24 @@ export function queryFrontPerformanceLog(projectId) {
     url: "/log/queryFrontPerformanceLog",
     method: "get",
     params,
+
+  })
+}
+
+
+export function increaseVisits(projectId) {
+  // 创建 FormData 对象
+  const formData = new FormData();
+  formData.append('projectId', projectId);
+
+  // 发送请求
+  return service({
+    url: "/log/increaseVisits",
+    method: "post",
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data' // 设置请求头为 multipart/form-data
+    }
+
   });
 }

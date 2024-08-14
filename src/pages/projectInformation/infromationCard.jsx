@@ -6,8 +6,7 @@ import ErrorRate from './Antv/errorRate'
 import ErrorType from './Antv/errorType'
 
 
-const InfromationCard = ({ receiveProjectId }) => {
-
+const InfromationCard = ({ receiveProjectId, weekData }) => {
 
 
     return (
@@ -22,8 +21,9 @@ const InfromationCard = ({ receiveProjectId }) => {
                     height: 220,
                     marginBottom: '30px'
                 }}
+
             >
-                <View />
+                <View weekData={weekData} />
             </Card>
             <Card
                 style={{
@@ -31,16 +31,18 @@ const InfromationCard = ({ receiveProjectId }) => {
                     height: 220,
                     marginBottom: '30px'
                 }}
+
             >
-                <Error />
+                <Error weekData={weekData} />
             </Card>
             <Card
                 style={{
                     width: '45%',
                     height: 330
                 }}
+
             >
-                <ErrorRate />
+                <ErrorRate weekData={weekData} />
             </Card>
             <Card
                 style={{
@@ -50,8 +52,9 @@ const InfromationCard = ({ receiveProjectId }) => {
                     overflow: 'visible',
 
                 }}
+
             >
-                <ErrorType />
+                <ErrorType weekData={weekData} />
             </Card>
         </Flex>
     );

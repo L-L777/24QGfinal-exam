@@ -2,17 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Card, Flex, Input, Dropdown, Space, Table } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
 import styles from './data.module.css'
-import Right from './Drawer/right'
-import Error from './Drawer/error'
-
+import { useNavigate } from "react-router-dom";
 import { viewLogForGroup } from '../../api/index'
 
 
 const Data = ({ receiveProjectId }) => {
-    const [selectData, setSelectData] = useState('')
     const [dataType, SetDataType] = useState('前端')
     const [listStatus, SetListStatus] = useState(0)
-    const [open, setOpen] = useState(false);
     const [data, setData] = useState([])
     const [status, setStatus] = useState({
         groupType: 1,
@@ -21,6 +17,9 @@ const Data = ({ receiveProjectId }) => {
         projectId: receiveProjectId,
         logType: 1,
     })
+    const navigate = useNavigate()
+
+
 
     const ChangeListNormal = () => {
         if (listStatus !== 0) {
@@ -53,13 +52,23 @@ const Data = ({ receiveProjectId }) => {
     }
 
     const showDrawer = (data, record) => {
-        setSelectData(data)
-        setOpen(true);
+        let type = 1
+        console.log(data.logId, data.logType)
+        console.log(receiveProjectId)
+        console.log(dataType)
+        console.log(listStatus)
+        if (dataType === '前端')
+            type = 1
+
+        if (dataType === '后台')
+            type = 0
+
+        if (dataType === '移动')
+            type = 2
+
+        navigate(`/platformdetail?projectId=${receiveProjectId}&groupType=${type}&logType=${status.logType}&logId=${data.logId}`);
     };
-    const onClose = () => {
-        setOpen(false);
-        setSelectData('')
-    };
+
 
 
     const items = [
@@ -105,7 +114,7 @@ const Data = ({ receiveProjectId }) => {
             key: 'action',
             render: (data, record) => (
                 <Space size="middle" >
-                    <p onClick={() => showDrawer(data, record)} data={data} record={record} >详细</p>
+                    <p onClick={() => showDrawer(data, record)} data={data} record={record} style={{ cursor: 'pointer' }}>详细</p>
                 </Space>
             ),
         },
@@ -140,14 +149,17 @@ const Data = ({ receiveProjectId }) => {
     const onLoad = async () => {
         try {
             const res = await viewLogForGroup(status);
-            console.log(res.data.data)
-            setData(res.data.data || [])
-
+            // 处理数据，截断 logInfo 字段
+            const processedData = res.data.data.map(item => ({
+                ...item,
+                logInfo: item.logInfo.length > 60 ? item.logInfo.substring(0, 60) + '...' : item.logInfo
+            }));
+            console.log(processedData);
+            setData(processedData || []);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
-
 
     useEffect(() => {
         onLoad()
@@ -246,9 +258,7 @@ const Data = ({ receiveProjectId }) => {
                 />
 
             </Flex>
-            {listStatus === 'true' ?
-                <Right open={open} onClose={onClose} selectData={selectData} /> : <Error open={open} onClose={onClose} selectData={selectData} />
-            }
+
         </Card>
     );
 }

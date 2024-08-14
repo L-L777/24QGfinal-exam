@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 import * as echarts from 'echarts';
 
-const BarChart = () => {
-    // ECharts 配置
-    let dataAxis = ['第三天', '第四天', '第五天', '第六天', '第七天'];
-    // prettier-ignore
-    let data = [191, 240, 95, 30, 70, 200]
+const BarChart = ({ weekData }) => {
+    let data = [0, 0, 0, 0, 0, 0, 0]
 
+    const visits = weekData.map(item => item.errorNumber);
+
+    // 获取 weekData 数组的最后七个 visits 值
+    const lastSevenVisits = visits.slice(-7);
+
+    // 替代 data 数组的最后七个值
+    data = [...Array(7 - lastSevenVisits.length).fill(0), ...lastSevenVisits];
+
+
+    const generateDateArray = () => {
+        const today = new Date(); // 当前时间
+        const dates = [];
+        // 从昨天开始
+        today.setDate(today.getDate() - 1);
+
+        // 生成过去七天的日期
+        for (let i = 0; i < 7; i++) {
+            // 创建日期副本并格式化为 MM-DD
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            dates.push(formatDate(date)); // 使用格式化函数
+        }
+
+        return dates.reverse(); // 反转数组使其从昨天到七天前
+    };
+
+
+    const formatDate = (date) => {
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${month}-${day}`;
+    };
+
+    const dataAxis = generateDateArray();
 
     const option = {
         title: {
@@ -32,10 +63,10 @@ const BarChart = () => {
             axisLine: {
                 show: false
             },
-            position: 'bottom', // Ensure xAxis is at the bottom
+            position: 'bottom',
             z: 10,
             splitLine: {
-                show: false // 隐藏分隔线
+                show: false
             },
         },
         yAxis: {
@@ -51,16 +82,15 @@ const BarChart = () => {
                 color: '#999'
             },
             splitLine: {
-                show: false // 隐藏分隔线
+                show: false
             },
-
         },
         grid: {
             left: 0,
             right: 0,
-            bottom: 0, // Adjust the bottom margin
-            top: 40, // Adjust the top margin
-            containLabel: true // Ensure labels are contained within grid
+            bottom: 0,
+            top: 40,
+            containLabel: true
         },
         dataZoom: [
             {
@@ -96,8 +126,6 @@ const BarChart = () => {
             }
         ]
     };
-    // Enable data zoom when user click bar.
-    const zoomSize = 6;
 
     return (
         <ReactECharts option={option} style={{ height: '200px', paddingTop: 10, paddingLeft: 5 }} />

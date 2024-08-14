@@ -2,15 +2,45 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 import * as echarts from 'echarts';
 
-const BarChart = () => {
+const BarChart = ({ weekData }) => {
     // ECharts 配置
-    const data = [["6-05", 36], ["6-06", 98], ["6-07", 22], ["6-08", 16], ["6-09", 39], ["6-10", 78], ["6-11", 16]];
-    const dateList = data.map(function (item) {
-        return item[0];
-    });
-    const valueList = data.map(function (item) {
-        return item[1];
-    });
+    let data = [0, 0, 0, 0, 0, 0, 0]
+
+    const visits = weekData.map(item => item.errorRate * 100);
+
+    // 获取 weekData 数组的最后七个 visits 值
+    const lastSevenVisits = visits.slice(-7);
+
+    // 替代 data 数组的最后七个值
+    data = [...Array(7 - lastSevenVisits.length).fill(0), ...lastSevenVisits];
+
+
+    const generateDateArray = () => {
+        const today = new Date(); // 当前时间
+        const dates = [];
+        // 从昨天开始
+        today.setDate(today.getDate() - 1);
+
+        // 生成过去七天的日期
+        for (let i = 0; i < 7; i++) {
+            // 创建日期副本并格式化为 MM-DD
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            dates.push(formatDate(date)); // 使用格式化函数
+        }
+
+        return dates.reverse(); // 反转数组使其从昨天到七天前
+    };
+
+    // 格式化函数，仅保留 MM-DD
+    const formatDate = (date) => {
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 获取月份并补零
+        const day = String(date.getDate()).padStart(2, '0'); // 获取日期并补零
+        return `${month}-${day}`;
+    };
+    const dataAxis = generateDateArray();
+
+
     const option = {
         // Make gradient line here
         visualMap: [
@@ -27,7 +57,7 @@ const BarChart = () => {
                 seriesIndex: 1,
                 dimension: 0,
                 min: 0,
-                max: dateList.length - 1
+                max: dataAxis.length - 1
             }
         ],
         title: [
@@ -42,7 +72,7 @@ const BarChart = () => {
         },
         xAxis:
         {
-            data: dateList,
+            data: dataAxis,
             axisLabel: {
                 inside: false,
                 color: 'black'
@@ -67,7 +97,7 @@ const BarChart = () => {
             {
                 type: 'line',
                 showSymbol: false,
-                data: valueList,
+                data: data,
                 symbol: 'none',
                 sampling: 'lttb',
 

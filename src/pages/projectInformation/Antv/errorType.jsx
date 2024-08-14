@@ -2,7 +2,20 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 import * as echarts from 'echarts';
 
-const BarChart = () => {
+const BarChart = ({ weekData }) => {
+
+    let mobileErrorTotal = 0, frontErrorTotal = 0, backendErrorTotal = 0
+    if (weekData && weekData.length > 0) {
+        // 使用 reduce 方法累加各个类型的错误数
+        mobileErrorTotal = weekData.reduce((sum, item) => sum + (item.mobileErrorNumber || 0), 0);
+        frontErrorTotal = weekData.reduce((sum, item) => sum + (item.frontErrorNumber || 0), 0);
+        backendErrorTotal = weekData.reduce((sum, item) => sum + (item.backendErrorNumber || 0), 0);
+
+
+    }
+
+
+
     // ECharts 配置
     const option = {
         title: {
@@ -39,9 +52,9 @@ const BarChart = () => {
                     borderRadius: 8
                 },
                 data: [
-                    { value: 1, name: '前端' },
-                    { value: 1, name: '后台' },
-                    { value: 100, name: '移动' },
+                    { value: frontErrorTotal, name: '前端' },
+                    { value: backendErrorTotal, name: '后台' },
+                    { value: mobileErrorTotal, name: '移动' },
                 ],
                 label: { // 标签配置
                     show: true, // 显示标签
