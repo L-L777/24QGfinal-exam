@@ -122,7 +122,7 @@ const BarChart = ({ weekData }) => {
     };
 
     return (
-        <ReactECharts option={option} style={{ height: '310px', paddingTop: 10, paddingLeft: 5 }} />
+        <ReactECharts option={option} style={{ height: '310px', paddingTop: 10, paddingLeft: 10, paddingRight: 10 }} />
     );
 };
 

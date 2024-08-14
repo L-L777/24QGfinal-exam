@@ -135,7 +135,7 @@ const BarChart = ({ weekData }) => {
     const zoomSize = 6;
 
     return (
-        <ReactECharts option={option} style={{ height: '200px', paddingTop: 10, paddingLeft: 5 }} />
+        <ReactECharts option={option} style={{ height: '200px', paddingTop: 10, paddingLeft: 10, paddingRight: 10 }} />
 
     );
 };
