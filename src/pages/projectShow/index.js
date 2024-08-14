@@ -3,7 +3,7 @@ import PublicMenu from "../../components/menu"
 import { Flex, Space, Input, Row, Col, Pagination } from "antd"
 import styled from 'styled-components';
 import ProjectCard from "../../components/projectCard";
-import UploadDrawer from "./uploadDrawer";
+import UploadDrawer from "../../components/uploadDraw/uploadDrawer";
 import { showAllProjectForUser } from "../../api"
 import { allProjectData } from '../../mock/data';
 const CustomSearch = styled(Input.Search)`
@@ -47,17 +47,15 @@ const ProjectShow = () => {
     const [projectName,setProjectName]=useState('')
     const [searchStatus,setSearchStatus]=useState(false)
     useEffect(()=>{
+        document.title='项目管理'
         async function fetchData() {
             try {
                 const response = await showAllProjectForUser(1, 16);
                 setTotal(response.data.total)
                 setListData(response.data.data)        
             } catch (error) {
-                // console.log(allProjectData);
                setTotal(allProjectData.total)
                setListData(allProjectData.List)
-            //    console.log(total);
-            //    console.log(listData); 
             }
         }
         fetchData();

@@ -8,6 +8,7 @@ import ExceptionInfo from "./exceptionInfo"
 const LogDetail=()=>{
     const [type, setType] = useState('exception')
     useEffect(()=>{
+        document.title="日志详情"
         setType('performance')
 
     },[])

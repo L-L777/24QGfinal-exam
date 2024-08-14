@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Flex, } from "antd"
+import React, {  useEffect } from 'react';
+import { Flex, Space } from "antd"
 import PublicMenu from "../../components/menu";
-import { showSelfProjects, showHaveMonitorPermissionProjects } from "../../api"
-import { myProjectData } from '../../mock/data';
+import UploadDrawer from '../../components/uploadDraw/uploadDrawer';
+import MyInfo from './myInfo';
+import MyProject from './myproject/myproject';
+import MyApply from './myApply/apply';
 const Personal = () => {
-    const userId=localStorage.getItem('userId')
-    const [myProject,setMyproject]=useState([])
-    const [myMonitor,setMyMonitor]=useState([])
-    useEffect(()=>{
-        async function fetchData() {
-            try{
-                // 获取我发布的和我有监测权限的项目
-                const myProjectReponse = await showSelfProjects(userId)
-                const myMonitorReponse = await showHaveMonitorPermissionProjects(userId)
-                setMyproject(myProjectReponse.data)
-                setMyMonitor(myMonitorReponse.data)
-            }catch(error){
-                setMyproject(myProjectData.data)
-                setMyMonitor(myProjectData.data)
-            }
-        }
-        fetchData();
+    useEffect(() => {
+        document.title = '个人管理'
+
     })
-    console.log(myProject);
-    console.log(myMonitor);
-    
     return (
         <Flex style={{
             width: "100%",
@@ -43,10 +28,15 @@ const Personal = () => {
                 marginLeft: '250px'
             }} vertical align="center">
                 {/* 页面标题 */}
-                <Flex style={{ width: '100%', height: '100px', paddingLeft: '50px', paddingRight: '50px', boxSizing: 'border-box', }} align="center">
+                <Flex justify="space-between" style={{ width: '100%', height: '100px', paddingLeft: '50px', paddingRight: '50px', boxSizing: 'border-box', }} align="center">
                     <h3 style={{ fontSize: '28px' }}>个人管理</h3>
+                    <Space style={{ width: '250px', height: '45px' }}>
+                        <UploadDrawer></UploadDrawer>
+                    </Space>
                 </Flex>
-
+                <MyInfo></MyInfo>
+                <MyProject></MyProject>
+                <MyApply></MyApply>
             </Flex>
         </Flex>
     )

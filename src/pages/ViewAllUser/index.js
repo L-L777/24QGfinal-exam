@@ -1,11 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PublicMenu from "../../components/menu";
-import { Flex, Card, Button, Space } from "antd";
+import UserData from "./UserData.js";
+import { Flex, Card } from "antd";
+import useWebSocket from "../../hooks/useWebSocket.js";
 
 const ViewAllUser = () => {
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     document.title = "用户管理";
-  });
+  }, []);
+  // 消息处理回调
+  const onMessageCallback = (message) => {
+    console.log("Received WebSocket message:", message);
+    setUsers(message.data ? message.data : []);
+  };
+  // 使用自定义 Hook
+  const { connect, disconnect } = useWebSocket(onMessageCallback);
+  useEffect(() => {
+    connect();
+    // 组件卸载时断开 WebSocket 连接
+    return () => {
+      disconnect();
+    };
+  }, [connect, disconnect]);
   return (
     <Flex
       style={{
@@ -92,63 +109,9 @@ const ViewAllUser = () => {
               <span>冻结</span>
               <span>操作</span>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(6, 1fr)", // 6列均等
-                margin: "18px ",
-                fontSize: "18px",
-                textAlign: "center",
-              }}
-            >
-              <span>用户名</span>
-              <span>456</span>
-              <span>
-                <Button
-                  type="primary"
-                  style={{
-                    width: "30%",
-                    margin: "0 auto",
-                    color: "#9053C0",
-                    backgroundColor: "#E0D1FF",
-                    borderRadius: "8px",
-                  }}
-                >
-                  在线
-                </Button>
-              </span>
-              <span>2024-07-22 16:30</span>
-              <span>冻结</span>
-              <Flex justify="center" gap={15} style={{ overflow: "hidden" }}>
-                <Button
-                  type="primary"
-                  style={{
-                    backgroundColor: "#FF6161",
-                    borderRadius: "8px",
-                  }}
-                >
-                  强制下线
-                </Button>
-                <Button
-                  type="primary"
-                  style={{
-                    backgroundColor: "#6A94FF",
-                    borderRadius: "8px",
-                  }}
-                >
-                  冻结
-                </Button>
-                <Button
-                  type="primary"
-                  style={{
-                    backgroundColor: "#816AFF",
-                    borderRadius: "8px",
-                  }}
-                >
-                  详细
-                </Button>
-              </Flex>
-            </div>
+            {users.map((user, index) => (
+              <UserData user={user} key={index} />
+            ))}
           </Card>
         </Flex>
       </Flex>

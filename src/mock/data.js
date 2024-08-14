@@ -118,6 +118,7 @@ export const allProjectData = {
 };
 // 普通用户个人管理页面项目数据
 export const myProjectData={
+    total:4,
     data:[
         {
             projectName: "蟹黄堡の秘密",
@@ -336,4 +337,278 @@ export const userOperateLogData={
             operateTime:'2019-08-24'
        },
     ]
+}
+// 查看用户发布或更新项目申请
+export const userProjectData={
+    total:4,
+    data:[
+        {
+            applicationTime:'2019-08-24',
+            projectName:'蟹黄堡',
+            projectId:1,
+            description:'蟹老板',
+            applicationStatus:'通过',
+            rejectReason:'sadhfjkhak',
+            applicationType:'上传新软件',
+    },
+        {
+            applicationTime:'2019-08-24',
+            projectName:'蟹黄堡',
+            projectId:11,
+            description:'蟹老板',
+            applicationStatus:'通过',
+            rejectReason:'sadhfjkhak',
+            applicationType:'上传新软件',
+    },
+        {
+            applicationTime:'2019-08-24',
+            projectName:'蟹黄堡',
+            projectId:111,
+            description:'蟹老板',
+            applicationStatus:'拒绝',
+            rejectReason:'sadhfjkhak',
+            applicationType:'更新软件',
+    },
+        {
+            applicationTime:'2019-08-24',
+            projectName:'蟹黄堡',
+            projectId:1111,
+            description:'蟹老板',
+            applicationStatus:'待定',
+            rejectReason:'sadhfjkhak',
+            applicationType:'上传新软件',
+    },
+]
+}
+
+
+// 查看我项目监控权限申请记录
+export const toMonitorApplyData = {
+    total: 12,
+    data: [
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '拒绝',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '待办',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+        {
+            applicationTime: '2019-08-24',
+            projectName: '蟹黄堡',
+            projectId: 1,
+            description: '蟹老板',
+            creator: "蟹老板",
+            applicationStatus: '通过',
+            applyMonitorProjectId: 1,
+        },
+    ]
+}
+
+// 查看我收到的申请
+export const applyToMeData={
+    total:12,
+data:[
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '拒绝',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '通过',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+    {
+        applicationTime: '2019-08-24',
+        projectName: '蟹黄堡',
+        projectId: 1,
+        description: '蟹老板',
+        applicant: "蟹老板",
+        applicationStatus: '待办',
+        applyMonitorProjectId: 1,
+    },
+   
+]
 }

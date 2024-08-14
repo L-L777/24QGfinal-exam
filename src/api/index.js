@@ -28,9 +28,11 @@ export function registerAPI(data) {
 }
 
 //展示用户自己发布的项目
-export function showSelfProjects(userId) {
+export function showSelfProjects(userId, page, pageSize) {
   const params = {
     userId,
+    page,
+    pageSize,
   };
   // console.log(params);
   return service({
@@ -40,9 +42,11 @@ export function showSelfProjects(userId) {
   });
 }
 //展示用户拥有监控权限的项目
-export function showHaveMonitorPermissionProjects(userId) {
+export function showHaveMonitorPermissionProjects(userId, page, pageSize) {
   const params = {
     userId,
+    page,
+    pageSize,
   };
   // console.log(params);
   return service({
@@ -51,10 +55,12 @@ export function showHaveMonitorPermissionProjects(userId) {
     params,
   });
 }
-// 查看我的申请
-export function myApplicationOnMonitorProject(userId) {
+// 查看我的项目监控权限申请记录
+export function myApplicationOnMonitorProject(userId, page, pageSize) {
   const params = {
     userId,
+    page,
+    pageSize,
   };
   // console.log(params);
   return service({
@@ -63,9 +69,51 @@ export function myApplicationOnMonitorProject(userId) {
     params,
   });
 }
+// 查看用户发布或更新项目申请
+export function myApplicationProject(userId, page, pageSize) {
+  const params = {
+    userId,
+    page,
+    pageSize,
+  };
+  // console.log(params);
+  return service({
+    url: "/user/myApplicationProject",
+    method: "get",
+    params,
+  });
+}
+// 查看我收到的申请
+export function receivedMonitorApplication(userId, page, pageSize) {
+  const params = {
+    userId,
+    page,
+    pageSize,
+  };
+  // console.log(params);
+  return service({
+    url: "/user/receivedMonitorApplication",
+    method: "get",
+    params,
+  });
+}
+// 用户审核项目监控申请
+export function verifyMonitorApplication(applicationId, status, rejectReason) {
+  const data = {
+    applicationId,
+    status,
+    rejectReason,
+  };
+  // console.log(data);
+  return service({
+    url: "/user/verifyMonitorApplication",
+    method: "post",
+    data,
+  });
+}
 
 // 普通用户主界面，查看未冻结的所有项目
-export function showAllProjectForUser(page, pageSize, projectName='') {
+export function showAllProjectForUser(page, pageSize, projectName = "") {
   const params = {
     page,
     pageSize,
@@ -79,7 +127,13 @@ export function showAllProjectForUser(page, pageSize, projectName='') {
   });
 }
 // 用户发布项目请求
-export function publishProject(projectName, description, userId, projectUrl, projectPassword) {
+export function publishProject(
+  projectName,
+  description,
+  userId,
+  projectUrl,
+  projectPassword
+) {
   const data = {
     projectName,
     description,
@@ -110,7 +164,7 @@ export function detaliedInfo(projectId) {
 export function applyMonitorPermission(userId, projectId) {
   const data = {
     userId,
-     projectId
+    projectId,
   };
   // console.log(data);
   return service({
@@ -120,10 +174,16 @@ export function applyMonitorPermission(userId, projectId) {
   });
 }
 // 发布者更新项目
-export function updateProject(projectUrl, projectId, description, projectPassword, userId) {
+export function updateProject(
+  projectUrl,
+  projectId,
+  description,
+  projectPassword,
+  userId
+) {
   const data = {
-    projectUrl, 
-    projectId, 
+    projectUrl,
+    projectId,
     description,
     projectPassword,
     userId,
@@ -162,7 +222,7 @@ export function cancelUserMoitorPermission(projectId, userId) {
 }
 // 发布者移除项目，需要项目口令
 export function deleteProject(projectId, projectPassword) {
-  const data= {
+  const data = {
     projectId,
     projectPassword,
   };
@@ -187,23 +247,11 @@ export function checkMonitorAuth(projectId, userId) {
   });
 }
 
-// 关于用户发布或更新项目申请
-export function myApplicationProject(userId) {
-  const params = {
-    userId,
-  };
-  // console.log(params);
-  return service({
-    url: "/user/myApplicationProject",
-    method: "get",
-    params,
-  });
-}
-
 // 查看攻击服务器日志
-export function queryAttackServerLog(page,pageSize) {
+export function queryAttackServerLog(page, pageSize) {
   const params = {
-    page, pageSize
+    page,
+    pageSize,
   };
   return service({
     url: "/log/queryAttackServerLog",
@@ -214,7 +262,8 @@ export function queryAttackServerLog(page,pageSize) {
 // 查看所有用户操作日志
 export function queryAllUserOperationLog(page, pageSize) {
   const params = {
-    page, pageSize
+    page,
+    pageSize,
   };
   return service({
     url: "/log/queryAllUserOperationLog",
@@ -225,10 +274,10 @@ export function queryAllUserOperationLog(page, pageSize) {
 // 查看日志（页面、服务器、移动app）
 export function viewLogForGroup(groupType, pagesize, page, projectId) {
   const params = {
-    groupType, 
-    pagesize, 
-    page, 
-    projectId
+    groupType,
+    pagesize,
+    page,
+    projectId,
   };
   // console.log(params);
   return service({
@@ -240,7 +289,7 @@ export function viewLogForGroup(groupType, pagesize, page, projectId) {
 // 最近一周内的项目的访问数据和报错统计
 export function projectPresentationDateOneWeek(projectId) {
   const params = {
-    projectId
+    projectId,
   };
   // console.log(params);
   return service({
@@ -253,7 +302,7 @@ export function projectPresentationDateOneWeek(projectId) {
 // 查看项目操作日志（包括项目发布，更新日志）
 export function viewProjectOperateLog(projectId) {
   const params = {
-    projectId
+    projectId,
   };
   // console.log(params);
   return service({
@@ -266,7 +315,9 @@ export function viewProjectOperateLog(projectId) {
 // 管理员查看已经通过审核的项目即已经发布的项目（发布状态冻结/正常）
 export function pagedQueryPublishedPorject(projectStatus, page, pageSize) {
   const params = {
-    projectStatus, page, pageSize
+    projectStatus,
+    page,
+    pageSize,
   };
   // console.log(params);
   return service({
@@ -278,7 +329,7 @@ export function pagedQueryPublishedPorject(projectStatus, page, pageSize) {
 // 管理员查看项目申请情况（待审核/被拒绝）
 export function pagedQueryProjectApplication(applicationStatus) {
   const params = {
-    applicationStatus
+    applicationStatus,
   };
   // console.log(params);
   return service({
@@ -290,7 +341,9 @@ export function pagedQueryProjectApplication(applicationStatus) {
 // 管理员对于项目发布、更新项目的审核
 export function verifyApplication(applicationId, status, rejectReason) {
   const data = {
-    applicationId, status, rejectReason
+    applicationId,
+    status,
+    rejectReason,
   };
   // console.log(data);
   return service({
@@ -301,7 +354,6 @@ export function verifyApplication(applicationId, status, rejectReason) {
 }
 // 管理员查看所有用户
 export function queryAllUser() {
-  
   return service({
     url: "/admin/queryAllUser",
     method: "get",
@@ -310,7 +362,7 @@ export function queryAllUser() {
 // 管理员查看所有用户
 export function showUserDetailedInfo(userId) {
   const params = {
-    userId
+    userId,
   };
   // console.log(params);
   return service({
@@ -320,10 +372,11 @@ export function showUserDetailedInfo(userId) {
   });
 }
 // 冻结用户
-export function freezeUser(userId, freezeHour) {
+export function freezeUser(freezeHour) {
+  const userId = localStorage.getItem("userId");
   const data = {
-    userId, 
-    freezeHour
+    userId,
+    freezeHour,
   };
   // console.log(data);
   return service({
@@ -347,8 +400,8 @@ export function forceOutlineUser(userId) {
 // 冻结项目
 export function freezeProject(projectId, freezeHour) {
   const data = {
-    projectId, 
-    freezeHour
+    projectId,
+    freezeHour,
   };
   // console.log(data);
   return service({
