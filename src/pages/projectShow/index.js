@@ -92,13 +92,16 @@ const ProjectShow = () => {
                 if (role.role === '管理员' && selectedLog ==='4'){
                     response = await pagedQueryProjectApplication(2,nowPage, NowPageSize);
                 }
-                setTotal(response.data.total)
-                setListData(response.data.data)                        
+                if(response.code===1){
+                    setTotal(response.data.total)
+                    setListData(response.data.data) 
+                }else{
+                    setTotal(0)
+                    setListData([])
+                }                             
             } catch (error) {
-                   setTotal(0)
-                   setListData([])
-            //    setTotal(allProjectData.total)
-            //    setListData(allProjectData.List)
+               setTotal(allProjectData.total)
+               setListData(allProjectData.List)
             }
         }
         fetchData();

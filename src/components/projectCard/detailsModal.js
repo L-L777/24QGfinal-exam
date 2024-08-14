@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Button, Modal, Flex, Form,Alert,Input,message} from 'antd';
 import { applyMonitorPermission, checkMonitorAuth, verifyApplication } from "../../api"
 import { useNavigate} from "react-router-dom";
-import { useRole } from "../../utils/roleContext";
+import { useRole,useRelease } from "../../utils/roleContext";
 const DetailModal = ({ projectName, projectId, description, creator, createTime, applicationId, selectedLog }) => {
     
-    const { role } = useRole()
+    const { role } = useRole();
+    const {setRelease}=useRelease();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const userId = localStorage.getItem('userId')
@@ -64,19 +65,24 @@ message.error('操作失败，请重新操作')
         if (selectedLog === '3' || selectedLog === '4'){
             showModal();
             setBtnLoading(false)
+            setRelease(1)
             return;
         } else if ( role.role === '管理员' && (selectedLog === "1" || selectedLog === '2')){
             navigate(`/projectinformation?projectId=${projectId}&release=1`);
+            setRelease(1)
             return;
         }
         try {
             const response= await checkMonitorAuth(projectId,parseInt(userId))
             if (response.data ==='普通用户'){
                 showModal()
+                setRelease(0)
             } else if (response.data ==='发布者'){
                 navigate(`/projectinformation?projectId=${projectId}&release=1`);
+                setRelease(1)
             }else{
                 navigate(`/projectinformation?projectId=${projectId}&release=0`);
+                setRelease(0)
             }
             setBtnLoading(false)       
         } catch (error) {

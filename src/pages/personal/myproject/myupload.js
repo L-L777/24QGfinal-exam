@@ -4,9 +4,8 @@ import ProjectCard from "../../../components/projectCard";
 import { showSelfProjects } from "../../../api"
 import { myProjectData } from '../../../mock/data';
 import { useRole } from "../../../utils/roleContext"
-const MyUpload=()=>{
+const MyUpload=({userId})=>{
     const {role}=useRole()
-    const userId = localStorage.getItem('userId')
     const [myProject, setMyproject] = useState([])
     const [total,setTotal]=useState(0)
     const [nowPage,setNowPage]=useState(1)
@@ -20,8 +19,14 @@ setNowPage(page)
         async function fetchData() {
             try {
                 const myProjectReponse = await showSelfProjects(userId,nowPage,8)
-                setMyproject(myProjectReponse.data.data)
-                setTotal(myProjectReponse.data.total)
+                if(myProjectReponse.code===1){
+                    setMyproject(myProjectReponse.data.data)
+                    setTotal(myProjectReponse.data.total)
+                }else{
+                    setMyproject([])
+                    setTotal(0)
+                }
+               
             } catch (error) {
                 setMyproject(myProjectData.data)
                 setTotal(myProjectData.total)

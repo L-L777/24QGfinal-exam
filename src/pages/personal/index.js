@@ -1,15 +1,28 @@
-import React, {  useEffect } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Flex, Space } from "antd"
+import { useLocation } from "react-router-dom";
 import PublicMenu from "../../components/menu";
 import UploadDrawer from '../../components/uploadDraw/uploadDrawer';
 import MyInfo from './myInfo';
 import MyProject from './myproject/myproject';
 import MyApply from './myApply/apply';
+import { useRole } from "../../utils/roleContext"
 const Personal = () => {
+    const {role}=useRole()
+    const location = useLocation()
+    const searchParams = new URLSearchParams(location.search);
+    const userName = searchParams.get('userName')
+    const [userId, setUserId] = useState(parseInt(localStorage.getItem('userId')))
+ 
+
     useEffect(() => {
         document.title = '个人管理'
-
-    })
+        if (role.role === '管理员') {
+            setUserId(parseInt(searchParams.get('userId')))
+        } else {
+            setUserId(parseInt(localStorage.getItem('userId')))
+        }
+    },[])
     return (
         <Flex style={{
             width: "100%",
@@ -34,9 +47,9 @@ const Personal = () => {
                         <UploadDrawer></UploadDrawer>
                     </Space>
                 </Flex>
-                <MyInfo></MyInfo>
-                <MyProject></MyProject>
-                <MyApply></MyApply>
+                <MyInfo userName={userName} userId={userId}></MyInfo>
+                <MyProject userName={userName} userId={userId}></MyProject>
+                <MyApply userName={userName} userId={userId}></MyApply>
             </Flex>
         </Flex>
     )

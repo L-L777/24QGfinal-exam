@@ -392,7 +392,7 @@ export function showDetaliedLog(groupType, logId, logType) {
   };
   // console.log(data);
   return service({
-    url: "/log/showDetailedLog",
+    url: "/log/showDetailedLogForFront",
     method: "post",
     data,
   });
@@ -437,6 +437,22 @@ export function increaseVisits(projectId) {
     headers: {
       'Content-Type': 'multipart/form-data' // 设置请求头为 multipart/form-data
     }
+
+  });
+}
+
+// 项目发布者设置项目报错阈值
+export function setErrorRate(projectId, errorRate) {
+  // 创建 FormData 对象
+const data={
+  projectId, errorRate
+}
+
+  // 发送请求
+  return service({
+    url: "/project/setErrorRate",
+    method: "post",
+    data,
 
   });
 }

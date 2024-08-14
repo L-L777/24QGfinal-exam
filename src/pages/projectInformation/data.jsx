@@ -214,13 +214,13 @@ const Data = ({ receiveProjectId }) => {
                 <Flex style={{
                     alignItems: 'center'
                 }} align={"center"} justify={"space-between"}>
-                    <Input placeholder="Basic usage" style={{
+                    {/* <Input placeholder="Basic usage" style={{
                         height: 36,
                         width: 300,
                         borderRadius: 0,
                         backgroundColor: 'rgb(217, 217, 217)',
                         marginRight: '10px',
-                    }} disabled />
+                    }} disabled /> */}
 
                     <Dropdown
                         menu={{
@@ -232,9 +232,11 @@ const Data = ({ receiveProjectId }) => {
                             <Space style={{
                                 height: 36,
                                 width: 100,
-                                backgroundColor: 'rgb(217, 217, 217)',
+                                backgroundColor: '#8c59fc',
+                                color:'#FFF',
+                                borderRadius:'5px',
                                 justifyContent: 'center',
-                                fontSize: '18px',
+                                fontSize: '16px',
                                 padding: '0 10px'
                             }}>
                                 {dataType}
