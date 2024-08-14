@@ -1,6 +1,6 @@
 import { Flex, Row, Col, Card } from "antd"
 
-const Exception = () => {
+const Exception = ({ groupType, logType, projectId }) => {
     return (
         <Flex style={{ width: '90%', marginTop: '30px' }} vertical>
             <h3 style={{ color: "#3F1575", fontSize: '24px' }}>data</h3>
