@@ -11,6 +11,7 @@ import { showDetaliedLog, showLogNumberOneWeekForGroup } from "../../api"
 import AppPerformanceInfo from "./appPerformanceInfo"
 import AppExceptionInfo from "./appExceptionInfo"
 import BackendPerformanceInfo from "./backendPerformanceInfo"
+import BackendSelfDefinedInfo from "./selfDefinedInfo"
 const LogDetail=()=>{
     const location=useLocation()
     const searchParams = new URLSearchParams(location.search);
@@ -82,6 +83,7 @@ const LogDetail=()=>{
             {groupType===2&&logType===0&&<AppExceptionInfo logInfo={logInfo}></AppExceptionInfo>}
                 {groupType === 0 && logType === 0 && <BackendExceptionInfo logData={data} ></BackendExceptionInfo >}
                 {groupType === 0 && logType === 1 && <BackendPerformanceInfo logData={data}></BackendPerformanceInfo>}
+                {groupType === 0 && logType === 2 && <BackendSelfDefinedInfo logData={data}></BackendSelfDefinedInfo>}
 
             </Flex>
         </Flex>

@@ -14,15 +14,15 @@ const StyledTable = styled(Table)`
 }
 `;
 
-const AppPerformanceInfo = (logInfo) => {
-    // console.log(logInfo);
-    
+const BackendSelfDefinedInfo = (logData) => {
+
     const data = [{
-        ...logInfo.logInfo,
+        type: logData.logData.logType,
+        ...logData.logData.logInfo,
     }]
     return (
         <Flex style={{ width: '90%', marginTop: '50px', marginBottom: '50px' }} vertical>
-            <h3 style={{ color: "#3F1575", fontSize: '24px' }}>性能信息</h3>
+            <h3 style={{ color: "#3F1575", fontSize: '24px' }}>自定义信息</h3>
             <Flex style={{ width: '100%', marginTop: '30px' }}>
                 <StyledTable
                     dataSource={data}
@@ -30,18 +30,18 @@ const AppPerformanceInfo = (logInfo) => {
                     style={{ width: '100%' }}
                     tableLayout="fixed"  // 设置表格布局固定
                 >
-                    <Column title="memory" dataIndex="memory" key="memory"
+                    <Column title="type" dataIndex="type" key="type"
+                        width="15%"
+                        render={text => <div style={{ wordWrap: 'break-word', whiteSpace: 'normal', fontSize: '16px', textAlign: 'center' }}>{text}</div>}
+                    />
+                    <Column title="logContent" dataIndex="logContent" key="logContent"
                         width="20%"
                         render={text => <div style={{ wordWrap: 'break-word', whiteSpace: 'normal', fontSize: '16px', textAlign: 'center' }}>{text}</div>}
                     />
-                        <Column title="fps" dataIndex="fps" key="fps"
-                            width="20%"
+                    <Column title="logLevel" dataIndex="logLevel" key="logLevel"
+                        width="20%"
                         render={text => <div style={{ wordWrap: 'break-word', whiteSpace: 'normal', fontSize: '16px', textAlign: 'center' }}>{text}</div>}
-                        />
-                        <Column title="view" dataIndex="view" key="view"
-                            width="40%"
-                            render={text => <div style={{ wordWrap: 'break-word', whiteSpace: 'normal', fontSize: '16px',textAlign:'center' }}>{text}</div>}
-                        />
+                    />
                     <Column title="time" dataIndex="logTime" key="time"
                         width="20%"  // 设置列宽
                         render={text => <div style={{ wordWrap: 'break-word', whiteSpace: 'normal', fontSize: '16px', textAlign: 'center' }}>{text}</div>}
@@ -52,4 +52,4 @@ const AppPerformanceInfo = (logInfo) => {
     );
 };
 
-export default AppPerformanceInfo;
+export default BackendSelfDefinedInfo;

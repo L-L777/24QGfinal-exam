@@ -7,7 +7,7 @@ const StyledTable = styled(Table)`
     background-color: #3F1575;
     color: #fff;
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     font-size: 14px;
     border-bottom: 2px solid #D1D1D1;
   }
@@ -15,8 +15,6 @@ const StyledTable = styled(Table)`
 `;
 
 const BackendPerformanceInfo = (logData) => {
-console.log(logData);
-
     const data = [{
         type:logData.logData.logType,
         ...logData.logData.logInfo,

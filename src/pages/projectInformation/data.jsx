@@ -66,7 +66,7 @@ const Data = ({ receiveProjectId }) => {
         if (dataType === '移动')
             type = 2
 
-        navigate(`/platformdetail?projectId=${receiveProjectId}&groupType=${type}&logType=${status.logType}&logId=${data.logId}`);
+        navigate(`/logdetail?projectId=${receiveProjectId}&groupType=${type}&logType=${status.logType}&logId=${data.logId}`);
     };
 
 

@@ -3,7 +3,7 @@ import { Flex, Row, Col, Card } from "antd"
 const Exception = () => {
     return (
         <Flex style={{ width: '90%', marginTop: '30px' }} vertical>
-            <h3 style={{ color: "#3F1575", fontSize: '24px' }}>exception</h3>
+            <h3 style={{ color: "#3F1575", fontSize: '24px' }}>data</h3>
             <Row justify='space-around' gutter={[20]} style={{ width: '100%', marginTop: '30px' }}>
                 <Col span={12}>
                     <Card style={{ height: '400px' }} hoverable
