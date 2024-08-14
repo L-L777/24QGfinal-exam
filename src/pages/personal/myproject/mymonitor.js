@@ -3,8 +3,7 @@ import { Row, Col, Empty, Pagination } from "antd"
 import ProjectCard from "../../../components/projectCard";
 import { showHaveMonitorPermissionProjects } from "../../../api"
 import { myProjectData } from '../../../mock/data';
-const MyMonitor = () => {
-    const userId = localStorage.getItem('userId')
+const MyMonitor = ({userId}) => {
     const [myMonitor, setMyMonitor] = useState([])
     const [total, setTotal] = useState(0)
     const [nowPage, setNowPage] = useState(1)
@@ -18,8 +17,16 @@ const MyMonitor = () => {
         async function fetchData() {
             try {
                 const myProjectReponse = await showHaveMonitorPermissionProjects(userId, nowPage, 8)
-                setMyMonitor(myProjectReponse.data.data)
-                setTotal(myProjectReponse.data.total)
+                if(myProjectReponse.code===1){
+                    setMyMonitor(myProjectReponse.data.data)
+                    setTotal(myProjectReponse.data.total)
+                    // console.log(myProjectReponse.data.data);
+                }else{
+                    setMyMonitor([])
+                    setTotal(0)
+                }
+                
+                
             } catch (error) {
                 setMyMonitor(myProjectData.data)
                 setTotal(myProjectData.total)

@@ -3,8 +3,10 @@ import { Flex, Button, Modal, Input, message } from "antd";
 import Updata from './Drawer/updata';
 import QueryOwnMonitorUser from './Drawer/queryOwnMonitorUser';
 import { deleteProject, queryOwnMonitorUser } from '../../api/index';
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate,useLocation } from 'react-router-dom'
+import WarnModal from './warnModal';
+import ProjectLog from './checkLogModal';
+import { useRelease } from '../../utils/roleContext';
 const Top = ({ projectData, receiveProjectId }) => {
     const [openUpdata, setOpenUpdata] = useState(false);
     const [user, setUser] = useState([])
@@ -14,6 +16,8 @@ const Top = ({ projectData, receiveProjectId }) => {
     const [messageApi, contextHolder] = message.useMessage();
     const DeleteRef = useRef();
     const navigate = useNavigate()
+    const location=useLocation()
+   const {release}=useRelease()
     const showDrawerUpdata = () => {
         setOpenUpdata(true);
     };
@@ -93,7 +97,6 @@ const Top = ({ projectData, receiveProjectId }) => {
         try {
             const res = await queryOwnMonitorUser(receiveProjectId);
             // 处理数据，截断 logInfo 字段           
-
             setUser(res.data || [])
         } catch (error) {
             console.log(error);
@@ -120,10 +123,10 @@ const Top = ({ projectData, receiveProjectId }) => {
                 </h3>
                 <h3 style={{ fontSize: '28px' }}>{projectData.projectName}</h3>
             </Flex>
-            <Flex gap="large">
+            {release === 1 && (<Flex gap="middle">
                 <Button
                     type="primary"
-                    style={{ width: '160px', height: '44px', backgroundColor: 'rgb(255, 97, 97)', color: 'white', fontSize: '18px' }}
+                    style={{ width: '100px', height: '44px', backgroundColor: 'rgb(255, 97, 97)', color: 'white', fontSize: '15px' }}
                     onClick={showModal}
                     disabled={buttonDisabled} // 根据状态禁用按钮
                 >
@@ -131,19 +134,21 @@ const Top = ({ projectData, receiveProjectId }) => {
                 </Button>
                 <Button
                     type="primary"
-                    style={{ width: '160px', height: '44px', backgroundColor: 'rgb(224, 209, 255)', color: 'rgb(144, 83, 192)', fontSize: '18px' }}
+                    style={{ width: '100px', height: '44px', backgroundColor: 'rgb(224, 209, 255)', color: 'rgb(144, 83, 192)', fontSize: '15px' }}
                     onClick={showDrawerOwen}
                 >
-                    管理监控权限
+                    监控权限
                 </Button>
                 <Button
                     type="primary"
-                    style={{ width: '160px', height: '44px', backgroundColor: 'rgb(129, 106, 255)', color: 'white', fontSize: '18px' }}
+                    style={{ width: '100px', height: '44px', backgroundColor: 'rgb(129, 106, 255)', color: 'white', fontSize: '15px' }}
                     onClick={showDrawerUpdata}
                 >
                     更新项目
                 </Button>
-            </Flex>
+                <WarnModal projectId={receiveProjectId}></WarnModal>
+                <ProjectLog projectId={receiveProjectId}></ProjectLog>
+            </Flex>)}
             <Updata open={openUpdata} onClose={onCloseUpdata} projectData={projectData} success={success} error={error} />
             <QueryOwnMonitorUser open={openOwen} onClose={onCloseOwen} projectData={projectData} success={success} error={error} user={user} />
             <Modal

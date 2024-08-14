@@ -29,7 +29,7 @@ const number = ({ weekData }) => {
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
                 <span>总访问量</span>
-                <span>{count}个</span>
+                <span>{count}</span>
             </Flex>
             <Flex style={{
                 width: '100%',
@@ -39,7 +39,7 @@ const number = ({ weekData }) => {
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
                 <span>日访问量</span>
-                <span>{add}个</span>
+                <span>{add}</span>
             </Flex>
             <Flex style={{
                 width: '100%',
@@ -49,7 +49,7 @@ const number = ({ weekData }) => {
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
                 <span>错误数</span>
-                <span>{addError}个</span>
+                <span>{addError}</span>
             </Flex>
             <Flex style={{
                 width: '100%',
@@ -59,7 +59,7 @@ const number = ({ weekData }) => {
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
                 <span>错误率</span>
-                <span>{addRate}个</span>
+                <span>{addRate}</span>
             </Flex>
         </Flex>
     );

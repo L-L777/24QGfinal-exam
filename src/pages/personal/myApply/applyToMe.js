@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { receivedMonitorApplication, verifyMonitorApplication } from "../../../api"
 import { applyToMeData } from '../../../mock/data';
 
-const ApplyToMe = () => {
-    const userId = localStorage.getItem('userId');
+const ApplyToMe = ({userId}) => {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [applyData, setApplyData] = useState([]);
@@ -34,13 +33,15 @@ const ApplyToMe = () => {
         async function fetchData() {
             try {
                 const response = await receivedMonitorApplication(userId, page, pageSize);
-                const fetchedData = response.data.data.map(item => ({
-                    ...item,
-                    loading: false,
-                    disabled: false,
-                }));
-                setApplyData(fetchedData);
-                setTotal(response.data.total);
+                if(response.code===1){
+                    const fetchedData = response.data.data.map(item => ({
+                        ...item,
+                        loading: false,
+                        disabled: false,
+                    }));
+                    setApplyData(fetchedData);
+                    setTotal(response.data.total);
+                }
             } catch (error) {
                 const mockData = applyToMeData.data.map(item => ({
                     ...item,
@@ -61,9 +62,14 @@ const ApplyToMe = () => {
         }
         updateItemState(applyMonitorProjectId, 'loading', true);
         try {
-            await verifyMonitorApplication(applyMonitorProjectId, status, rejectReason);
-            updateItemState(applyMonitorProjectId, 'disabled', true);
-            updateItemState(applyMonitorProjectId, 'applicationStatus', status === 1 ? '通过' : '拒绝');
+           const res= await verifyMonitorApplication(applyMonitorProjectId, status, rejectReason);
+           if(res.code===1){
+               updateItemState(applyMonitorProjectId, 'disabled', true);
+               updateItemState(applyMonitorProjectId, 'applicationStatus', status === 1 ? '通过' : '拒绝');
+           }else{
+               message.error(res.msg);
+           }
+           
         } catch (error) {
             // 处理错误
         } finally {
@@ -93,8 +99,12 @@ const ApplyToMe = () => {
                     renderItem={(item) => (
                         <List.Item>
                             <Flex style={{ width: '100%' }} justify="space-between">
-                                <div>{item.projectName}</div>
-                                <div>{item.applicant}</div>
+                                
+                                <Flex style={{width:'50%'}} justify="space-between">
+                                    <div style={{ width: '48%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.projectName}</div>
+                                    <div style={{ width: '48%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',textAlign:'end' }}>{item.applicant}</div>
+                                </Flex>
+                               
                                 <Space size={20}>
                                     <div>{item.applicationTime}</div>
                                     {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#E0D1FF', color: '#9053C0' }}>同意</div>}

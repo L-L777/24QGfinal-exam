@@ -1,7 +1,7 @@
 // import { useEffect } from "react";
 import Router from "./router";
 // import useWebSocket from "./hooks/useWebSocket";
-import { RoleProvider } from "./utils/roleContext";
+import { RoleProvider,ReleaseProvider } from "./utils/roleContext";
 function App() {
   // // 消息处理回调
   // const onMessageCallback = (message) => {
@@ -19,9 +19,11 @@ function App() {
   // }, [connect, disconnect]);
   return (
     <RoleProvider>
+      <ReleaseProvider>
       <div className="App">
         <Router />
       </div>
+      </ReleaseProvider>
     </RoleProvider>
   );
 }

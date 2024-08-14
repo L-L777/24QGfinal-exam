@@ -392,7 +392,7 @@ export function showDetaliedLog(groupType, logId, logType) {
   };
   // console.log(data);
   return service({
-    url: "/log/showDetailedLog",
+    url: "/log/showDetailedLogForFront",
     method: "post",
     data,
   });
@@ -445,6 +445,7 @@ export function increaseVisits(projectId) {
 }
 
 
+
 export function showDetailedLogForFront(groupType, logId, logType) {
   const data = {
     groupType,
@@ -457,5 +458,22 @@ export function showDetailedLogForFront(groupType, logId, logType) {
     method: "post",
     data
   })
+}
+
+
+// 项目发布者设置项目报错阈值
+export function setErrorRate(projectId, errorRate) {
+  // 创建 FormData 对象
+  const data = {
+    projectId, errorRate
+  }
+
+  // 发送请求
+  return service({
+    url: "/project/setErrorRate",
+    method: "post",
+    data,
+
+  });
 }
 
