@@ -16,16 +16,19 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
             marginBottom: '30px'
         }} wrap justify={"space-between"} align={"center"}>
             <Card
+                hoverable
                 style={{
                     width: '45%',
                     height: 220,
-                    marginBottom: '30px'
+                    marginBottom: '30px',
+
                 }}
 
             >
                 <View weekData={weekData} />
             </Card>
             <Card
+                hoverable
                 style={{
                     width: '45%',
                     height: 220,
@@ -36,6 +39,7 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
                 <Error weekData={weekData} />
             </Card>
             <Card
+                hoverable
                 style={{
                     width: '45%',
                     height: 330
@@ -45,6 +49,7 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
                 <ErrorRate weekData={weekData} />
             </Card>
             <Card
+                hoverable
                 style={{
                     width: '45%',
                     height: 330,
@@ -56,7 +61,7 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
             >
                 <ErrorType weekData={weekData} />
             </Card>
-        </Flex>
+        </Flex >
     );
 }
 

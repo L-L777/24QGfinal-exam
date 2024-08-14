@@ -398,10 +398,13 @@ export function showDetaliedLog(groupType, logId, logType) {
   });
 }
 // 根据不同组查询一周的日志数量
-export function showLogNumberOneWeekForGroup(groupType, projectId, logType) {
+export function showLogNumberOneWeekForGroup(groupType, logType, projectId) {
   const data = {
-    groupType, projectId, logType
+    groupType,
+    logType,
+    projectId
   };
+  console.log(data)
   // console.log(data);
   return service({
     url: "/log/showLogNumberOneWeekForGroup",
