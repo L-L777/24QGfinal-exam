@@ -20,6 +20,7 @@ const WarnModal = ({projectId}) => {
             const res = await setErrorRate(parseInt(projectId), parseInt(inputValue))
             if(res.code===1){
                 message.success('设置成功')
+                setIsModalOpen(false);
             }
             else{
                 message.error(res.msg)

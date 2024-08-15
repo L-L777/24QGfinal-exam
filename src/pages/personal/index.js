@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from 'react';
 import { Flex, Space } from "antd"
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import PublicMenu from "../../components/menu";
 import UploadDrawer from '../../components/uploadDraw/uploadDrawer';
 import MyInfo from './myInfo';
@@ -13,14 +13,17 @@ const Personal = () => {
     const searchParams = new URLSearchParams(location.search);
     const userName = searchParams.get('userName')
     const [userId, setUserId] = useState(parseInt(localStorage.getItem('userId')))
- 
+    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = '个人管理'
+        
         if (role.role === '管理员') {
             setUserId(parseInt(searchParams.get('userId')))
-        } else {
+        } else if(role.role==='用户') {
             setUserId(parseInt(localStorage.getItem('userId')))
+        }else{
+            navigate('/login')
         }
     },[])
     return (
