@@ -15,9 +15,13 @@ const ProjectApply = ({userId}) => {
                 const response = await myApplicationProject(userId,page, pageSize);
                 if(response.code===1){
                     setApplyData(response.data.data)
+                    setTotal(response.data.total)
+                }else{
+                    setApplyData([])
+                    setTotal(0)
                 }
 
-    setTotal(response.data.total)
+
             } catch (error) {
                 setApplyData(userProjectData.data)
                 setTotal(userProjectData.total)
