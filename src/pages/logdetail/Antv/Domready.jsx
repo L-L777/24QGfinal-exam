@@ -3,84 +3,87 @@ import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 import * as echarts from 'echarts';
 
 const BarChart = ({ domReady }) => {
+    // ECharts 配置
+    // prettier-ignore
+    let data = [0, 0, 0, 0, 0, 0, 0]
 
+    if (domReady)
+        data = domReady
+
+
+    const generateDateArray = () => {
+        const today = new Date(); // 当前时间
+        const dates = [];
+        // 从昨天开始
+        today.setDate(today.getDate() - 1);
+
+        // 生成过去七天的日期
+        for (let i = 0; i < 7; i++) {
+            // 创建日期副本并格式化为 MM-DD
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            dates.push(formatDate(date)); // 使用格式化函数
+        }
+
+        return dates.reverse(); // 反转数组使其从昨天到七天前
+    };
+
+    // 格式化函数，仅保留 MM-DD
+    const formatDate = (date) => {
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 获取月份并补零
+        const day = String(date.getDate()).padStart(2, '0'); // 获取日期并补零
+        return `${month}-${day}`;
+    };
+
+    const dataAxis = generateDateArray();
     const option = {
+        // Make gradient line here
+        visualMap: [
+            {
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 4000
+            },
+
+        ],
+        title: [
+            {
+                left: 'left',
+                text: 'domReady'
+            },
+
+        ],
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: [
+            {
+                data: dataAxis
+            },
+
+        ],
+        yAxis: {
+
+        },
+        grid: {
+
+        },
         series: [
             {
-                type: 'gauge',
-                center: ['50%', '50%'],
-                startAngle: 0,
-                endAngle: 360,
-                min: 0,
-                max: 1200,
-                radius: '70%',
-                splitNumber: 12,
-                itemStyle: {
-                    color: '#FFAB91'
-                },
-                progress: {
-                    show: true,
-                    width: 30
-                },
-                pointer: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        width: 30
-                    }
-                },
-                axisTick: {
-                    distance: -45,
-                    splitNumber: 5,
-                    lineStyle: {
-                        width: 2,
-                        color: '#999'
-                    }
-                },
-                splitLine: {
-                    distance: -52,
-                    length: 14,
-                    lineStyle: {
-                        width: 3,
-                        color: '#999'
-                    }
-                },
-                axisLabel: {
-                    distance: -15,
-                    color: '#999',
-                    fontSize: 14,
-                    show: true
-                },
-                anchor: {
-                    show: false
-                },
-                title: {
-                    show: false
-                },
-                detail: {
-                    valueAnimation: true,
-                    lineHeight: 40,
-                    borderRadius: 8,
-                    offsetCenter: [0, '0%'],
-                    fontSize: 20,
-                    fontWeight: 'bolder',
-                    formatter: '{value} °C',
-                    color: 'inherit'
-                },
-                data: [
-                    {
-                        value: domReady
-                    }
-                ]
+                type: 'line',
+                showSymbol: false,
+                data: data
             },
 
         ]
     };
 
 
+
     return (
-        <ReactECharts option={option} style={{ height: '250px', paddingBottom: '0px' }} />
+        <ReactECharts option={option} style={{ height: '310px', paddingTop: 10, paddingLeft: 10, paddingRight: 10 }} />
     );
 };
 
