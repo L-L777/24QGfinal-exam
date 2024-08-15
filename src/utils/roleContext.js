@@ -33,7 +33,7 @@ export const useRole = () => {
 //目前只用来渲染导航栏上的数据
 
 export const ReleaseProvider = ({ children }) => {
-  const [release, setRelease] = useState(0);
+  const [release, setRelease] = useState(parseInt(localStorage.getItem('release'))||0);
   return (
     <ReleaseContext.Provider value={{ release, setRelease }}>
       {children}

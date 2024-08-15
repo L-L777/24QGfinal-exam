@@ -51,8 +51,6 @@ const UserOperateLog = () => {
         async function fetchData() {
             try {
                 const response = await queryAllUserOperationLog(current, pageSize)
-                console.log(response.data);
-
                 setLogData(response.data.data)
                 setTotal(response.data.total)
 

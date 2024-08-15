@@ -45,7 +45,30 @@ const Personal = () => {
             }} vertical align="center">
                 {/* 页面标题 */}
                 <Flex justify="space-between" style={{ width: '100%', height: '100px', paddingLeft: '50px', paddingRight: '50px', boxSizing: 'border-box', }} align="center">
-                    <h3 style={{ fontSize: '28px' }}>个人管理</h3>
+                    <div style={{ position: "relative", display: "inline-block" }}>
+                        <h3
+                            style={{
+                                fontSize: "28px",
+                                position: "relative", // 使文本相对于投影区域
+                                zIndex: 1, // 确保文本在投影区域之上
+                            }}
+                        >
+                            个人管理
+                        </h3>
+                        <div
+                            style={{
+                                position: "absolute",
+                                left: "-11px",
+                                bottom: "-5px", // 调整阴影区域的垂直位置
+                                width: "127px",
+                                height: "12px", // 阴影区域的高度
+                                background: "linear-gradient(to right, #C8B5FF, #C496FF)",
+                                transform: "skewX(-20deg)", // 使左右边变斜
+                                transformOrigin: "bottom", // 设置变换的起点为底部
+                                zIndex: 0, // 将阴影区域放在文本下方
+                            }}
+                        ></div>
+                    </div>
                     <Space style={{ width: '250px', height: '45px' }}>
                         <UploadDrawer></UploadDrawer>
                     </Space>

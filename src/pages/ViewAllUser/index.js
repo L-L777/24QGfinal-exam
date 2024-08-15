@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRole } from "../../utils/roleContext";
 import PublicMenu from "../../components/menu";
 import UserData from "./UserData.js";
 import { Flex, Card, message as antdMessage } from "antd";
@@ -7,10 +8,14 @@ import { useNavigate } from "react-router-dom";
 
 const ViewAllUser = () => {
   const navigate = useNavigate();
+  const { role } = useRole()
   const [url] = useState("admin");
   const [users, setUsers] = useState([]);
   useEffect(() => {
     document.title = "用户管理";
+    if (role.role !== '管理员' && role.role !== '用户') {
+      navigate('/login')
+    }
   }, []);
   // 消息处理回调
   const onMessageCallback = (message) => {

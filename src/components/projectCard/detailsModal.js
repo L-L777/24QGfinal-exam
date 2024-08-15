@@ -77,12 +77,15 @@ message.error('操作失败，请重新操作')
             if (response.data ==='普通用户'){
                 showModal()
                 setRelease(0)
+                localStorage.setItem('release',0)
             } else if (response.data ==='发布者'){
                 navigate(`/projectinformation?projectId=${projectId}&release=1`);
                 setRelease(1)
+                localStorage.setItem('release', 1)
             }else{
                 navigate(`/projectinformation?projectId=${projectId}&release=0`);
                 setRelease(0)
+                localStorage.setItem('release', 0)
             }
             setBtnLoading(false)       
         } catch (error) {
