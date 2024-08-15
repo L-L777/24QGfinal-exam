@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import PublicMenu from "../../components/menu"
 import { Flex, Space, Input, Row, Col, Pagination, Dropdown,Button,Empty } from "antd"
 import styled from 'styled-components';
@@ -61,6 +62,7 @@ const items = [
     },
 ];
 const ProjectShow = () => {
+    const navigate = useNavigate();
     const {role}=useRole()
     const [total, setTotal] = useState('')
     const [listData, setListData] = useState([])
@@ -74,6 +76,9 @@ const ProjectShow = () => {
     };
     useEffect(()=>{
         document.title='项目管理'
+        if(role.role!=='管理员'&&role.role!=='用户'){
+            navigate('/login')
+        }
         async function fetchData() {
             try {
                 let response

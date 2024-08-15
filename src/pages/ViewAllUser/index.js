@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PublicMenu from "../../components/menu";
 import UserData from "./UserData.js";
-import { Flex, Card } from "antd";
+import { Flex, Card, message as antdMessage } from "antd";
 import useWebSocket from "../../hooks/useWebSocket.js";
+import { useNavigate } from "react-router-dom";
 
 const ViewAllUser = () => {
+  const navigate = useNavigate();
+  const [url] = useState("admin");
   const [users, setUsers] = useState([]);
   useEffect(() => {
     document.title = "用户管理";
@@ -12,12 +15,16 @@ const ViewAllUser = () => {
   // 消息处理回调
   const onMessageCallback = (message) => {
     console.log("Received WebSocket message:", message);
-    setUsers(message.data ? message.data : []);
+    if (message.type === "multiLog") {
+      antdMessage.error("多地登录，请重新登录");
+      navigate("/login");
+    }
+    setUsers(message.userList ? message.userList : []);
   };
   // 使用自定义 Hook
   const { connect, disconnect } = useWebSocket(onMessageCallback);
   useEffect(() => {
-    connect();
+    connect(url);
     // 组件卸载时断开 WebSocket 连接
     return () => {
       disconnect();

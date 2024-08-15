@@ -3,11 +3,18 @@ import { registerAPI } from "../../api/index";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "../../utils/roleContext";
+import useWebSocket from "../../hooks/useWebSocket.js";
 const RegisterForm = () => {
   localStorage.clear();
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState("注册");
   const { setRole } = useRole();
+  // 消息处理回调
+  const onMessageCallback = (message) => {
+    console.log("Received WebSocket message:", message);
+  };
+  // 使用自定义 Hook
+  const { connect } = useWebSocket(onMessageCallback);
   const navigate = useNavigate();
   const onFinish = async (values) => {
     setLoading(true); // 提交时禁用按钮并显示加载状态
@@ -19,12 +26,15 @@ const RegisterForm = () => {
       if (res.code === 0) {
         message.error(res.msg);
       } else {
-        console.log(res)
+        console.log(res);
         message.success(res.msg);
         setRole({ role: "用户", username: values.username });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("role", "用户");
+        localStorage.setItem("username", values.username);
         navigate("/projectshow");
+        connect(res.data.userId);
       }
     } catch (error) {
       console.error(error);

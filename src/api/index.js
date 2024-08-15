@@ -482,22 +482,19 @@ export function increaseVisits(projectId) {
   });
 }
 
-
-
 export function showDetailedLogForFront(groupType, logId, logType) {
   const data = {
     groupType,
     logId,
-    logType
+    logType,
   };
   // console.log(params);
   return service({
     url: "/log/showDetailedLogForFront",
     method: "post",
-    data
-  })
+    data,
+  });
 }
-
 
 // 项目发布者设置项目报错阈值
 export function setErrorRate(projectId, errorRate) {
@@ -506,6 +503,7 @@ export function setErrorRate(projectId, errorRate) {
     projectId,
     errorRate,
   };
+
   // 发送请求
   return service({
     url: "/project/setErrorRate",
@@ -513,4 +511,3 @@ export function setErrorRate(projectId, errorRate) {
     data,
   });
 }
-
