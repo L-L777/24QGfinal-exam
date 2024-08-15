@@ -24,8 +24,13 @@ setInputValue(e.target.value)
             return;
         }
         try{
-            await freezeProject(projectId,InputValue)
-            message.success("冻结成功")
+          const res=  await freezeProject(projectId,InputValue)
+          if(res.code===1){
+              message.success("冻结成功")
+          }    
+        else{
+              message.error("冻结失败请重新冻结")
+        }
         }catch{
 message.error("冻结失败请重新冻结")
         }finally{
