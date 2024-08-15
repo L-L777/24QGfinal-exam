@@ -104,6 +104,7 @@ const PublicMenu = () => {
           left: "50%",
           zIndex: "100",
           transform: "translate(-50%, -50%)",
+          display: mesItem ? "block" : "none",
         }}
       />
       <Menu
