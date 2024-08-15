@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
-import * as echarts from 'echarts';
+
 
 const BarChart = ({ excdata }) => {
     // 处理数据
     let data = [50, 30, 10, 40, 50, 420, 0];
-    // if (excdata)
-    //     data = excdata.map((item) => {
-    //         return item.total
-    //     })
+    if (excdata)
+        data = excdata.map((item) => {
+            return item.total
+        })
     // 生成过去七天的日期
     const generateDateArray = () => {
         const today = new Date(); // 当前时间

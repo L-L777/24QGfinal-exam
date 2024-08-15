@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, Flex } from 'antd';
 import View from './Antv/view'
 import Error from './Antv/error'
@@ -6,7 +6,7 @@ import ErrorRate from './Antv/errorRate'
 import ErrorType from './Antv/errorType'
 
 
-const InfromationCard = ({ receiveProjectId, weekData }) => {
+const InfromationCard = ({ weekData }) => {
 
 
     return (

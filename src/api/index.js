@@ -503,14 +503,9 @@ export function showDetailedLogForFront(groupType, logId, logType) {
 export function setErrorRate(projectId, errorRate) {
   // 创建 FormData 对象
   const data = {
-<<<<<<< HEAD
     projectId,
     errorRate,
   };
-=======
-    projectId, errorRate
-  }
->>>>>>> 02246819b90adb05cb8d8eae7dbbcb91168ed8d7
 
   // 发送请求
   return service({
