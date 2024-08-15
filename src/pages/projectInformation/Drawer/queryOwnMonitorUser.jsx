@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, List, Drawer, Space, Table, Tag } from 'antd';
+import { Drawer, Table, Tag } from 'antd';
 
 
 
@@ -51,7 +51,6 @@ export default function Error({ open, onClose, user }) {
     });
 
     // 输出结果
-    console.log(data);
 
 
     return (

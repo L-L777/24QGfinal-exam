@@ -482,13 +482,35 @@ export function increaseVisits(projectId) {
   });
 }
 
+
+
+export function showDetailedLogForFront(groupType, logId, logType) {
+  const data = {
+    groupType,
+    logId,
+    logType
+  };
+  // console.log(params);
+  return service({
+    url: "/log/showDetailedLogForFront",
+    method: "post",
+    data
+  })
+}
+
+
 // 项目发布者设置项目报错阈值
 export function setErrorRate(projectId, errorRate) {
   // 创建 FormData 对象
   const data = {
+<<<<<<< HEAD
     projectId,
     errorRate,
   };
+=======
+    projectId, errorRate
+  }
+>>>>>>> 02246819b90adb05cb8d8eae7dbbcb91168ed8d7
 
   // 发送请求
   return service({
@@ -497,3 +519,4 @@ export function setErrorRate(projectId, errorRate) {
     data,
   });
 }
+

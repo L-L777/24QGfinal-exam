@@ -2,30 +2,30 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 import * as echarts from 'echarts';
 
-const BarChart = ({ excdata }) => {
+const BarChart = ({ fcp }) => {
     // 处理数据
-    let value = 80
-    if (excdata) {
-        const maxValue = Math.max(...excdata);
+    // 生成过去七天的日期
 
-        // 2. 计算最大值在数组中的出现次数
-        const maxCount = excdata.filter(value => value === maxValue).length;
 
-        // 3. 计算最大值的占比
-        const totalCount = excdata.length;
-        const maxPercentage = (maxCount / totalCount) * 100;
 
-        value = maxPercentage.toFixed(2)
-    }
+    // 生成接近 data 的随机数据
+
+
+    // 原始数据
+
+
+    // 生成几条新线的数据
 
 
 
     const option = {
+
         series: [
             {
                 type: 'gauge',
                 radius: '100%', // 调整仪表盘半径百分比
-
+                min: 0, // 设置仪表盘最小值
+                max: 1000, // 设置仪表盘最大值
                 axisLine: {
                     lineStyle: {
                         width: 30,
@@ -60,17 +60,17 @@ const BarChart = ({ excdata }) => {
                 axisLabel: {
                     color: 'inherit',
                     distance: 40,
-                    fontSize: 20
+                    fontSize: 14
                 },
                 detail: {
                     valueAnimation: true,
-                    formatter: '{value}%',
+                    formatter: fcp,
                     color: 'inherit',
                     fontSize: '28px'
                 },
                 data: [
                     {
-                        value: value
+                        value: fcp
                     }
                 ]
             }
@@ -79,7 +79,7 @@ const BarChart = ({ excdata }) => {
 
 
     return (
-        <ReactECharts option={option} style={{ width: '700px', height: '400px', paddingBottom: '0px' }} />
+        <ReactECharts option={option} style={{ height: '250px', paddingBottom: '0px' }} />
     );
 };
 

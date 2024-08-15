@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Flex, Button, Modal, Input, message } from "antd";
 import Updata from './Drawer/updata';
 import QueryOwnMonitorUser from './Drawer/queryOwnMonitorUser';
 import { deleteProject, queryOwnMonitorUser } from '../../api/index';
-import { useNavigate,useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import WarnModal from './warnModal';
 import ProjectLog from './checkLogModal';
 import { useRelease } from '../../utils/roleContext';
@@ -16,8 +16,7 @@ const Top = ({ projectData, receiveProjectId }) => {
     const [messageApi, contextHolder] = message.useMessage();
     const DeleteRef = useRef();
     const navigate = useNavigate()
-    const location=useLocation()
-   const {release}=useRelease()
+    const { release } = useRelease()
     const showDrawerUpdata = () => {
         setOpenUpdata(true);
     };
@@ -41,7 +40,6 @@ const Top = ({ projectData, receiveProjectId }) => {
 
             try {
                 const res = await deleteProject(projectData.projectId, DeleteRef.current.input.value);
-                console.log(res);
                 if (res.code === 1) {
                     success("项目已成功删除,1s后跳转");
                     setIsModalOpen(false);
@@ -103,9 +101,9 @@ const Top = ({ projectData, receiveProjectId }) => {
         }
     };
 
-    useEffect(() => {
-        onLoad()
-    }, [])
+
+    onLoad()
+
 
     return (
         <Flex

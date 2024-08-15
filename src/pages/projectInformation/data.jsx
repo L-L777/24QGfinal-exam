@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Flex, Input, Dropdown, Space, Table } from 'antd'
+import { Card, Flex, Dropdown, Space, Table } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
 import styles from './data.module.css'
 import { useNavigate } from "react-router-dom";
@@ -53,10 +53,6 @@ const Data = ({ receiveProjectId }) => {
 
     const showDrawer = (data, record) => {
         let type = 1
-        console.log(data.logId, data.logType)
-        console.log(receiveProjectId)
-        console.log(dataType)
-        console.log(listStatus)
         if (dataType === '前端')
             type = 1
 
@@ -128,7 +124,6 @@ const Data = ({ receiveProjectId }) => {
     const onClick = ({ key }) => {
         let type = 1
         SetDataType(key)
-        console.log(key)
         if (key === '前端')
             type = 1
 
@@ -154,7 +149,6 @@ const Data = ({ receiveProjectId }) => {
                 ...item,
                 logInfo: item.logInfo.length > 60 ? item.logInfo.substring(0, 60) + '...' : item.logInfo
             }));
-            console.log(processedData);
             setData(processedData || []);
         } catch (error) {
             console.log(error);
@@ -233,8 +227,8 @@ const Data = ({ receiveProjectId }) => {
                                 height: 36,
                                 width: 100,
                                 backgroundColor: '#8c59fc',
-                                color:'#FFF',
-                                borderRadius:'5px',
+                                color: '#FFF',
+                                borderRadius: '5px',
                                 justifyContent: 'center',
                                 fontSize: '16px',
                                 padding: '0 10px'
