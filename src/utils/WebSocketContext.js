@@ -1,13 +1,19 @@
 // src/contexts/WebSocketContext.js
 
-import React, { createContext, useContext, useCallback, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useCallback,
+  useState,
+  useEffect,
+} from "react";
 import useWebSocket from "../hooks/useWebSocket";
 
 const WebSocketContext = createContext();
 
 export const WebSocketProvider = ({ children }) => {
   const [callbacks, setCallbacks] = useState([]);
-
+  const [userId, setUserId] = useState(null);
   const onMessageCallback = useCallback(
     (message) => {
       callbacks.forEach((callback) => callback(message));
@@ -28,6 +34,16 @@ export const WebSocketProvider = ({ children }) => {
     setCallbacks((prev) => prev.filter((cb) => cb !== callback));
   };
 
+  useEffect(() => {
+    if (userId) {
+      connect(userId);
+    }
+
+    // 页面卸载时断开 WebSocket 连接
+    return () => {
+      disconnect();
+    };
+  }, [userId, connect, disconnect]);
   return (
     <WebSocketContext.Provider
       value={{
@@ -38,6 +54,7 @@ export const WebSocketProvider = ({ children }) => {
         error,
         registerMessageCallback,
         unregisterMessageCallback,
+        setUserId,
       }}
     >
       {children}
