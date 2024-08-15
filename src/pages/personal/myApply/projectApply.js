@@ -4,8 +4,7 @@ import DetailModal from "./alertModal";
 import { myApplicationProject } from "../../../api"
 import { userProjectData } from '../../../mock/data';
 import GetSdk from "./getSdk";
-const ProjectApply = () => {
-    const userId=localStorage.getItem('userId')
+const ProjectApply = ({userId}) => {
     const [page,setPage]=useState(1)
     const [pageSize,setPageSize]=useState(10)
     const [applyData,setApplyData]=useState([])
@@ -14,8 +13,10 @@ const ProjectApply = () => {
         async function fetchData() {
             try {
                 const response = await myApplicationProject(userId,page, pageSize);
-                setApplyData(response.data.data)
-                
+                if(response.code===1){
+                    setApplyData(response.data.data)
+                }
+
     setTotal(response.data.total)
             } catch (error) {
                 setApplyData(userProjectData.data)

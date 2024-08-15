@@ -2,7 +2,18 @@ import React from 'react';
 import { Flex } from "antd"
 
 
-const number = () => {
+const number = ({ weekData }) => {
+
+    let count = 0, add = 0, addError = 0, addRate = 0
+    if (weekData.length > 0) {
+        count = weekData[0].totalVisit
+        add = weekData[0].visits
+        addError = weekData[0].errorNumber
+        addRate = weekData[0].errorRate
+    }
+
+
+
     return (
         <Flex style={{
             width: '100%',
@@ -17,8 +28,8 @@ const number = () => {
                 color: 'white',
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
-                <span>资源总数</span>
-                <span>9344716个</span>
+                <span>总访问量</span>
+                <span>{count}</span>
             </Flex>
             <Flex style={{
                 width: '100%',
@@ -27,8 +38,8 @@ const number = () => {
                 color: 'white',
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
-                <span>今日新增</span>
-                <span>372个</span>
+                <span>日访问量</span>
+                <span>{add}</span>
             </Flex>
             <Flex style={{
                 width: '100%',
@@ -37,8 +48,8 @@ const number = () => {
                 color: 'white',
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
-                <span>今日下载</span>
-                <span>9344716个</span>
+                <span>错误数</span>
+                <span>{addError}</span>
             </Flex>
             <Flex style={{
                 width: '100%',
@@ -47,8 +58,8 @@ const number = () => {
                 color: 'white',
                 fontWeight: '700',
             }} vertical justify={"center"} align={"center"} gap={'middle'}>
-                <span>审核队列</span>
-                <span>9个</span>
+                <span>错误率</span>
+                <span>{addRate}</span>
             </Flex>
         </Flex>
     );

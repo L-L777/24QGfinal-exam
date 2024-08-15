@@ -1,7 +1,11 @@
 import React from 'react';
 import { Card,Flex } from 'antd';
 import DetailModal from './detailsModal';
-const ProjectCard = ({projectName,projectId,description,creator,createTime}) => (
+import FreezeModal from './freezeBtn';
+import { useRole } from "../../utils/roleContext";
+const ProjectCard = ({ projectName, projectId, description, creator, createTime, applicationId, selectedLog }) => {
+    const {role}=useRole()
+    return(
         <Card
         hoverable
             style={{
@@ -29,10 +33,14 @@ const ProjectCard = ({projectName,projectId,description,creator,createTime}) => 
 
             </Flex>
             <div style={{position:'absolute', bottom:'10px',right:'10px',borderRadius:'4px',width:'70px',height:'28px',backgroundColor:'#000'}}>
-                <DetailModal projectName={projectName} projectId={projectId} createTime={createTime} creator={creator} description={description}></DetailModal>
+                <DetailModal projectName={projectName} projectId={projectId} createTime={createTime} creator={creator} description={description} applicationId={applicationId} selectedLog={selectedLog}></DetailModal>
             </div>
+            {role.role === '管理员' && (<div style={{ position: 'absolute', bottom: '10px', right: '100px', borderRadius: '4px', width: '70px', height: '28px', backgroundColor: '#000' }}>
+                <FreezeModal projectId={projectId}></FreezeModal>
+            </div>)}
+        
         </Card>
     
 
-);
+);}
 export default ProjectCard;

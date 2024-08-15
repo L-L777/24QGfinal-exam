@@ -188,6 +188,7 @@ export function updateProject(
     projectPassword,
     userId,
   };
+  console.log(data);
   // console.log(data);
   return service({
     url: "/project/updateProject",
@@ -272,20 +273,18 @@ export function queryAllUserOperationLog(page, pageSize) {
   });
 }
 // 查看日志（页面、服务器、移动app）
-export function viewLogForGroup(groupType, pagesize, page, projectId) {
-  const params = {
-    groupType,
-    pagesize,
-    page,
-    projectId,
-  };
-  // console.log(params);
+export function viewLogForGroup(status) {
+  // 创建 FormData 对象
+  const params = status;
+
+  // 发送 POST 请求
   return service({
     url: "/log/viewLogForGroup",
     method: "get",
     params,
   });
 }
+
 // 最近一周内的项目的访问数据和报错统计
 export function projectPresentationDateOneWeek(projectId) {
   const params = {
@@ -313,23 +312,37 @@ export function viewProjectOperateLog(projectId) {
 }
 
 // 管理员查看已经通过审核的项目即已经发布的项目（发布状态冻结/正常）
-export function pagedQueryPublishedPorject(projectStatus, page, pageSize) {
+export function pagedQueryPublishedProject(
+  projectStatus,
+  page,
+  pageSize,
+  keyWord = ""
+) {
   const params = {
     projectStatus,
     page,
     pageSize,
+    keyWord,
   };
   // console.log(params);
   return service({
-    url: "/admin/pagedQueryPublishedPorject",
+    url: "/admin/pagedQueryPublishedProject",
     method: "get",
     params,
   });
 }
 // 管理员查看项目申请情况（待审核/被拒绝）
-export function pagedQueryProjectApplication(applicationStatus) {
+export function pagedQueryProjectApplication(
+  applicationStatus,
+  page,
+  pageSize,
+  keyWord = ""
+) {
   const params = {
     applicationStatus,
+    page,
+    pageSize,
+    keyWord,
   };
   // console.log(params);
   return service({
@@ -406,6 +419,80 @@ export function freezeProject(projectId, freezeHour) {
   // console.log(data);
   return service({
     url: "/admin/freezeProject",
+    method: "post",
+    data,
+  });
+}
+
+// 根据日志id查看详细的日志信息
+export function showDetaliedLog(groupType, logId, logType) {
+  const data = {
+    groupType,
+    logId,
+    logType,
+  };
+  // console.log(data);
+  return service({
+    url: "/log/showDetailedLogForFront",
+    method: "post",
+    data,
+  });
+}
+// 根据不同组查询一周的日志数量
+export function showLogNumberOneWeekForGroup(groupType, logType, projectId) {
+  const data = {
+    groupType,
+    logType,
+    projectId,
+  };
+  console.log(data);
+  // console.log(data);
+  return service({
+    url: "/log/showLogNumberOneWeekForGroup",
+    method: "post",
+    data,
+  });
+}
+// 查询项目的前端日志性能
+export function queryFrontPerformanceLog(projectId) {
+  const params = {
+    projectId,
+  };
+  // console.log(params);
+  return service({
+    url: "/log/queryFrontPerformanceLog",
+    method: "get",
+    params,
+  });
+}
+
+export function increaseVisits(projectId) {
+  // 创建 FormData 对象
+  const formData = new FormData();
+  formData.append("projectId", projectId);
+
+  // 发送请求
+  return service({
+    url: "/log/increaseVisits",
+    method: "post",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data", // 设置请求头为 multipart/form-data
+    },
+  });
+}
+
+// 项目发布者设置项目报错阈值
+export function setErrorRate(projectId, errorRate) {
+  // 创建 FormData 对象
+  const data = {
+    projectId,
+    errorRate,
+  };
+
+  // 发送请求
+  return service({
+    url: "/project/setErrorRate",
     method: "post",
     data,
   });

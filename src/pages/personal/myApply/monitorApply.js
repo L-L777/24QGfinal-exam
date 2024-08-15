@@ -3,8 +3,7 @@ import { Flex, List, Space, Empty } from "antd";
 import { myApplicationOnMonitorProject } from "../../../api"
 import { toMonitorApplyData } from '../../../mock/data';
 
-const MonitorApply=()=>{
-    const userId = localStorage.getItem('userId')
+const MonitorApply=({userId})=>{
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(10)
     const [applyData, setApplyData] = useState([])
@@ -14,8 +13,11 @@ const MonitorApply=()=>{
         async function fetchData() {
             try {
                 const response = await myApplicationOnMonitorProject(userId, page, pageSize);
-                setApplyData(response.data.data)
-                setTotal(response.data.total)
+                if(response.code===1){
+                    setApplyData(response.data.data)
+                    setTotal(response.data.total)
+                }
+
             } catch (error) {
                 setApplyData(toMonitorApplyData.data)
                 setTotal(toMonitorApplyData.total)
@@ -42,7 +44,10 @@ const MonitorApply=()=>{
                 renderItem={(item) => (
                     <List.Item>
                         <Flex style={{ width: '100%' }} justify="space-between">
-                            <div>{item.projectName}</div>
+                            <Flex style={{ width: '50%' }} justify="space-between">
+                                <div style={{ width: '48%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.projectName}</div>
+                                <div style={{ width: '48%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', textAlign: 'end' }}>{item.creator}</div>
+                            </Flex>
                             <Space size={20}>
                                 <div>{item.applicationTime}</div>
                                 {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#E0D1FF', color: '#9053C0' }}>同意</div>}

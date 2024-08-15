@@ -1,15 +1,17 @@
 import Router from "./router";
-
-import { RoleProvider } from "./utils/roleContext";
+// import useWebSocket from "./hooks/useWebSocket";
+import { RoleProvider, ReleaseProvider } from "./utils/roleContext";
 import { WebSocketProvider } from "./utils/WebSocketContext";
 function App() {
   return (
     <RoleProvider>
-      <WebSocketProvider>
-        <div className="App">
-          <Router />
-        </div>
-      </WebSocketProvider>
+      <ReleaseProvider>
+        <WebSocketProvider>
+          <div className="App">
+            <Router />
+          </div>
+        </WebSocketProvider>
+      </ReleaseProvider>
     </RoleProvider>
   );
 }
