@@ -37,10 +37,10 @@ export const ReleaseProvider = ({ children }) => {
     </ReleaseContext.Provider>
   );
 };
-export const useRelease =()=>{
-  const context = useContext(ReleaseContext)
+export const useRelease = () => {
+  const context = useContext(ReleaseContext);
   if (context === undefined) {
     throw new Error("useRelease must be used within a ReleaseProvider");
   }
   return context;
-}
+};
