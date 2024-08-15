@@ -15,6 +15,11 @@ const useWebSocket = (onMessageCallback) => {
     webSocketService.disconnect();
   }, []);
 
+  // 发送消息到 WebSocket
+  const sendMessage = useCallback((message) => {
+    webSocketService.sendMessage(message);
+  }, []);
+
   // 注册消息处理函数
   useEffect(() => {
     if (onMessageCallback) {
@@ -69,6 +74,7 @@ const useWebSocket = (onMessageCallback) => {
     disconnect,
     connected,
     error,
+    sendMessage,
   };
 };
 

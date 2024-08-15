@@ -23,7 +23,6 @@ export default function Error({ open, onClose, projectData }) {
 
             try {
                 const res = await updateProject(url, projectData.projectId, description, password, localStorage.getItem('userId'));
-                console.log(res);
                 if (res.code === 1) {
                     message.success('更改成功'); // 使用 Ant Design 的 message 组件显示成功消息
 

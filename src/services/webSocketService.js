@@ -7,7 +7,7 @@ const onMessageCallbacks = [];
 let shouldReconnect = true;
 let heartbeatInterval = null;
 const HEARTBEAT_INTERVAL = 30000; // 30 seconds
-const HEARTBEAT_MESSAGE = JSON.stringify({ type: "HEARTBEAT" });
+const HEARTBEAT_MESSAGE = JSON.stringify({ methodName: "heartbeat" });
 
 //建立WebSocket连接
 const connect = () => {
@@ -28,7 +28,7 @@ const connect = () => {
   socket.onmessage = (event) => {
     try {
       const message = JSON.parse(event.data);
-      if (message.type === "HEARTBEAT") {
+      if (message.methodName === "heartbeat") {
         console.log("收到心跳消息");
         return;
       }
@@ -53,13 +53,13 @@ const connect = () => {
 };
 
 // 发送消息到服务器
-// const sendMessage = (message) => {
-//   if (socket && socket.readyState === WebSocket.OPEN) {
-//     socket.send(JSON.stringify(message));
-//   } else {
-//     console.warn('WebSocket is not open. Cannot send message.');
-//   }
-// };
+const sendMessage = (message) => {
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify(message));
+  } else {
+    console.warn("WebSocket is not open. Cannot send message.");
+  }
+};
 //注册消息处理函数
 const onMessage = (callback) => {
   onMessageCallbacks.push(callback);
@@ -107,6 +107,6 @@ const webSocketService = {
   onMessage,
   offMessage,
   disconnect,
-  // sendMessage, // 导出发送消息的方法
+  sendMessage, // 导出发送消息的方法
 };
 export default webSocketService;

@@ -3,107 +3,86 @@ import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 import * as echarts from 'echarts';
 
 const BarChart = ({ dns }) => {
-    // 处理数据
-    // 生成过去七天的日期
+    // ECharts 配置
+    // prettier-ignore
+    let data = [0, 0, 0, 0, 0, 0, 0]
+    if (dns)
+        data = dns
 
 
+    const generateDateArray = () => {
+        const today = new Date(); // 当前时间
+        const dates = [];
+        // 从昨天开始
+        today.setDate(today.getDate() - 1);
 
-    // 生成接近 data 的随机数据
+        // 生成过去七天的日期
+        for (let i = 0; i < 7; i++) {
+            // 创建日期副本并格式化为 MM-DD
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            dates.push(formatDate(date)); // 使用格式化函数
+        }
 
+        return dates.reverse(); // 反转数组使其从昨天到七天前
+    };
 
-    // 原始数据
+    // 格式化函数，仅保留 MM-DD
+    const formatDate = (date) => {
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 获取月份并补零
+        const day = String(date.getDate()).padStart(2, '0'); // 获取日期并补零
+        return `${month}-${day}`;
+    };
 
-
-    // 生成几条新线的数据
-
+    const dataAxis = generateDateArray();
     const option = {
+        // Make gradient line here
+        visualMap: [
+            {
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 4000
+            },
+
+        ],
+        title: [
+            {
+                left: 'left',
+                text: 'dns'
+            },
+
+        ],
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: [
+            {
+                data: dataAxis
+            },
+
+        ],
+        yAxis: {
+
+        },
+        grid: {
+
+        },
         series: [
             {
-                type: 'gauge',
-                startAngle: 180,
-                endAngle: 0,
-                center: ['50%', '80%'],
-                radius: '120%',
-                min: 0,
-                max: 1,
-                splitNumber: 8,
-                axisLine: {
-                    lineStyle: {
-                        width: 6,
-                        color: [
-                            [0.25, '#7CFFB2'],
-                            [0.5, '#58D9F9'],
-                            [0.75, '#FDDD60'],
-                            [1, '#FF6E76']
-                        ]
-                    }
-                },
-                pointer: {
-                    icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-                    length: '12%',
-                    width: 20,
-                    offsetCenter: [0, '-60%'],
-                    itemStyle: {
-                        color: 'auto'
-                    }
-                },
-                axisTick: {
-                    length: 12,
-                    lineStyle: {
-                        color: 'auto',
-                        width: 2
-                    }
-                },
-                splitLine: {
-                    length: 20,
-                    lineStyle: {
-                        color: 'auto',
-                        width: 5
-                    }
-                },
-                axisLabel: {
-                    color: '#464646',
-                    fontSize: 20,
-                    distance: -60,
-                    rotate: 'tangential',
-                    formatter: function (value) {
-                        if (value === 0.875) {
-                            return 'Grade D';
-                        } else if (value === 0.625) {
-                            return 'Grade B';
-                        } else if (value === 0.375) {
-                            return 'Grade C';
-                        } else if (value === 0.125) {
-                            return 'Grade A';
-                        }
-                        return '';
-                    }
-                },
-                title: {
-                    offsetCenter: [0, '-10%'],
-                    fontSize: 20
-                },
-                detail: {
-                    fontSize: 30,
-                    offsetCenter: [0, '-35%'],
-                    valueAnimation: true,
-                    formatter: function (value) {
-                        return Math.round(value * 1000) + '';
-                    },
-                    color: 'inherit'
-                },
-                data: [
-                    {
-                        value: dns / 1000,
-                        name: 'Grade Rating'
-                    }
-                ]
-            }
+                type: 'line',
+                showSymbol: false,
+                data: data
+            },
+
         ]
     };
 
+
+
     return (
-        <ReactECharts option={option} style={{ height: '250px', paddingBottom: '0px' }} />
+        <ReactECharts option={option} style={{ height: '310px', paddingTop: 10, paddingLeft: 10, paddingRight: 10 }} />
     );
 };
 

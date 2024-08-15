@@ -2,10 +2,11 @@ import { Flex, Row, Col, Card } from "antd"
 import { useEffect, useState } from "react";
 import { queryFrontPerformanceLog } from "../../api"
 import Fp from "./Antv/fp"
-import Fcp from "./Antv/dns"
-import Domerady from './Antv/Domready'
-import BlankScreenTime from './Antv/blankScreenTime'
-import Dns from './Antv/dns'
+import Fcp from "./Antv/fcp"
+import DomReady from "./Antv/domReady"
+import Dns from "./Antv/dns"
+import BlankScreenTime from "./Antv/blankScreenTime"
+
 
 const FrontedPerformance = ({ projectId }) => {
     const [data, setData] = useState([])
@@ -55,39 +56,40 @@ const FrontedPerformance = ({ projectId }) => {
         }
 
     }, [projectId])
-//    console.log(fcp);
 
-   
+    console.log(dns);
+
+
     return (
         <Flex style={{ width: '90%', marginTop: '30px' }} vertical>
             <h3 style={{ color: "#3F1575", fontSize: '24px' }}>performance</h3>
             <Row justify='space-around' gutter={[20]} style={{ width: '100%', marginTop: '30px' }}>
                 <Col span={12}>
                     <Card style={{ height: '300px' }} hoverable
-                        title={<div style={{ fontSize: '20px' }}>fp</div>}>
+                    >
                         <Fp fp={fp} />
                     </Card>
                 </Col>
                 <Col span={12}>
-                    <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>fcp</div>} hoverable>
-                        <Fp fp={fcp} />
+                    <Card style={{ height: '300px' }} hoverable>
+                        <Fcp fcp={fcp} />
                     </Card>
                 </Col>
             </Row>
             <Row justify='space-around' gutter={[20]} style={{ width: '100%', marginTop: '30px' }}>
                 <Col span={8}>
                     <Card style={{ height: '300px' }} hoverable
-                        title={<div style={{ fontSize: '20px' }}>Domready</div>}>
-                        <Domerady domReady={domReady} />
+                    >
+                        <DomReady domReady={domReady} />
                     </Card>
                 </Col>
                 <Col span={8}>
-                    <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>dns</div>} hoverable>
+                    <Card style={{ height: '300px' }} hoverable>
                         <Dns dns={dns} />
                     </Card>
                 </Col>
                 <Col span={8}>
-                    <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>blankScreenTime</div>} hoverable>
+                    <Card style={{ height: '300px' }} hoverable>
                         <BlankScreenTime blankScreenTime={blankScreenTime} />
                     </Card>
                 </Col>
