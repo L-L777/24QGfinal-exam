@@ -19,8 +19,9 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
                 hoverable
                 style={{
                     width: '45%',
-                    height: 220,
+                    height: 240,
                     marginBottom: '30px',
+                    padding: '10px',
 
                 }}
 
@@ -31,8 +32,9 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
                 hoverable
                 style={{
                     width: '45%',
-                    height: 220,
-                    marginBottom: '30px'
+                    height: 240,
+                    marginBottom: '30px',
+                    padding: '10px',
                 }}
 
             >
@@ -42,7 +44,8 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
                 hoverable
                 style={{
                     width: '45%',
-                    height: 330
+                    height: 360,
+                    padding: '10px',
                 }}
 
             >
@@ -52,7 +55,8 @@ const InfromationCard = ({ receiveProjectId, weekData }) => {
                 hoverable
                 style={{
                     width: '45%',
-                    height: 330,
+                    height: 360,
+                    padding: '10px',
 
                     overflow: 'visible',
 

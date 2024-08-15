@@ -1,6 +1,6 @@
 import { Flex, Row, Col, Card } from "antd"
 import { useEffect, useState } from "react";
-import { showDetailedLogForFront } from "../../api"
+import { queryFrontPerformanceLog } from "../../api"
 import Fp from "./Antv/fp"
 import Fcp from "./Antv/dns"
 import Domerady from './Antv/Domready'
@@ -17,26 +17,26 @@ const FrontedPerformance = ({ projectId }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await showDetailedLogForFront(1, 63, 1)
+                const response = await queryFrontPerformanceLog(projectId)
                 setData(response.data)
-                const getInformation = JSON.parse(response.data.logInfo.data);
+                // const getInformation = JSON.parse(response.data.logInfo.data);
                 // // 提取所需的值
-                const { fp, fcp, domReady, dns, blankScreenTime } = getInformation;
-                console.log(response.data)
-                // 确保每个 set 函数调用的值与其对应的状态变量匹配
-                setFp(fp); // 设置 fp 状态
-                setFcp(fcp); // 设置 fcp 状态
-                setDomReady(domReady); // 设置 domReady 状态
-                setDns(dns); // 设置 dns 状态
-                setBlankScreenTime(blankScreenTime); // 设置 blankScreenTime 状态
-                // response.data.map((item) => {
-                //     const parsedData = JSON.parse(item.data)
-                //     setFp(prevFp => [...prevFp, parsedData.fp]);
-                //     setFcp(prevFcp => [...prevFcp, parsedData.fcp]);
-                //     setDomReady(prevDomReady => [...prevDomReady, parsedData.domReady]);
-                //     setDns(prevDns => [...prevDns, parsedData.dns]);
-                //     setBlankScreenTime(prevBlackScreenTime => [...prevBlackScreenTime, parsedData.blankScreenTime]);
-                // })
+                // const { fp, fcp, domReady, dns, blankScreenTime } = getInformation;
+                // console.log(response.data)
+                // // 确保每个 set 函数调用的值与其对应的状态变量匹配
+                // setFp(fp); // 设置 fp 状态
+                // setFcp(fcp); // 设置 fcp 状态
+                // setDomReady(domReady); // 设置 domReady 状态
+                // setDns(dns); // 设置 dns 状态
+                // setBlankScreenTime(blankScreenTime); // 设置 blankScreenTime 状态
+                response.data.map((item) => {
+                    const parsedData = JSON.parse(item.data)
+                    setFp(prevFp => [...prevFp, parsedData.fp]);
+                    setFcp(prevFcp => [...prevFcp, parsedData.fcp]);
+                    setDomReady(prevDomReady => [...prevDomReady, parsedData.domReady]);
+                    setDns(prevDns => [...prevDns, parsedData.dns]);
+                    setBlankScreenTime(prevBlackScreenTime => [...prevBlackScreenTime, parsedData.blankScreenTime]);
+                })
 
 
 
@@ -55,7 +55,8 @@ const FrontedPerformance = ({ projectId }) => {
         }
 
     }, [projectId])
-
+   console.log(fcp);
+   
     return (
         <Flex style={{ width: '90%', marginTop: '30px' }} vertical>
             <h3 style={{ color: "#3F1575", fontSize: '24px' }}>performance</h3>
