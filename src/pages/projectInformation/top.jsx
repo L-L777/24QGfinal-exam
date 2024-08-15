@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Flex, Button, Modal, Input, message } from "antd";
 import Updata from './Drawer/updata';
 import QueryOwnMonitorUser from './Drawer/queryOwnMonitorUser';
@@ -91,18 +91,22 @@ const Top = ({ projectData, receiveProjectId }) => {
         });
     };
 
-    const onLoad = async () => {
-        try {
-            const res = await queryOwnMonitorUser(receiveProjectId);
-            // 处理数据，截断 logInfo 字段           
-            setUser(res.data || [])
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
 
-    onLoad()
+
+    useEffect(() => {
+        const onLoad = async () => {
+            try {
+                const res = await queryOwnMonitorUser(receiveProjectId);
+                // 处理数据，截断 logInfo 字段           
+                setUser(res.data || [])
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        onLoad()
+
+    }, [receiveProjectId]);
 
 
     return (
