@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation,useNavigate } from "react-router-dom"
+import { useRole } from "../../utils/roleContext";
 import { Flex } from "antd"
 import PublicMenu from "../../components/menu"
 import FrontedPerformance from "./Frontedperformance"
@@ -14,6 +15,8 @@ import BackendPerformanceInfo from "./backendPerformanceInfo"
 import BackendSelfDefinedInfo from "./selfDefinedInfo"
 const LogDetail=()=>{
     const location=useLocation()
+    const { role } = useRole()
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const [logType, setLogType] = useState(parseInt(searchParams.get('logType')))
     const [projectId, setProjectId] = useState(parseInt(searchParams.get('projectId')))
@@ -27,6 +30,9 @@ const LogDetail=()=>{
     const [logUrl,setLogUrl]=useState('')
     useEffect(()=>{
         document.title="日志详情"
+        if (role.role !== '管理员' && role.role !== '用户') {
+            navigate('/login')
+        }
         setLogType(parseInt(searchParams.get('logType')))
         setLogId(parseInt(searchParams.get('logId')))
         setProjectId(parseInt(searchParams.get('projectId')))

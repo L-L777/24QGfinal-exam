@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import PublicMenu from "../../components/menu";
+import { useRole } from "../../utils/roleContext";
 import { Flex } from "antd";
 import Top from "./top";
 import Number from "./number";
 import Data from "./data";
 import InfromationCard from "./infromationCard";
 import { detaliedInfo, projectPresentationDateOneWeek } from "../../api/index"
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 
 
 const Index = () => {
-
+  const navigate = useNavigate();
+  const { role } = useRole()
   const [projectData, setProjectData] = useState({})
   const [weekData, setWeekData] = useState([])
   const { search } = useLocation();
@@ -21,7 +23,9 @@ const Index = () => {
   }
 
   useEffect(() => {
-
+    if (role.role !== '管理员' && role.role !== '用户') {
+      navigate('/login')
+    }
 
     const onLoad = async () => {
       try {
@@ -93,7 +97,7 @@ const Index = () => {
         >
           日志
         </h1>
-        <Data receiveProjectId={receiveProjectId} weekData={weekData} receiveProjectId={receiveProjectId} />
+        <Data receiveProjectId={receiveProjectId} weekData={weekData}  />
       </Flex>
     </Flex>
   );

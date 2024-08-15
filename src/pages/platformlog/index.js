@@ -22,7 +22,7 @@ const PlatformLog = () => {
     useEffect(()=>{
 document.title="平台日志"
 if(role.role!=='管理员'){
-    navigate(-1)
+    navigate('/login')
 }
     },[])
     const [selectedLog, setSelectedLog] = useState('1');
