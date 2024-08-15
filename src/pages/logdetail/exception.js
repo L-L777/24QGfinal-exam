@@ -1,6 +1,6 @@
 import { Flex, Row, Col, Card } from "antd"
 import { showLogNumberOneWeekForGroup } from '../../api/index'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ErrorData from './Antv/errorData'
 import Cost from './Antv/cost'
 
@@ -12,16 +12,15 @@ const Exception = ({ groupType, logType, projectId }) => {
         try {
             const res = await showLogNumberOneWeekForGroup(groupType, logType, projectId);
             // 处理数据，截断 logInfo 字段
-            console.log(res)
             excSetData(res.data)
         } catch (error) {
             console.log(error);
         }
     };
 
-    useEffect(() => {
-        onLoad()
-    }, [])
+
+    onLoad()
+
 
 
     return (
