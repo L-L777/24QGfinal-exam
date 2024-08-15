@@ -1,16 +1,16 @@
 // src/services/webSocketService.js
 
 const WEB_SOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
-console.log(WEB_SOCKET_URL);
+
 let socket = null;
 const onMessageCallbacks = [];
 let shouldReconnect = true;
 let heartbeatInterval = null;
-const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+const HEARTBEAT_INTERVAL = 5000; // 30 seconds
 const HEARTBEAT_MESSAGE = JSON.stringify({ methodName: "heartbeat" });
 
 //建立WebSocket连接
-const connect = () => {
+const connect = (userId) => {
   if (socket && socket.readyState === WebSocket.OPEN) {
     console.warn("WebSocket connection already open");
     return; //已经连接
@@ -19,13 +19,18 @@ const connect = () => {
   if (socket) {
     socket.close();
   }
-  socket = new WebSocket(WEB_SOCKET_URL);
+  // 将 userId 添加到 WebSocket URL 后面
+  const urlWithUserId = `${WEB_SOCKET_URL}/${userId}`;
+  console.log("WebSocket URL with userId:", urlWithUserId);
+  socket = new WebSocket(urlWithUserId);
   socket.onopen = () => {
     console.log("WebSocket连接已打开");
     // 开始发送心跳
     startHeartbeat();
   };
   socket.onmessage = (event) => {
+    console.log("收到消息", JSON.parse(event.data));
+
     try {
       const message = JSON.parse(event.data);
       if (message.methodName === "heartbeat") {

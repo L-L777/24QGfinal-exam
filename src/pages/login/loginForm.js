@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Form, Input, Modal, message } from "antd";
 import { loginAPI } from "../../api/index";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "../../utils/roleContext";
+
 const LoginForm = () => {
   localStorage.clear();
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,9 @@ const LoginForm = () => {
         setRole({ role: "用户", username: values.username });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("role", "用户");
+        localStorage.setItem("username", values.username);
+
         navigate("/projectshow");
       }
     } catch (error) {
@@ -54,6 +58,8 @@ const LoginForm = () => {
         setRole({ role: "管理员", username: "管理员" });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("role", "管理员");
+        localStorage.setItem("username", "管理员");
         navigate("/projectshow");
       }
     } catch (error) {

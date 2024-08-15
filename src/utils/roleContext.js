@@ -6,7 +6,10 @@ const RoleContext = createContext();
 const ReleaseContext = createContext();
 //创建一个Provider组件
 export const RoleProvider = ({ children }) => {
-  const [role, setRole] = useState({ role: "用户", username: "Adam" });
+  const [role, setRole] = useState({
+    role: localStorage.getItem("role") || "非法访问",
+    username: localStorage.getItem("username") || "非法访问",
+  });
   return (
     <RoleContext.Provider value={{ role, setRole }}>
       {children}

@@ -6,8 +6,8 @@ const useWebSocket = (onMessageCallback) => {
   const [error, setError] = useState(null);
 
   // 连接 WebSocket
-  const connect = useCallback(() => {
-    webSocketService.connect();
+  const connect = useCallback((useId) => {
+    webSocketService.connect(useId);
   }, []);
 
   // 断开 WebSocket
