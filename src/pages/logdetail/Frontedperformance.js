@@ -55,7 +55,8 @@ const FrontedPerformance = ({ projectId }) => {
         }
 
     }, [projectId])
-   console.log(fcp);
+//    console.log(fcp);
+
    
     return (
         <Flex style={{ width: '90%', marginTop: '30px' }} vertical>
