@@ -1,6 +1,6 @@
 import { Flex, Row, Col, Card } from "antd"
 import { showLogNumberOneWeekForGroup } from '../../api/index'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ErrorData from './Antv/errorData'
 import Cost from './Antv/cost'
 
@@ -18,8 +18,10 @@ const Exception = ({ groupType, logType, projectId }) => {
         }
     };
 
+    useEffect(() => {
+        onLoad()
+    }, [])
 
-    onLoad()
 
 
 
