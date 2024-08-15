@@ -68,7 +68,7 @@ const FrontedPerformance = ({ projectId }) => {
                 </Col>
                 <Col span={12}>
                     <Card style={{ height: '300px' }} title={<div style={{ fontSize: '20px' }}>fcp</div>} hoverable>
-                        <Fcp fcp={fcp} />
+                        <Fp fp={fcp} />
                     </Card>
                 </Col>
             </Row>
