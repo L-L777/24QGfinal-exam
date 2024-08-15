@@ -16,6 +16,9 @@ const MonitorApply=({userId})=>{
                 if(response.code===1){
                     setApplyData(response.data.data)
                     setTotal(response.data.total)
+                }else{
+                    setApplyData([])
+                    setTotal(0)
                 }
 
             } catch (error) {

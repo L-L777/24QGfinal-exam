@@ -4,6 +4,8 @@ import { Flex, Dropdown, Button } from "antd"
 import PublicMenu from "../../components/menu"
 import AttackLog from "./attacklog";
 import UserOperateLog from "./userOperateLog";
+import { useRole } from "../../utils/roleContext";
+import {  useNavigate } from "react-router-dom";
 const items = [
     {
         label: '攻击日志',
@@ -15,8 +17,13 @@ const items = [
     },
 ];
 const PlatformLog = () => {
+    const navigate=useNavigate();
+    const {role}=useRole()
     useEffect(()=>{
 document.title="平台日志"
+if(role.role!=='管理员'){
+    navigate(-1)
+}
     },[])
     const [selectedLog, setSelectedLog] = useState('1');
     const handleMenuClick = ({ key }) => {

@@ -506,7 +506,6 @@ export function setErrorRate(projectId, errorRate) {
     projectId,
     errorRate,
   };
-
   // 发送请求
   return service({
     url: "/project/setErrorRate",
