@@ -7,7 +7,7 @@ import Number from "./number";
 import Data from "./data";
 import InfromationCard from "./infromationCard";
 import { detaliedInfo, projectPresentationDateOneWeek } from "../../api/index"
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const Index = () => {
@@ -49,8 +49,6 @@ const Index = () => {
 
     };
     onLoad()
-
-
   }, [])
 
 
@@ -97,7 +95,7 @@ const Index = () => {
         >
           日志
         </h1>
-        <Data receiveProjectId={receiveProjectId} weekData={weekData}  />
+        <Data receiveProjectId={receiveProjectId} weekData={weekData} />
       </Flex>
     </Flex>
   );

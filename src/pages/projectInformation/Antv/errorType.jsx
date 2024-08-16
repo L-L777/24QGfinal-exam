@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
-import * as echarts from 'echarts';
+
 
 const BarChart = ({ weekData }) => {
 

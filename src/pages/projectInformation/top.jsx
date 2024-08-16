@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Flex, Button, Modal, Input, message } from "antd";
 import Updata from './Drawer/updata';
 import QueryOwnMonitorUser from './Drawer/queryOwnMonitorUser';
@@ -91,18 +91,22 @@ const Top = ({ projectData, receiveProjectId }) => {
         });
     };
 
-    const onLoad = async () => {
-        try {
-            const res = await queryOwnMonitorUser(receiveProjectId);
-            // 处理数据，截断 logInfo 字段           
-            setUser(res.data || [])
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
 
-    onLoad()
+
+    useEffect(() => {
+        const onLoad = async () => {
+            try {
+                const res = await queryOwnMonitorUser(receiveProjectId);
+                // 处理数据，截断 logInfo 字段           
+                setUser(res.data || [])
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        onLoad()
+
+    }, [receiveProjectId]);
 
 
     return (
@@ -115,11 +119,30 @@ const Top = ({ projectData, receiveProjectId }) => {
             justify={"space-between"} align={"center"}
         >
             <Flex vertical>
-                <h3 style={{ fontSize: '20px', marginBottom: '10px' }}>
-                    <span style={{ color: 'rgb(153, 153, 153)', cursor: 'pointer' }}>项目管理</span>
-                    <span style={{ color: 'rgb(48, 48, 48)' }}>&gt;项目详情</span>
-                </h3>
-                <h3 style={{ fontSize: '28px' }}>{projectData.projectName}</h3>
+                <div style={{ position: "relative", display: "inline-block" }}>
+                    <h3
+                        style={{
+                            fontSize: "28px",
+                            position: "relative", // 使文本相对于投影区域
+                            zIndex: 1, // 确保文本在投影区域之上
+                        }}
+                    >
+                        {projectData.projectName}
+                    </h3>
+                    <div
+                        style={{
+                            position: "absolute",
+                            left: "-11px",
+                            bottom: "-5px", // 调整阴影区域的垂直位置
+                            width: "137px",
+                            height: "12px", // 阴影区域的高度
+                            background: "linear-gradient(to right, #C8B5FF, #C496FF)",
+                            transform: "skewX(-20deg)", // 使左右边变斜
+                            transformOrigin: "bottom", // 设置变换的起点为底部
+                            zIndex: 0, // 将阴影区域放在文本下方
+                        }}
+                    ></div>
+                </div>
             </Flex>
             {release === 1 && (<Flex gap="middle">
                 <Button
