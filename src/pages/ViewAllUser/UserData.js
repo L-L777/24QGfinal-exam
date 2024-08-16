@@ -6,6 +6,8 @@ function UserData({ user }) {
   const Navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [freezeTime, setFreezeTime] = useState(0);
+
+  const color = user.isOnline === "offline" ? "#808080" : "#E0D1FF";
   const handleClick = () => {
     Navigate(`/personal?userId=${user.userId} &userName=${user.username}`);
   };
@@ -14,18 +16,19 @@ function UserData({ user }) {
   };
   const handleOk = () => {
     setIsModalOpen(false);
+    freezeUser(user.userId, freezeTime);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setOpen(false);
   };
   const [open, setOpen] = useState(user.enabled === "冻结");
   const onChange = (checked) => {
     setOpen(checked);
     if (checked) {
       showModal();
-      freezeUser(user.userId, freezeTime);
     } else {
-      freezeUser(0);
+      freezeUser(user.userId, 0);
     }
   };
   return (
@@ -47,7 +50,7 @@ function UserData({ user }) {
             width: "30%",
             margin: "0 auto",
             color: "#9053C0",
-            backgroundColor: "#E0D1FF",
+            backgroundColor: color,
             borderRadius: "8px",
           }}
         >
@@ -76,9 +79,15 @@ function UserData({ user }) {
       >
         <Input
           value={freezeTime}
-          onChange={(e) => setFreezeTime(e.target.value)}
+          onChange={(e) => {
+            // 只允许输入整数
+            const value = e.target.value;
+            if (/^\d*$/.test(value)) {
+              setFreezeTime(value);
+            }
+          }}
           //只允许输入数字
-          type="number"
+          type="text"
         ></Input>
       </Modal>
       <Button

@@ -55,7 +55,7 @@ const connect = (userId) => {
     stopHeartbeat();
     if (shouldReconnect) {
       setTimeout(() => {
-        connect();
+        connect(userId);
       }, 5000); //5秒后重连
     }
   };
