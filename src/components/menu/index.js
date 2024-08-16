@@ -85,8 +85,9 @@ const PublicMenu = () => {
     sendMessage({ methodName: "checkMessage", data: ItemId });
   };
   useEffect(() => {
+    const userId = localStorage.getItem("userId");
     if (role.role === "用户") {
-      setUserId(localStorage.getItem("userId"));
+      setUserId(userId);
     }
   }, [role.role, setUserId]);
 

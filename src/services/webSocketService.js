@@ -6,7 +6,7 @@ let socket = null;
 const onMessageCallbacks = [];
 let shouldReconnect = true;
 let heartbeatInterval = null;
-const HEARTBEAT_INTERVAL = 5000; // 30 seconds
+const HEARTBEAT_INTERVAL = 5000; // 5 seconds
 const HEARTBEAT_MESSAGE = JSON.stringify({ methodName: "heartbeat" });
 
 //建立WebSocket连接
@@ -20,8 +20,12 @@ const connect = (userId) => {
     socket.close();
   }
   // 将 userId 添加到 WebSocket URL 后面
-  const urlWithUserId = `${WEB_SOCKET_URL}/${userId}`;
+  const token = localStorage.getItem("token");
+  console.log("token", token);
+  const urlWithUserId = `${WEB_SOCKET_URL}/${userId}?token=${token}`;
   console.log("WebSocket URL with userId:", urlWithUserId);
+
+  // 使用带有 token 的请求头
   socket = new WebSocket(urlWithUserId);
   socket.onopen = () => {
     console.log("WebSocket连接已打开");
