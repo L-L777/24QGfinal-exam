@@ -37,7 +37,7 @@ if(res.code===1){
 }
         }
         fetchData()
-    },[])
+    }, [projectId])
     return (
         <>
             <Button type="primary" onClick={showDrawer} style={{ width: '100px', height: '44px', fontSize: '15px' }}>
