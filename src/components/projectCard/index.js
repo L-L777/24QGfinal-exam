@@ -35,7 +35,7 @@ const ProjectCard = ({ projectName, projectId, description, creator, createTime,
             <div style={{position:'absolute', bottom:'10px',right:'10px',borderRadius:'4px',width:'70px',height:'28px'}}>
                 <DetailModal projectName={projectName} projectId={projectId} createTime={createTime} creator={creator} description={description} applicationId={applicationId} selectedLog={selectedLog}></DetailModal>
             </div>
-            {role.role === '管理员' && (<div style={{ position: 'absolute', bottom: '10px', right: '100px', borderRadius: '4px', width: '70px', height: '28px', backgroundColor: '#000' }}>
+            {role.role === '管理员' && (<div style={{ position: 'absolute', bottom: '10px', right: '100px', borderRadius: '4px', width: '70px', height: '28px', }}>
                 <FreezeModal projectId={projectId}></FreezeModal>
             </div>)}
         

@@ -7,12 +7,12 @@ const MyProject= ({userName,userId}) => {
         {
             key: '1',
             label: '我发布的',
-            children: <MyUpload userId={userId}></MyUpload>,
+            children: <MyUpload userId={userId} userName={userName}></MyUpload>,
         },
         {
             key: '2',
             label: '我监控的',
-            children: <MyMonitor userId={userId}></MyMonitor>,
+            children: <MyMonitor userId={userId} userName={userName}></MyMonitor>,
         },
     ];
     const {role}=useRole()

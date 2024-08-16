@@ -21,9 +21,9 @@ const connect = (userId) => {
   }
   // 将 userId 添加到 WebSocket URL 后面
   const token = localStorage.getItem("token");
-  console.log("token", token);
+  // console.log("token", token);
   const urlWithUserId = `${WEB_SOCKET_URL}/${userId}?token=${token}`;
-  console.log("WebSocket URL with userId:", urlWithUserId);
+  // console.log("WebSocket URL with userId:", urlWithUserId);
 
   // 使用带有 token 的请求头
   socket = new WebSocket(urlWithUserId);

@@ -55,7 +55,7 @@ const FrontedPerformance = ({ projectId }) => {
     };
   }, [projectId]);
 
-  console.log(dns);
+  // console.log(fp);
 
   return (
     <Flex style={{ width: "90%", marginTop: "30px" }} vertical>

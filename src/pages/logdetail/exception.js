@@ -1,4 +1,4 @@
-import { Flex, Row, Col, Card } from "antd"
+import { Flex, Row, Col, Card,Empty } from "antd"
 import { showLogNumberOneWeekForGroup } from '../../api/index'
 import { useState, useEffect } from 'react'
 import ErrorData from './Antv/errorData'
@@ -38,7 +38,7 @@ const Exception = ({ groupType, logType, projectId }) => {
                 <Col span={12}>
                     <Card style={{ height: '400px', paddingTop: '0px' }} title={<div style={{ fontSize: '20px' }}>最耗时资产花支</div>} hoverable>
                         <Flex align={"center"} justify={"center"} >
-                            <Cost excdata={excdata} />
+                            {excdata.length !== 0 ? <Cost excdata={excdata} /> : <Empty description="暂无数据" style={{ marginTop: '30px',width:'100%' }} />} 
                         </Flex>
                     </Card>
                 </Col>
