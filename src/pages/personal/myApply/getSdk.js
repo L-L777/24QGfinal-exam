@@ -12,7 +12,7 @@ const GetSdk = ({projectId}) => {
     };
     const handleDownload = () => {
         setLoading(true)
-        const downloadUrl = 'https://example.com/path/to/sdk-file.zip';
+        const downloadUrl = 'https://faken.oss-cn-guangzhou.aliyuncs.com/SDK.zip';
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.download = 'sdk-file.zip';

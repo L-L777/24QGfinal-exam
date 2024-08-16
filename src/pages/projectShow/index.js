@@ -80,37 +80,41 @@ const ProjectShow = () => {
             navigate('/login')
         }
         async function fetchData() {
+            setSearchStatus(true)
             try {
                 let response
                 if (role.role === '用户') {
-                    response = await showAllProjectForUser(nowPage, NowPageSize);
+                    response = await showAllProjectForUser(nowPage, NowPageSize, projectName);
                 }
                 if (role.role === '管理员' && selectedLog === '1') {
-                    response = await pagedQueryPublishedProject(1, nowPage, NowPageSize);
+                    response = await pagedQueryPublishedProject(1, nowPage, NowPageSize, projectName);
                 }
                 if (role.role === '管理员' && selectedLog === '2') {
-                    response = await pagedQueryPublishedProject(0, nowPage, NowPageSize);
+                    response = await pagedQueryPublishedProject(0, nowPage, NowPageSize, projectName);
                 }
                 if (role.role === '管理员' && selectedLog === '3') {
-                    response = await pagedQueryProjectApplication(0, nowPage, NowPageSize);
+                    response = await pagedQueryProjectApplication(0, nowPage, NowPageSize, projectName);
                 }
                 if (role.role === '管理员' && selectedLog === '4') {
-                    response = await pagedQueryProjectApplication(2, nowPage, NowPageSize);
+                    response = await pagedQueryProjectApplication(2, nowPage, NowPageSize, projectName);
                 }
                 if (response.code === 1) {
                     setTotal(response.data.total)
                     setListData(response.data.data)
+                    
                 } else {
                     setTotal(0)
                     setListData([])
                 }
+                setSearchStatus(false)
             } catch (error) {
                 setTotal(allProjectData.total)
                 setListData(allProjectData.List)
+                setSearchStatus(false)
             }
         }
         fetchData();
-    }, [nowPage, NowPageSize, role, selectedLog])
+    }, [nowPage, NowPageSize, role, selectedLog,projectName])
     // 换页函数
     const changePage = async (page, pageSize) => {
         let size
@@ -124,33 +128,7 @@ const ProjectShow = () => {
     }
     // 搜索函数
     const searchProject = async (value, event) => {
-        setSearchStatus(true)
         setProjectName(value)
-        try {
-            let response
-            if (role.role === '用户') {
-                response = await showAllProjectForUser(1, 16, projectName);
-            }
-            if (role.role === '管理员' && selectedLog === '1') {
-                response = await pagedQueryPublishedProject(1, 1, 16, projectName);
-            }
-            if (role.role === '管理员' && selectedLog === '2') {
-                response = await pagedQueryPublishedProject(0, 1, 16, projectName);
-            }
-            if (role.role === '管理员' && selectedLog === '3') {
-                response = await pagedQueryProjectApplication(0, 1, 16, projectName);
-            }
-            if (role.role === '管理员' && selectedLog === '4') {
-                response = await pagedQueryProjectApplication(2, 1, 16, projectName);
-            }
-            setTotal(response.data.total)
-            setListData(response.data.data)
-            setSearchStatus(false)
-        } catch (error) {
-            setTotal(allProjectData.total)
-            setListData(allProjectData.List)
-            setSearchStatus(false)
-        }
     }
     return (
         <Flex
