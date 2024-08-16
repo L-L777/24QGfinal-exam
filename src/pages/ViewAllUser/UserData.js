@@ -23,7 +23,7 @@ function UserData({ user }) {
     setOpen(checked);
     if (checked) {
       showModal();
-      freezeUser(freezeTime);
+      freezeUser(user.userId, freezeTime);
     } else {
       freezeUser(0);
     }

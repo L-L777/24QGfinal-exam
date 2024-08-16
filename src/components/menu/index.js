@@ -65,7 +65,7 @@ const PublicMenu = () => {
   const onMessageCallback = (msg) => {
     console.log("Received WebSocket message:", msg);
     // 处理消息
-    if (msg.type === "offline") {
+    if (msg.type === "frozen") {
       message.error("强制退出");
       navigate("/login");
     } else if (msg.type === "warning") {

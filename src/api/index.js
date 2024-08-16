@@ -385,8 +385,7 @@ export function showUserDetailedInfo(userId) {
   });
 }
 // 冻结用户
-export function freezeUser(freezeHour) {
-  const userId = localStorage.getItem("userId");
+export function freezeUser(userId, freezeHour) {
   const data = {
     userId,
     freezeHour,
