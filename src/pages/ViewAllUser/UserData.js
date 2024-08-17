@@ -7,7 +7,7 @@ function UserData({ user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [freezeTime, setFreezeTime] = useState(0);
 
-  const color = user.isOnline === "offline" ? "#808080" : "#E0D1FF";
+  const color = user.isOnline === "offline" ? "#CCCCCC" : "#E0D1FF";
   const handleClick = () => {
     Navigate(`/personal?userId=${user.userId}&userName=${user.username}`);
   };
