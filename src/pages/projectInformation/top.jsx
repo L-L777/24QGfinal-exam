@@ -117,10 +117,13 @@ const Top = ({ projectData, receiveProjectId }) => {
                 height: "100px",
                 width: "90%",
                 borderBottom: '1px solid rgb(193, 187, 201)',
+                overflow:'auto',
+                scrollbarColor: '#8957ff #e0d1ff  ' ,
+                 scrollbarWidth: 'thin', 
             }}
             justify={"space-between"} align={"center"}
         >
-            <Flex gap={50}>
+            <Flex gap={50} style={{ marginRight: '10px', }}>
                 <div style={{ position: "relative", display: "inline-block" ,whiteSpace:'nowrap'}}>
                     <h3
                         style={{
