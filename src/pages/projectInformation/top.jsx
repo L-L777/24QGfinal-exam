@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Flex, Button, Modal, Input, message } from "antd";
+import ProjectDrawer from './Drawer/projectDrawer';
 import Updata from './Drawer/updata';
 import QueryOwnMonitorUser from './Drawer/queryOwnMonitorUser';
 import { deleteProject, queryOwnMonitorUser } from '../../api/index';
@@ -8,6 +9,7 @@ import WarnModal from './warnModal';
 import ProjectLog from './checkLogModal';
 import { useRelease } from '../../utils/roleContext';
 const Top = ({ projectData, receiveProjectId }) => {
+    
     const [openUpdata, setOpenUpdata] = useState(false);
     const [user, setUser] = useState([])
     const [openOwen, setOpenOwen] = useState(false);
@@ -118,8 +120,8 @@ const Top = ({ projectData, receiveProjectId }) => {
             }}
             justify={"space-between"} align={"center"}
         >
-            <Flex vertical>
-                <div style={{ position: "relative", display: "inline-block" }}>
+            <Flex gap={50}>
+                <div style={{ position: "relative", display: "inline-block" ,whiteSpace:'nowrap'}}>
                     <h3
                         style={{
                             fontSize: "28px",
@@ -143,6 +145,7 @@ const Top = ({ projectData, receiveProjectId }) => {
                         }}
                     ></div>
                 </div>
+                <ProjectDrawer projectData={projectData}></ProjectDrawer>
             </Flex>
             {release === 1 && (<Flex gap="middle">
                 <Button

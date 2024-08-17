@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Button, Modal, Flex, Form,Alert,Input,message} from 'antd';
 import { applyMonitorPermission, checkMonitorAuth, verifyApplication } from "../../api"
 import { useNavigate} from "react-router-dom";
 import { useRole,useRelease } from "../../utils/roleContext";
-const DetailModal = ({ projectName, projectId, description, creator, createTime, applicationId, selectedLog }) => {
+const DetailModal = ({ projectName, projectId, description, creator, createTime, applicationId, selectedLog,projectUrl}) => {
     
     const { role } = useRole();
     const {setRelease}=useRelease();
@@ -134,6 +134,13 @@ message.error('操作失败，请重新操作')
                         >
                             <div style={{ width: '440px', minHeight: '20px', marginLeft: '20px', fontSize: '16px' }}>
                                 {creator}
+                            </div>
+                        </Form.Item>
+                        <Form.Item
+                            label="项目地址"
+                        >
+                            <div style={{ width: '440px', minHeight: '20px', marginLeft: '20px', fontSize: '16px', color: '#652fff' }}>
+                                <a href={projectUrl}>项目地址（点击跳转）</a>
                             </div>
                         </Form.Item>
                         <Form.Item
