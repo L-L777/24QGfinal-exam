@@ -124,12 +124,29 @@ const Top = ({ projectData, receiveProjectId }) => {
             justify={"space-between"} align={"center"}
         >
             <Flex gap={50} style={{ marginRight: '10px', }}>
-                <div style={{ position: "relative", display: "inline-block" ,whiteSpace:'nowrap'}}>
+                <div
+                    style={{
+                        display: "flex",
+                        position: "relative",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "fit-content",
+                    }}
+                >
                     <h3
                         style={{
                             fontSize: "28px",
-                            position: "relative", // 使文本相对于投影区域
-                            zIndex: 1, // 确保文本在投影区域之上
+                            margin: 0,
+                            padding: "0 10px", // 可选：添加一些内边距
+                            position: "relative",
+                            zIndex: 1, // 确保文本在阴影区域之上
+                            overflow:'auto',
+                            whiteSpace:'nowrap',
+                            maxWidth:'400px',
+                            height:'50px',
+                            scrollbarWidth: 'thin', 
+                            //    direction: 'rtl', // 设置文本方向为右到左，以便滚动条显示在顶部
+                            // transform: 'rotate(180deg)', // 旋转元素，使滚动条在顶部
                         }}
                     >
                         {projectData.projectName}
@@ -138,13 +155,13 @@ const Top = ({ projectData, receiveProjectId }) => {
                         style={{
                             position: "absolute",
                             left: "-11px",
-                            bottom: "-5px", // 调整阴影区域的垂直位置
-                            width: "137px",
-                            height: "12px", // 阴影区域的高度
+                            bottom: "-5px",
+                            width: "calc(100% + 10px)", // 宽度为100%加上两边各10px
+                            height: "12px",
                             background: "linear-gradient(to right, #C8B5FF, #C496FF)",
-                            transform: "skewX(-20deg)", // 使左右边变斜
-                            transformOrigin: "bottom", // 设置变换的起点为底部
-                            zIndex: 0, // 将阴影区域放在文本下方
+                            transform: "skewX(-20deg)",
+                            transformOrigin: "bottom",
+                            zIndex: 0,
                         }}
                     ></div>
                 </div>

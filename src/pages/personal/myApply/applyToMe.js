@@ -39,8 +39,19 @@ const ApplyToMe = ({userId}) => {
                         loading: false,
                         disabled: false,
                     }));
+                    fetchedData.unshift({
+                        applicant:'申请人',
+                        projectName:'项目名称',
+                        applicationTime:'时间',
+                    applicationStatus:'状态'
+
+})
+// console.log(fetchedData);
+
                     setApplyData(fetchedData);
                     setTotal(response.data.total);
+                    // console.log(response.data);
+                    
                 }
             } catch (error) {
                 const mockData = applyToMeData.data.map(item => ({
@@ -107,8 +118,14 @@ const ApplyToMe = ({userId}) => {
                                
                                 <Space size={20}>
                                     <div>{item.applicationTime}</div>
+                                    {item.applicationStatus === '状态' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '16px', height: '24px', borderRadius: '8px', }}></div>}
+                                    {item.applicationStatus === '状态' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '136px', height: '24px', borderRadius: '8px',  }}>状态</div>}
+                                    {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '15px', height: '24px', borderRadius: '8px', }}></div>}
                                     {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#E0D1FF', color: '#9053C0' }}>同意</div>}
+                                    {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '15px', height: '24px', borderRadius: '8px',  }}></div>}
+                                    {item.applicationStatus === '拒绝' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '15px', height: '24px', borderRadius: '8px', }}></div>}
                                     {item.applicationStatus === '拒绝' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#FFC0C0', color: '#FF4D4D' }}>驳回</div>}
+                                    {item.applicationStatus === '拒绝' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '15px', height: '24px', borderRadius: '8px',  }}></div>}
                                     {item.applicationStatus === '待办' && (
                                         <>
                                             <Button

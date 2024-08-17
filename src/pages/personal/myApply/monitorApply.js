@@ -14,6 +14,12 @@ const MonitorApply=({userId})=>{
             try {
                 const response = await myApplicationOnMonitorProject(userId, page, pageSize);
                 if(response.code===1){
+                    // console.log(response.data.data);
+                    response.data.data.unshift({applicationStatus:'状态',
+                        applicationTime:'时间',
+                        projectName:'项目名字',
+                        creator:'发布者'
+                    })
                     setApplyData(response.data.data)
                     setTotal(response.data.total)
                 }else{
@@ -53,6 +59,7 @@ const MonitorApply=({userId})=>{
                             </Flex>
                             <Space size={20}>
                                 <div>{item.applicationTime}</div>
+                                {item.applicationStatus === '状态' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px',  }}>状态</div>}
                                 {item.applicationStatus === '通过' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#E0D1FF', color: '#9053C0' }}>同意</div>}
                                 {item.applicationStatus === '拒绝' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#FFC0C0', color: '#FF4D4D' }}>驳回</div>}
                                 {item.applicationStatus === '待办' && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', width: '58px', height: '24px', borderRadius: '8px', backgroundColor: '#D0EBFF', color: '#4EA6F8' }}>待审核</div>}
