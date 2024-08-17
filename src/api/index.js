@@ -43,6 +43,7 @@ export function showSelfProjects(userId, page, pageSize) {
 }
 //展示用户拥有监控权限的项目
 export function showHaveMonitorPermissionProjects(userId, page, pageSize) {
+  console.log(userId);
   const params = {
     userId,
     page,

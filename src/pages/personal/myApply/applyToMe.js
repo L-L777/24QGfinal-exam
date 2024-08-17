@@ -53,7 +53,7 @@ const ApplyToMe = ({userId}) => {
             }
         }
         fetchData();
-    }, [page, pageSize]);
+    }, [page, pageSize,userId]);
 
     const agree = async (applyMonitorProjectId, status, rejectReason) => {
         if (!rejectReason && status === 2) {

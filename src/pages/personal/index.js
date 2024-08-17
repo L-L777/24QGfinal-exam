@@ -12,12 +12,18 @@ const Personal = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search);
     const userName = searchParams.get('userName')
-    const [userId, setUserId] = useState(parseInt(localStorage.getItem('userId')))
+    const [userId, setUserId] = useState(() => {
+        if (role.role === '管理员') {
+            return parseInt(searchParams.get('userId'));
+        } else if (role.role === '用户') {
+            return parseInt(localStorage.getItem('userId'));
+        }
+        return null; // 如果没有匹配的角色
+    });
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = '个人管理'
-        
         if (role.role === '管理员') {
             setUserId(parseInt(searchParams.get('userId')))
         } else if(role.role==='用户') {
@@ -25,7 +31,7 @@ const Personal = () => {
         }else{
             navigate('/login')
         }
-    },[])
+    }, [])
     return (
         <Flex style={{
             width: "100%",

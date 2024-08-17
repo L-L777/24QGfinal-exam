@@ -4,7 +4,7 @@ import ProjectCard from "../../../components/projectCard";
 import { showSelfProjects } from "../../../api"
 import { myProjectData } from '../../../mock/data';
 import { useRole } from "../../../utils/roleContext"
-const MyUpload=({userId})=>{
+const MyUpload=({userId,userName})=>{    
     const {role}=useRole()
     const [myProject, setMyproject] = useState([])
     const [total,setTotal]=useState(0)
@@ -33,13 +33,15 @@ setNowPage(page)
             }
         }
         fetchData();
-    },[nowPage])
+    },[nowPage,userId])
     return(
         <>
         <Row gutter={[75, 50]} style={{ width: "100%" }} >
             {myProject.length === 0 ? (<Empty description="暂无数据" style={{ marginTop: '30px',width:'100%' }} />) : (myProject?.map((item) => (
                 <Col span={6} >
-                    <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={role.username} createTime={item.createTime}></ProjectCard>
+                    {role.role === '用户' && <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={role.username} createTime={item.createTime}></ProjectCard>}
+                    {role.role === '管理员' && <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={userName} createTime={item.createTime}></ProjectCard>}
+                    
                 </Col>
             )))}
                 

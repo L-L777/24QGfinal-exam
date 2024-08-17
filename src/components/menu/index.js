@@ -68,10 +68,10 @@ const PublicMenu = () => {
     if (msg.type === "frozen") {
       message.error("强制退出");
       navigate("/login");
-    } else if (msg.type === "warning") {
-      message.error(msg.msg);
-      setMesItem(msg.msg);
-      setItemId(msg.data);
+    } else if (msg.type === "warning") {  
+        message.error(msg.msg);
+        setMesItem(msg.msg);
+        setItemId(msg.data);
     } else if (msg.type === "multiLog") {
       message.error("多地登录，请重新登录");
       navigate("/login");

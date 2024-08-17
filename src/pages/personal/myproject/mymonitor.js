@@ -33,7 +33,7 @@ const MyMonitor = ({userId}) => {
             }
         }
         fetchData();
-    }, [nowPage])
+    }, [nowPage,userId])
     return (
         <>
         <Row gutter={[75, 50]} style={{ width: "100%" }} >

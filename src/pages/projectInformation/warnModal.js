@@ -12,12 +12,12 @@ const WarnModal = ({projectId}) => {
         setLoading(true)
         const isLessThanOneFloat = /^0\.\d+$/.test(inputValue);
         if (!isLessThanOneFloat) {
-            message.error("请输入小于 1 的浮点数");
+            message.error("请输入小于 1 的数");
             setLoading(false);
             return;
         }
         try{
-            const res = await setErrorRate(parseInt(projectId), parseInt(inputValue))
+            const res = await setErrorRate(parseInt(projectId), parseFloat(inputValue))
             if(res.code===1){
                 message.success('设置成功')
                 setIsModalOpen(false);

@@ -27,6 +27,7 @@ setInputValue(e.target.value)
           const res=  await freezeProject(projectId,InputValue)
           if(res.code===1){
               message.success("冻结成功")
+              setIsModalOpen(false);
           }    
         else{
               message.error("冻结失败请重新冻结")
@@ -42,7 +43,7 @@ message.error("冻结失败请重新冻结")
             <Button type="primary" onClick={showModal} style={{ width: '100%', height: '100%', }} >
                 冻结
             </Button>
-            <Modal title="项目信息" open={isModalOpen} onCancel={handleCancel} footer={null} width={500}>
+            <Modal title="项目冻结" open={isModalOpen} onCancel={handleCancel} footer={null} width={500}>
                 <Flex vertical style={{marginTop:'30px',width:'100%'}} align='center'>
                     <Input placeholder='请输入冻结时间：1 (代表1小时)' onChange={valueChange}></Input>
                     <Button type='primary' style={{width:'100px',height:'30px',marginTop:'30px'}} loading={loading} onClick={freezeClick}>冻结</Button>

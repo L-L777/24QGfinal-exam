@@ -202,7 +202,7 @@ const ProjectShow = () => {
                     {listData.length === 0 ? (<Empty description="暂无数据" style={{ marginTop: '30px', width: '100%' }} />) : (<Row gutter={[75, 50]} style={{ width: "100%" }} >
                         {listData?.map((item) => (
                             <Col span={6} >
-                                <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={item.creator} createTime={item.createTime} applicationId={item.applicationId} selectedLog={selectedLog}></ProjectCard>
+                                <ProjectCard projectName={item.projectName} projectId={item.projectId} description={item.description} creator={item.creator} createTime={item.createTime} applicationId={item.applicationId} selectedLog={selectedLog} projectUrl={item.projectUrl}></ProjectCard>
                             </Col>
                         ))}
                     </Row>)}

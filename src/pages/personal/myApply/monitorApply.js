@@ -27,7 +27,7 @@ const MonitorApply=({userId})=>{
             }
         }
         fetchData();
-    }, [page, pageSize])
+    }, [page, pageSize,userId])
     return(
         <Flex style={{width:'100%'}}>
             {applyData.length===0 ? (<Empty description="暂无数据" style={{ marginTop: '30px', width: '100%' }} />) : (<List

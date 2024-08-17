@@ -2,14 +2,14 @@ import { Modal, Button, Switch, Input } from "antd";
 import { freezeUser } from "../../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-function UserData({ user }) {
+function UserData({ user }) {  
   const Navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [freezeTime, setFreezeTime] = useState(0);
 
   const color = user.isOnline === "offline" ? "#808080" : "#E0D1FF";
   const handleClick = () => {
-    Navigate(`/personal?userId=${user.userId} &userName=${user.username}`);
+    Navigate(`/personal?userId=${user.userId}&userName=${user.username}`);
   };
   const showModal = () => {
     setIsModalOpen(true);

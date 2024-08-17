@@ -46,10 +46,17 @@ const UploadDrawer = () => {
         setBtnLoading(true)
         const { projectName, projectUrl, projectPassword, projectDescription } = values
         try {
-            await publishProject(projectName, projectDescription, userId, projectUrl, projectPassword)
-            setBtnLoading(false)
-            alertShow(setAlertStatus, { type: 'success', message: '上传成功', status: true })
-            form.resetFields();
+          const res=  await publishProject(projectName, projectDescription, userId, projectUrl, projectPassword)
+          if(res.code===1){
+              setBtnLoading(false)
+              alertShow(setAlertStatus, { type: 'success', message: res.msg, status: true })
+              form.resetFields();
+          }else{
+              setBtnLoading(false)
+              alertShow(setAlertStatus, { type: 'error', message: res.msg, status: true })
+              form.resetFields();
+          }
+            
         } catch (error) {
             setBtnLoading(false)
             alertShow(setAlertStatus, { type: 'error', message: '上传失败，请重新上传', status: true })
