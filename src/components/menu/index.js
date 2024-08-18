@@ -79,15 +79,20 @@ const PublicMenu = () => {
   };
 
   // 使用自定义 Hook
-  const { setUserId } = useWebSocketContext();
+  const { setUserId, setShouldReconnect, shouldReconnect } =
+    useWebSocketContext();
   const { sendMessage } = useWebSocket(onMessageCallback);
+
   const onClose = () => {
     sendMessage({ methodName: "checkMessage", data: ItemId });
   };
+  let userId = localStorage.getItem("userId");
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    console.log(role.role);
+
     if (role.role === "用户") {
       setUserId(userId);
+      setShouldReconnect(!shouldReconnect);
     }
   }, [role.role, setUserId]);
 

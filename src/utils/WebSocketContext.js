@@ -14,6 +14,7 @@ const WebSocketContext = createContext();
 export const WebSocketProvider = ({ children }) => {
   const [callbacks, setCallbacks] = useState([]);
   const [userId, setUserId] = useState(null);
+  const [shouldReconnect, setShouldReconnect] = useState(false);
   const onMessageCallback = useCallback(
     (message) => {
       callbacks.forEach((callback) => callback(message));
@@ -43,7 +44,7 @@ export const WebSocketProvider = ({ children }) => {
     return () => {
       disconnect();
     };
-  }, [userId, connect, disconnect]);
+  }, [connect, disconnect, shouldReconnect]);
   return (
     <WebSocketContext.Provider
       value={{
@@ -55,6 +56,8 @@ export const WebSocketProvider = ({ children }) => {
         registerMessageCallback,
         unregisterMessageCallback,
         setUserId,
+        setShouldReconnect,
+        shouldReconnect,
       }}
     >
       {children}

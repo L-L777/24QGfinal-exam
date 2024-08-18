@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { queryFrontPerformanceLog } from "../../api";
 import Fp from "./Antv/fp";
 import Fcp from "./Antv/fcp";
-import DomReady from "./Antv/domReady";
+import DomReady from "./Antv/Domready";
 import Dns from "./Antv/dns";
 import BlankScreenTime from "./Antv/blankScreenTime";
 
