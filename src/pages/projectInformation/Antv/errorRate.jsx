@@ -5,7 +5,6 @@ import * as echarts from 'echarts';
 const BarChart = ({ weekData }) => {
     // ECharts 配置
     let data = [0, 0, 0, 0, 0, 0, 0]
-    console.log(weekData)
 
     const visits = weekData.map(item => item.errorRate * 100);
 
