@@ -10,11 +10,10 @@ const BarChart = ({ weekData }) => {
     const visits = weekData.map(item => item.visits);
 
     // 获取 weekData 数组的最后七个 visits 值
-    const lastSevenVisits = visits.slice(-7);
-
+    let lastSevenVisits = visits.slice(-7);
+    lastSevenVisits = lastSevenVisits.reverse()
     // 替代 data 数组的最后七个值
     data = [...Array(7 - lastSevenVisits.length).fill(0), ...lastSevenVisits];
-
 
 
 
@@ -22,7 +21,7 @@ const BarChart = ({ weekData }) => {
         const today = new Date(); // 当前时间
         const dates = [];
         // 从昨天开始
-        today.setDate(today.getDate() - 1);
+        today.setDate(today.getDate());
 
         // 生成过去七天的日期
         for (let i = 0; i < 7; i++) {

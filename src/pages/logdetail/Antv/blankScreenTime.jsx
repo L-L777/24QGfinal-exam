@@ -4,6 +4,7 @@ import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 const BarChart = ({ blankScreenTime }) => {
     // ECharts 配置
     // prettier-ignore
+    console.log(blankScreenTime)
     let data = [0, 0, 0, 0, 0, 0, 0]
     if (blankScreenTime)
         data = blankScreenTime
@@ -13,7 +14,7 @@ const BarChart = ({ blankScreenTime }) => {
         const today = new Date(); // 当前时间
         const dates = [];
         // 从昨天开始
-        today.setDate(today.getDate() - 1);
+        today.setDate(today.getDate());
 
         // 生成过去七天的日期
         for (let i = 0; i < 7; i++) {
