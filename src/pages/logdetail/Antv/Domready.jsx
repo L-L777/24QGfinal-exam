@@ -15,7 +15,7 @@ const BarChart = ({ domReady }) => {
         const today = new Date(); // 当前时间
         const dates = [];
         // 从昨天开始
-        today.setDate(today.getDate() - 1);
+        today.setDate(today.getDate());
 
         // 生成过去七天的日期
         for (let i = 0; i < 7; i++) {
