@@ -86,11 +86,6 @@ const Data = ({ receiveProjectId }) => {
 
     const columnsNormal = [
         {
-            title: 'Id',
-            dataIndex: 'logId',
-            key: 'logId',
-        },
-        {
             title: 'Type',
             dataIndex: 'logType',
             key: 'logType',

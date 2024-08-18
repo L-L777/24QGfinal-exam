@@ -214,7 +214,7 @@ const DetailModal = ({
                   color: "#652fff",
                 }}
               >
-                <a href={projectUrl}>项目地址（点击跳转）</a>
+                <a href={projectUrl} target="_blank">项目地址（点击跳转）</a>
               </div>
             </Form.Item>
             <Form.Item label="项目描述">

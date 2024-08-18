@@ -42,7 +42,7 @@ const ProjectDrawer= ({projectData}) => {
                             label="项目地址"
                         >
                             <div style={{ width: '440px', minHeight: '20px', marginLeft: '20px', fontSize: '16px', color:'#652fff' }}>
-                                <a href={projectData.projectUrl }>项目地址（点击跳转）</a>
+                                <a href={projectData.projectUrl} target="_blank">项目地址（点击跳转）</a>
                             </div>
                         </Form.Item>
                         <Form.Item
