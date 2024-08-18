@@ -88,6 +88,7 @@ const DetailModal = ({
     ) {
       navigate(`/projectinformation?projectId=${projectId}&release=1`);
       setRelease(1);
+        localStorage.setItem("release", 1);
       return;
     }
     try {
