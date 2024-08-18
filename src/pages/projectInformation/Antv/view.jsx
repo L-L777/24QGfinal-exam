@@ -10,11 +10,10 @@ const BarChart = ({ weekData }) => {
     const visits = weekData.map(item => item.visits);
 
     // 获取 weekData 数组的最后七个 visits 值
-    const lastSevenVisits = visits.slice(-7);
-
+    let lastSevenVisits = visits.slice(-7);
+    lastSevenVisits = lastSevenVisits.reverse()
     // 替代 data 数组的最后七个值
     data = [...Array(7 - lastSevenVisits.length).fill(0), ...lastSevenVisits];
-
 
 
 

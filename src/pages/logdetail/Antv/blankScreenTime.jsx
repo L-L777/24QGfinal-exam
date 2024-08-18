@@ -4,6 +4,7 @@ import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 const BarChart = ({ blankScreenTime }) => {
     // ECharts 配置
     // prettier-ignore
+    console.log(blankScreenTime)
     let data = [0, 0, 0, 0, 0, 0, 0]
     if (blankScreenTime)
         data = blankScreenTime
