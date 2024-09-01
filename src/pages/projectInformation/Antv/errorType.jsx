@@ -4,6 +4,7 @@ import ReactECharts from 'echarts-for-react'; // 引入 ECharts for React
 
 const BarChart = ({ weekData }) => {
 
+    console.log(weekData)
     let mobileErrorTotal = 0, frontErrorTotal = 0, backendErrorTotal = 0
     if (weekData && weekData.length > 0) {
         // 使用 reduce 方法累加各个类型的错误数
@@ -11,9 +12,19 @@ const BarChart = ({ weekData }) => {
         frontErrorTotal = weekData.reduce((sum, item) => sum + (item.frontErrorNumber || 0), 0);
         backendErrorTotal = weekData.reduce((sum, item) => sum + (item.backendErrorNumber || 0), 0);
 
+        let all = mobileErrorTotal + frontErrorTotal + backendErrorTotal
+        if (all != 0) {
+            mobileErrorTotal = mobileErrorTotal / all * 100
+            frontErrorTotal = frontErrorTotal / all * 100
+            backendErrorTotal = backendErrorTotal / all * 100
+        }
+        else {
+            mobileErrorTotal = 0;
+            frontErrorTotal = 0;
+            backendErrorTotal = 0;
 
+        }
     }
-
 
 
     // ECharts 配置

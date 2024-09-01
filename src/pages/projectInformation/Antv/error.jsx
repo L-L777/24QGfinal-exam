@@ -47,7 +47,7 @@ const BarChart = ({ weekData }) => {
         tooltip: {
             trigger: 'item',
             formatter: function (params) {
-                return params.name + '<br/>访问量为：' + params.value;
+                return params.name + '<br/>错误量为：' + params.value;
             }
         },
         xAxis: {

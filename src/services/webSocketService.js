@@ -82,7 +82,7 @@ const offMessage = (callback) => {
 };
 //断开webSocket连接
 const disconnect = () => {
-  // shouldReconnect = false;
+  shouldReconnect = false;
   if (socket) {
     socket.close();
     socket = null;
