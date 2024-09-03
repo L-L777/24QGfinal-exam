@@ -8,6 +8,7 @@ import Data from "./data";
 import InfromationCard from "./infromationCard";
 import { detaliedInfo, projectPresentationDateOneWeek } from "../../api/index"
 import { useLocation, useNavigate } from 'react-router-dom';
+import ExplainLogs from "../../components/explainBtn";
 
 
 const Index = () => {
@@ -85,16 +86,19 @@ const Index = () => {
           <Number weekData={weekData} />
           <InfromationCard receiveProjectId={receiveProjectId} weekData={weekData} />
         </Flex>
-        <h1
-          style={{
-            width: "90%",
-            fontSize: "24px",
-            marginTop: "25px",
-            marginBottom: "25px",
-          }}
-        >
-          日志
-        </h1>
+        <div style={{display:'flex',alignItems:'center',width:'90%',gap:'50px'}}>
+          <h1
+            style={{
+              fontSize: "24px",
+              marginTop: "25px",
+              marginBottom: "25px",
+            }}
+          >
+            日志
+          </h1>
+          <ExplainLogs projectId={receiveProjectId}></ExplainLogs>
+        </div>
+       
         <Data receiveProjectId={receiveProjectId} weekData={weekData} />
       </Flex>
     </Flex>

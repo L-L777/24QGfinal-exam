@@ -511,3 +511,17 @@ export function setErrorRate(projectId, errorRate) {
     data,
   });
 }
+
+// 引入ai分析异常数据
+export function explainLogs(groupType, projectId) {
+  const params = {
+    projectId,
+    groupType
+  };
+  // 发送请求
+  return service({
+    url: "/log/explainLogs",
+    method: "get",
+    params
+  });
+}
